@@ -49,6 +49,11 @@
         "^2UP^n"
         "^1DOWN^n")))
 
+(defun vpn-state-2 ()
+  (if (probe-file "/var/log/ovpnserver.log")
+      "^2CONN^n"
+      "^1DISC^n"))
+
 (defun vpn-state ()
   (let ((vpn-string (run-shell-command "ps aux | grep '[o]penvpn'" t)))
     (if (= (length vpn-string) 0)
