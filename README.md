@@ -1,0 +1,3 @@
+# stumpwm-configs readme
+
+unnecessary
