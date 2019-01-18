@@ -1,46 +1,11 @@
 (in-package :stumpwm)
 
-(defcommand yoshis () ()
-  (stumpwm:set-focus-color "#CF3C56")
-  (stumpwm:set-unfocus-color "#521420")
-  (stumpwm:run-shell-command "feh --bg-scale '/home/sol/GOOGLE/backgrounds/stages/yoshis story.jpg'"))
-
-(defcommand bf () ()
-  (stumpwm:set-focus-color "#52486A")
-  (stumpwm:set-unfocus-color "#16041C")
-  (stumpwm:run-shell-command "feh --bg-scale /home/sol/GOOGLE/backgrounds/stages/battlefield.png"))
-
-(defcommand fod () ()
-  (stumpwm:set-focus-color "#486398")
-  (stumpwm:set-unfocus-color "#101f30")
-  (stumpwm:run-shell-command "feh --bg-scale '/home/sol/GOOGLE/backgrounds/stages/fountain of dreams.png'"))
-
-(defcommand dl () ()
-  (stumpwm:set-focus-color "#137724")
-  (stumpwm:set-unfocus-color "#512B01")
-  (stumpwm:run-shell-command "feh --bg-scale /home/sol/GOOGLE/backgrounds/stages/dreamland.png"))
-
-(defcommand fd () ()
-  (stumpwm:set-focus-color "#5A0C90")
-  (stumpwm:set-unfocus-color "#1E0331")
-  (stumpwm:run-shell-command "feh --bg-scale '/home/sol/GOOGLE/backgrounds/stages/final destination.png'"))
-
-(defcommand jupiter () ()
-  (stumpwm:set-focus-color "#5A0C90")
-  (stumpwm:set-unfocus-color "#1E0331")
-  (stumpwm:run-shell-command "feh --bg-tile '/home/sol/GOOGLE/backgrounds/space/jupiter.png'")
-  )
-
 (defcommand redshift () ()
   (stumpwm:run-shell-command "redshift -l 43.048122:-76.147423"))
 
 (defcommand redshift-temp (temp) ((:number "temp?? :"))
   (stumpwm:run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
 
-(defun random-command (commands)
-  (run-commands (nth (random (length commands)) commands)))
-
-(random-command '("yoshis" "fod" "fd" "dl" "bf"))
 
 (defun network-state ()
   (let* ((file (open "/sys/class/net/eno1/carrier"))
@@ -51,6 +16,7 @@
 
 (defun vpn-state-2 ()
   (if (probe-file "/var/log/ovpnserver.log")
+      ;; fill in some stuff I guess ..
       "^2CONN^n"
       "^1DISC^n"))
 
@@ -59,6 +25,15 @@
     (if (= (length vpn-string) 0)
         "off"
         "on")))
+
+(defcommand volume-up () ()
+  (run-shell-command "pulseaudio-ctl up"))
+
+(defcommand volume-down () ()
+  (run-shell-command "pulseaudio-ctl down"))
+
+(defcommand volume-mute () ()
+  (run-shell-command "pulseaudio-ctl mute"))
 
 (defcommand all-windowlist (&optional (fmt *window-format*)
                                   window-list) (:rest)
