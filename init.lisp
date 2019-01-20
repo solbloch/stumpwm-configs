@@ -17,6 +17,7 @@
 
 (mapcar #'load '("~/.stumpwm.d/looks.lisp"
                  "~/.stumpwm.d/functions.lisp"
+                 "~/.stumpwm.d/password.lisp"
                  "~/.stumpwm.d/vim.lisp"
                  "~/.stumpwm.d/keymap.lisp"))
 

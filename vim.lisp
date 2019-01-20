@@ -1,3 +1,4 @@
+(in-package :stumpwm)
 ;; ;;-------~---~----------~----------~----
 ;; ;; Evil Mode for Stump using Windows Key ;;
 ;; ;;-------~---~----------~----------~----
@@ -41,7 +42,7 @@
 ;; Eval Commands ;;
 (stumpwm:define-key *top-map* (stumpwm:kbd "s-;") "colon")
 (stumpwm:define-key *top-map* (stumpwm:kbd "s-:") "eval")
-(stumpwm:define-key *top-map* (stumpwm:kbd "M-:") "exec")
+(stumpwm:define-key *top-map* (stumpwm:kbd "M-:") "sudo-shell")
 
 ;; Commands :)
 (defcommand killandremove () ()
