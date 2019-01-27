@@ -11,9 +11,9 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list  "%g | %w ^> | %d | "
-          '(:eval (network-state))
-          " | "
-          '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
+          '(:eval (network-state))))
+          ;; " | "
+          ;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
 
 ;; border size // width
 (setf stumpwm:*maxsize-border-width* 5
