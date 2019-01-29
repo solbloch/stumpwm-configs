@@ -9,6 +9,7 @@
      (stumpwm:define-key m (stumpwm:kbd "c") "run-shell-command google-chrome-stable")
      (stumpwm:define-key m (stumpwm:kbd "b") "run-shell-command evince")
      m))
+
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-a") '*application-bindings*)
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-space") "run-shell-command rofi -show run -font 'TerminessTTF Nerd Font 24'")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-RET") "run-shell-command urxvt -e /usr/bin/fish")
