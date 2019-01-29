@@ -14,6 +14,11 @@
 (stumpwm:define-key *top-map* (stumpwm:kbd "s-K") "move-window up")
 (stumpwm:define-key *top-map* (stumpwm:kbd "s-L") "move-window right")
 
+(stumpwm:define-key *top-map* (stumpwm:kbd "s-M") "exchange-direction down")
+(stumpwm:define-key *top-map* (stumpwm:kbd "s-N") "exchange-direction left")
+(stumpwm:define-key *top-map* (stumpwm:kbd "s-<") "exchange-direction up")
+(stumpwm:define-key *top-map* (stumpwm:kbd "s->") "exchange-direction right")
+
 (stumpwm:define-key *root-map* (stumpwm:kbd "J") "move-window down")
 (stumpwm:define-key *root-map* (stumpwm:kbd "H") "move-window left")
 (stumpwm:define-key *root-map* (stumpwm:kbd "K") "move-window up")
@@ -46,5 +51,6 @@
 
 ;; Commands :)
 (defcommand killandremove () ()
-	    (delete-window)
-	    (remove-split))
+  (stumpwm:run-commands
+   "delete-window"
+   "remove-split"))
