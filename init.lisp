@@ -4,18 +4,20 @@
 
 (ql:quickload :clx-truetype)
 
-(require :swank)
-(swank-loader:init)
-(swank:create-server :port 4004
-                     :style swank:*communication-style*
-                     :dont-close t)
+(if *initializing*
+    (progn
+      (require :swank)
+      (swank-loader:init)
+      (swank:create-server :port 4004
+                           :style swank:*communication-style*
+                           :dont-close t)))
 
-(load-module "swm-gaps")
 ;; packages !
-;; (load-module "battery-portable") ; %B is battery
+(load-module "swm-gaps")
 (load-module "ttf-fonts") ;fuck you ttf-fonts
 
-(mapcar #'load '("~/.stumpwm.d/looks.lisp"
+(mapcar #'load '("~/.stumpwm.d/mode-line.lisp"
+                 "~/.stumpwm.d/looks.lisp"
                  "~/.stumpwm.d/functions.lisp"
                  "~/.stumpwm.d/password.lisp"
                  "~/.stumpwm.d/vim.lisp"
