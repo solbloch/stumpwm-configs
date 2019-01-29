@@ -9,9 +9,6 @@
       *window-format* "%s%15t"
       *resize-increment* 35)
 
-(setf stumpwm:*screen-mode-line-format*
-      (list  "%g | %w ^> | %d | "
-          '(:eval (network-state))))
           ;; " | "
           ;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
 
@@ -74,41 +71,41 @@
 
 ;;; a bunch of commands that are themes :)
 
-(defmacro deftheme (name (focus unfocus picture))
+(defmacro deftheme (name (&key focus unfocus picture))
   `(defcommand ,name () ()
      (stumpwm:set-focus-color ,focus)
      (stumpwm:set-unfocus-color ,unfocus)
      (stumpwm:run-shell-command (concatenate 'string "feh --bg-scale '" ,picture "'"))))
 
 (deftheme yoshis
-    ("#CF3C56"
-     "#521420"
-     "/home/sol/GOOGLE/backgrounds/stages/yoshis story.jpg"))
+    (:focus "#CF3C56"
+     :unfocus "#521420"
+     :picture "/home/sol/GOOGLE/backgrounds/stages/yoshis story.jpg"))
 
 (deftheme bf
-    ("#52486A"
-     "#16041C"
-     "/home/sol/GOOGLE/backgrounds/stages/battlefield.png"))
+    (:focus "#52486A"
+     :unfocus "#16041C"
+     :picture "/home/sol/GOOGLE/backgrounds/stages/battlefield.png"))
 
 (deftheme fod
-    ("#486398"
-     "#101f30"
-     "/home/sol/GOOGLE/backgrounds/stages/fountain of dreams.png"))
+    (:focus "#486398"
+     :unfocus "#101f30"
+     :picture "/home/sol/GOOGLE/backgrounds/stages/fountain of dreams.png"))
 
 (deftheme dl
-    ("#137724"
-     "#512B01"
-     "/home/sol/GOOGLE/backgrounds/stages/dreamland.png"))
+    (:focus "#137724"
+     :unfocus "#072f0e"
+     :picture "/home/sol/GOOGLE/backgrounds/stages/dreamland.png"))
 
 (deftheme fd
-    ("#5A0C90"
-     "#1E0331"
-     "/home/sol/GOOGLE/backgrounds/stages/final destination.png"))
+    (:focus "#5A0C90"
+     :unfocus "#1E0331"
+     :picture "/home/sol/GOOGLE/backgrounds/stages/final destination.png"))
 
 (deftheme jupiter
-    ("#5A0C90"
-     "#1E0331"
-     "/home/sol/GOOGLE/backgrounds/space/jupiter.png"))
+    (:focus "#5A0C90"
+     :unfocus "#1E0331"
+     :picture "/home/sol/GOOGLE/backgrounds/space/jupiter.png"))
 
 (defun random-command (commands)
   (run-commands (nth (random (length commands)) commands)))
