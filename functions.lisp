@@ -7,25 +7,6 @@
   (stumpwm:run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
 
 
-(defun network-state ()
-  (let* ((file (open "/sys/class/net/eno1/carrier"))
-         (status (read-line file)))
-    (if (string= status "1")
-        "^2UP^n"
-        "^1DOWN^n")))
-
-(defun vpn-state-2 ()
-  (if (probe-file "/var/log/ovpnserver.log")
-      ;; fill in some stuff I guess ..
-      "^2CONN^n"
-      "^1DISC^n"))
-
-(defun vpn-state ()
-  (let ((vpn-string (run-shell-command "ps aux | grep '[o]penvpn'" t)))
-    (if (= (length vpn-string) 0)
-        "off"
-        "on")))
-
 (defcommand volume-up () ()
   (run-shell-command "pulseaudio-ctl up"))
 
@@ -36,7 +17,7 @@
   (run-shell-command "pulseaudio-ctl mute"))
 
 (defcommand all-windowlist (&optional (fmt *window-format*)
-                                  window-list) (:rest)
+                            window-list) (:rest)
   (let ((window-list (or window-list
                          (sort-windows-by-number
                           (screen-windows (current-screen))))))
@@ -47,7 +28,7 @@
               (progn
                 (switch-to-group (window-group window))
                 (group-focus-window (window-group window) window))
-                (throw 'error :abort))))))
+              (throw 'error :abort))))))
 
 (defcommand all-windowlist-formatted () ()
   (all-windowlist "%s%60t"))
