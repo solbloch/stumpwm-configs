@@ -1,5 +1,8 @@
 (in-package :stumpwm)
 
+;; this is the best thing VIMIFY :-)
+(define-key *input-map* (stumpwm:kbd "C-w") 'stumpwm::input-backward-kill-word)
+
 ;; Applications ;;
 (defvar *application-bindings*
    (let ((m (stumpwm:make-sparse-keymap)))
