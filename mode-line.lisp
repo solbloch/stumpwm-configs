@@ -1,7 +1,9 @@
 (in-package :stumpwm)
 
+(load-module "battery-portable")
+
 (defun network-state ()
-  (let* ((file (open "/sys/class/net/eno1/carrier"))
+  (let* ((file (open "/sys/class/net/wlp58s0/carrier"))
          (status (read-line file)))
     (if (string= status "1")
         "^2UP^n"
@@ -36,7 +38,7 @@
               (- tz)))))
 
 (setf stumpwm:*screen-mode-line-format*
-      (list  "%g | %w ^> | "
+      (list  "%g | %w ^> | %B | "
           '(:eval (time?))
           " | "
           '(:eval (network-state))))
