@@ -9,8 +9,8 @@
       *window-format* "%s%15t"
       *resize-increment* 35)
 
-          ;; " | "
-          ;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
+;; " | "
+;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
 
 ;; border size // width
 (setf *maxsize-border-width* 5
@@ -27,29 +27,16 @@
     (swm-gaps:toggle-gaps))
 
 
-(defvar *stages*
+(defvar *looks-feels*
   (let ((m (stumpwm:make-sparse-keymap)))
     (stumpwm:define-key m (stumpwm:kbd "y") "yoshis")
     (stumpwm:define-key m (stumpwm:kbd "b") "bf")
     (stumpwm:define-key m (stumpwm:kbd "F") "fod")
     (stumpwm:define-key m (stumpwm:kbd "f") "fd")
     (stumpwm:define-key m (stumpwm:kbd "d") "dl")
-    m))
-
-;; wallpapers :)
-(defvar *looks-feels*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "g") "toggle-gaps")
-    (stumpwm:define-key m (stumpwm:kbd "s") '*stages*)
-    (stumpwm:define-key m (stumpwm:kbd "S") '*space*)
-    m))
-
-(defvar *space*
-  (let ((m (stumpwm:make-sparse-keymap)))
     (stumpwm:define-key m (stumpwm:kbd "j") "jupiter")
     m))
 
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-A") '*looks-feels*)
 
 (defvar *helpful-things*
   (let ((m (stumpwm:make-sparse-keymap)))
@@ -67,7 +54,6 @@
     (stumpwm:define-key m (stumpwm:kbd "0") "exec redshift -x")
     m))
 
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-w") '*helpful-things*)
 
 
 ;;; a bunch of commands that are themes :)
