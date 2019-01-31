@@ -17,6 +17,8 @@
 (load-module "ttf-fonts") ;fuck you ttf-fonts
 
 (mapcar #'load '("~/.stumpwm.d/mode-line.lisp"
+                 "~/.stumpwm.d/spotify.lisp"
+                 "~/.stumpwm.d/sound.lisp"
                  "~/.stumpwm.d/looks.lisp"
                  "~/.stumpwm.d/functions.lisp"
                  "~/.stumpwm.d/password.lisp"
