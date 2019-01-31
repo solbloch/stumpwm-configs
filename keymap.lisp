@@ -6,17 +6,17 @@
 
 ;; top map stuff
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-S") "audio-switch")
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-a") '*application-bindings*)
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-RET")
   "run-shell-command urxvt -e /usr/bin/fish")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-S") "gselect .κρυπτός") ;; hidden
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-g") '*group-bindings*)
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-L") "gnext")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-H") "gprev")
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-f") '*frame-bindings*)
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-F") "fullscreen")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-w") '*helpful-things*)
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-A") '*looks-feels*)
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-g") '*group-bindings*)
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-f") '*frame-bindings*)
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-a") '*application-bindings*)
 
 
 ;; Applications ;;
