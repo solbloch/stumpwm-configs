@@ -13,10 +13,11 @@
           ;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
 
 ;; border size // width
-(setf stumpwm:*maxsize-border-width* 5
-      stumpwm:*normal-border-width* 5
-      stumpwm:*window-border-style* :thick
-      *message-window-gravity* :center)
+(setf *maxsize-border-width* 5
+      *normal-border-width* 5
+      *window-border-style* :thick
+      *message-window-gravity* :center
+      *input-window-gravity* :center)
 
 ;; gaps!
 (setf swm-gaps:*inner-gaps-size* 13
