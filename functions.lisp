@@ -31,4 +31,4 @@
               (throw 'error :abort))))))
 
 (defcommand all-windowlist-formatted () ()
-  (all-windowlist "%s%60t"))
+  (all-windowlist "%s%100t"))
