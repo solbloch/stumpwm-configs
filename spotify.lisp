@@ -4,12 +4,7 @@
 
 (ql:quickload :lispotify)
 (ql:quickload :jsown)
-(ql:quickload :)
 
-(defun search-menu (item-string item-object user-input)
-  (declare (ignore item-object))
-  (search (string-downcase user-input)
-          (string-downcase item-string)))
 
 (defcommand search-track (track) ((:string "track: "))
   (let* ((results (lispotify:search-track track))
@@ -21,5 +16,9 @@
                                                             collecting (jsown:val artist "name"))))
                                  ,(jsown:val i "uri"))))
          (choice (select-from-menu (current-screen)
-                                   results-alist nil 0 nil #'search-menu)))
-    (lispotify:play-spotify-uri (second choice))))
+                                   results-alist nil 0 nil)))
+    (if (null choice)
+        nil
+        (lispotify:play-spotify-uri (second choice)))))
+
+(define-key stumpwm:*top-map* (stumpwm:kbd "s-m") "search-track")
