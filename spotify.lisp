@@ -11,6 +11,8 @@
          (results-alist (loop for i in results
                               collecting
                               `(,(concatenate 'string (jsown:val i "name") " - "
+                                              (jsown:val (jsown:val i "album") "name")
+                                              " - "
                                               (format nil "~{~a~^ & ~}"
                                                       (loop for artist in (jsown:val i "artists")
                                                             collecting (jsown:val artist "name"))))
