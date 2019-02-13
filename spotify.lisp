@@ -7,7 +7,9 @@
 
 
 (defcommand search-track (track) ((:string "track: "))
-  (let* ((results (lispotify:search-track track))
+  (let* ((results (if (not (stringp track))
+                      (throw 'error "Abort.")
+                      (lispotify:search-track track)))
          (results-alist (loop for i in results
                               collecting
                               `(,(concatenate 'string (jsown:val i "name") " - "
