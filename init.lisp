@@ -17,7 +17,8 @@
 (load-module "swm-gaps")
 (load-module "ttf-fonts") ;fuck you ttf-fonts
 
-(mapcar #'load '("~/.stumpwm.d/mode-line.lisp"
+(mapcar #'load '("~/.stumpwm.d/computer.lisp"
+                 "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/spotify.lisp"
                  "~/.stumpwm.d/sound.lisp"
                  "~/.stumpwm.d/looks.lisp"
