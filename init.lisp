@@ -3,6 +3,7 @@
 (load "~/quicklisp/setup.lisp")
 
 (ql:quickload :clx-truetype)
+(ql:quickload :swank)
 
 (if *initializing*
     (progn

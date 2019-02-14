@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(set-font (make-instance 'xft:font :family "TerminessTTF Nerd Font" :subfamily "Bold" :size 18))
+(set-font (make-instance 'xft:font :family "TerminessTTF Nerd Font" :subfamily "Bold" :size 28))
 
 ;; (mapc (lambda (x) (format t "Family: ~a  Subfamilies: ~{~a, ~}~%" x (clx-truetype:get-font-subfamilies x)) ) (clx-truetype:get-font-families))
 

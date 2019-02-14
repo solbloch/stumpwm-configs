@@ -1,7 +1,9 @@
 (in-package :stumpwm)
 
+(load-module "battery-portable")
+
 (defun network-state ()
-  (let* ((file (open "/sys/class/net/eno1/carrier"))
+  (let* ((file (open "/sys/class/net/wlp58s0/carrier"))
          (status (read-line file)))
     (if (string= status "1")
         "^2UP^n"
@@ -20,23 +22,22 @@
         "on")))
 
 (defun time? ()
-  (let ((*days* '("monday" "tuesday" "wednesday" "thursday" "friday" "saturday" "sunday"))
-        (*months* '("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")))
+  (let ((days '("monday" "tuesday" "wednesday" "thursday" "friday" "saturday" "sunday"))
+        (months '("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")))
     (multiple-value-bind
-          (second minute hour date month year day-of-week dst-p tz)
+          (second minute hour date month year day-of-week)
         (get-decoded-time)
       (format nil "~2,'0d:~2,'0d:~2,'0d; ~a ~d ~2,'0d, ~d"
               hour
               minute
               second
-              (nth day-of-week *days*)
-              (nth (- month 1) *months*)
+              (nth day-of-week days)
+              (nth (- month 1) months)
               date
-              year
-              (- tz)))))
+              year))))
 
 (setf stumpwm:*screen-mode-line-format*
-      (list  "%g | %w ^> | "
+      (list  "%g ^> | %B | "
           '(:eval (time?))
           " | "
           '(:eval (network-state))))
