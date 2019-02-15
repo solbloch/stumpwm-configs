@@ -35,10 +35,10 @@
               date
               year))))
 
-;; (setf stumpwm:*screen-mode-line-format*
-;;       (list  "%g ^> | "
-;;              '(:eval (time?))
-;;              " | "
-;;              '(:eval (network-state))))
+(setf stumpwm:*screen-mode-line-format*
+      (list  "%g ^> | "
+             '(:eval (time?))
+             " | "
+             '(:eval (network-state))))
 
-(setf stumpwm:*screen-mode-line-format* "")
+;; (setf stumpwm:*screen-mode-line-format* "")
