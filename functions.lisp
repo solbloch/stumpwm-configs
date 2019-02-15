@@ -3,15 +3,15 @@
 (defcommand redshift () ()
   (stumpwm:run-shell-command "redshift -l 43.048122:-76.147423"))
 
-(defcommand redshift-temp (temp) ((:number "temp?? :"))
+(defcommand redshift-temp (temp) ((:number "temp?? : "))
   (stumpwm:run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
 
 
 (defcommand volume-up () ()
-  (run-shell-command "pulseaudio-ctl up"))
+  (run-shell-command "pulseaudio-ctl up 2"))
 
 (defcommand volume-down () ()
-  (run-shell-command "pulseaudio-ctl down"))
+  (run-shell-command "pulseaudio-ctl down 2"))
 
 (defcommand volume-mute () ()
   (run-shell-command "pulseaudio-ctl mute"))

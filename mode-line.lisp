@@ -3,11 +3,10 @@
 (load-module "battery-portable")
 
 (defun network-state ()
-  (let* ((file (open "/sys/class/net/wlp58s0/carrier"))
-         (status (read-line file)))
-    (if (string= status "1")
-        "^2UP^n"
-        "^1DOWN^n")))
+  (with-open-file (file *network-file*)
+      (if (string= (read-line file) "1")
+          "^2UP^n"
+          "^1DOWN^n")))
 
 (defun vpn-state-2 ()
   (if (probe-file "/var/log/ovpnserver.log")
@@ -36,8 +35,10 @@
               date
               year))))
 
-(setf stumpwm:*screen-mode-line-format*
-      (list  "%g ^> | %B | "
-          '(:eval (time?))
-          " | "
-          '(:eval (network-state))))
+;; (setf stumpwm:*screen-mode-line-format*
+;;       (list  "%g ^> | "
+;;              '(:eval (time?))
+;;              " | "
+;;              '(:eval (network-state))))
+
+(setf stumpwm:*screen-mode-line-format* "")
