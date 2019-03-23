@@ -37,6 +37,7 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list  "%g ^> | "
+             "%B | "
              '(:eval (time?))
              " | "
              '(:eval (network-state))))

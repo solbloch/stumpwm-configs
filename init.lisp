@@ -2,7 +2,7 @@
 
 (load "~/quicklisp/setup.lisp")
 
-(ql:quickload :clx-truetype)
+;; (ql:quickload :clx-truetype)
 (ql:quickload :swank)
 
 (if *initializing*
@@ -15,7 +15,7 @@
 
 ;; packages !
 (load-module "swm-gaps")
-(load-module "ttf-fonts") ;fuck you ttf-fonts
+;; (load-module "ttf-fonts") ;fuck you ttf-fonts
 
 (mapcar #'load '("~/.stumpwm.d/computer.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
