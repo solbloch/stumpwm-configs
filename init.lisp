@@ -25,7 +25,9 @@
                  "~/.stumpwm.d/functions.lisp"
                  "~/.stumpwm.d/password.lisp"
                  "~/.stumpwm.d/vim.lisp"
-                 "~/.stumpwm.d/keymap.lisp"))
+                 "~/.stumpwm.d/keymap.lisp"
+                 "~/.stumpwm.d/greek.lisp"
+                 "~/.stumpwm.d/scratchpad.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
