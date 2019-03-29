@@ -21,7 +21,7 @@
         "on")))
 
 (defun time? ()
-  (let ((days '("monday" "tuesday" "wednesday" "thursday" "friday" "saturday" "sunday"))
+  (let ((days '("mon" "tues" "wed" "thurs" "fri" "sat" "sun"))
         (months '("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")))
     (multiple-value-bind
           (second minute hour date month year day-of-week)
