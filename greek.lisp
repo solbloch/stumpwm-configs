@@ -1,3 +1,5 @@
+(in-package :stumpwm)
+
 (defvar greek-letters
   '(("alpha - α" "α")
     ("beta - β" "β")
@@ -21,13 +23,12 @@
     ("tau - τ" "τ")
     ("upsilon - υ" "υ")
     ("phi - φ" "φ")
-    ("chi - χ" "χ")
-    ("psi - ψ" "ψ")
+    ("chi - χ" "χ" )
     ("omega - ω" "ω")))
 
 (defcommand greek-menu () ()
   (let ((choice (select-from-menu (current-screen)
                                   greek-letters nil 0 nil)))
     (if (null choice)
-        (throw 'error "aborted!")
+        (throw 'error "Aborted.")
         (run-shell-command (concatenate 'string "xdotool type " (cadr choice))))))
