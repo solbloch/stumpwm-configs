@@ -25,3 +25,23 @@
     (if (null choice)
         nil
         (switch-sink (car choice)))))
+
+(defun echo-volume ()
+  (message (run-shell-command "amixer sget Master | grep 'Mono:' | awk -F '[][]' '{ print $2 }'" t)))
+
+(defun echo-mute ()
+  (if (search "yes" (run-shell-command "pacmd list-sinks | awk '/muted/ {print $2}'" t))
+      (message "unmuted")
+      (message "muted")))
+
+(defcommand volume-up () ()
+  (run-shell-command "pulseaudio-ctl up 3")
+  (echo-volume))
+
+(defcommand volume-down () ()
+  (run-shell-command "pulseaudio-ctl down 3")
+  (echo-volume))
+
+(defcommand volume-mute () ()
+  (run-shell-command "pulseaudio-ctl mute")
+  (echo-mute))
