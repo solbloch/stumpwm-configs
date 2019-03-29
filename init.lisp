@@ -6,6 +6,7 @@
 (ql:quickload :swank)
 
 (if *initializing*
+    (run-shell-command "fcitx")
     (progn
       (require :swank)
       (swank-loader:init)
