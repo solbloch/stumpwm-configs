@@ -6,16 +6,6 @@
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
   (stumpwm:run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
 
-
-(defcommand volume-up () ()
-  (run-shell-command "pulseaudio-ctl up 2"))
-
-(defcommand volume-down () ()
-  (run-shell-command "pulseaudio-ctl down 2"))
-
-(defcommand volume-mute () ()
-  (run-shell-command "pulseaudio-ctl mute"))
-
 (defcommand all-windowlist (&optional (fmt *window-format*)
                             window-list) (:rest)
   (let ((window-list (or window-list
@@ -32,3 +22,6 @@
 
 (defcommand all-windowlist-formatted () ()
   (all-windowlist "%s%100t"))
+
+(defcommand emacs-fixed () ()
+  (run-or-raise "env LC_CTYPE=ko_KR.UTF-8 emacs" '(:class "Emacs")))
