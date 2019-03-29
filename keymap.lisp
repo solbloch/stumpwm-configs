@@ -7,7 +7,7 @@
 ;; top map stuff
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-S") "audio-switch")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "s-RET")
-  "run-shell-command urxvt -e /usr/bin/fish")
+  "run-shell-command st")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-S") "scratchpad") ;; hidden
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-L") "gnext")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "M-H") "gprev")
@@ -29,8 +29,8 @@
 ;; Applications ;;
 (defvar *application-bindings*
   (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "e") "emacs")
-    (stumpwm:define-key m (stumpwm:kbd "u") "run-shell-command 'urxvt -e /usr/bin/fish'")
+    (stumpwm:define-key m (stumpwm:kbd "e") "emacs-fixed")
+    (stumpwm:define-key m (stumpwm:kbd "u") "run-shell-command 'st'")
     (stumpwm:define-key m (stumpwm:kbd "XF86AudioPlay") "run-shell-command spotify")
     (stumpwm:define-key m (stumpwm:kbd "c") "run-shell-command google-chrome-stable")
     (stumpwm:define-key m (stumpwm:kbd "b") "run-shell-command evince")
