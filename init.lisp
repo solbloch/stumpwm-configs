@@ -24,11 +24,12 @@
                  "~/.stumpwm.d/sound.lisp"
                  "~/.stumpwm.d/looks.lisp"
                  "~/.stumpwm.d/functions.lisp"
-                 "~/.stumpwm.d/password.lisp"
+                 "~/.stumpwm.d/sudo.lisp"
                  "~/.stumpwm.d/vim.lisp"
-                 "~/.stumpwm.d/keymap.lisp"
                  "~/.stumpwm.d/greek.lisp"
-                 "~/.stumpwm.d/scratchpad.lisp"))
+                 "~/.stumpwm.d/scratchpad.lisp"
+                 "~/.stumpwm.d/openvpn.lisp"
+                 "~/.stumpwm.d/keymap.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
@@ -37,5 +38,6 @@
 ;; :sloppy :click :ignore
 
 (grename "phife")
-(gnewbg "young thug")
-(gnewbg ".κρυπτός")
+(gnewbg "q-tip")
+(gnewbg "ali")
+;; (gnewbg "아이")
