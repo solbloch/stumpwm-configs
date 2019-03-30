@@ -1,15 +1,10 @@
 (in-package :stumpwm)
 
-
 ;; (mapc (lambda (x) (format t "Family: ~a  Subfamilies: ~{~a, ~}~%" x (clx-truetype:get-font-subfamilies x)) ) (clx-truetype:get-font-families))
-
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
       *resize-increment* 35)
-
-;; " | "
-;; '(:eval (stumpwm:run-shell-command "amixer sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }'" t))))
 
 ;; border size // width
 (setf *maxsize-border-width* 5
@@ -26,37 +21,7 @@
     (swm-gaps:toggle-gaps))
 
 
-(defvar *looks-feels*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "y") "yoshis")
-    (stumpwm:define-key m (stumpwm:kbd "b") "bf")
-    (stumpwm:define-key m (stumpwm:kbd "F") "fod")
-    (stumpwm:define-key m (stumpwm:kbd "f") "fd")
-    (stumpwm:define-key m (stumpwm:kbd "d") "dl")
-    (stumpwm:define-key m (stumpwm:kbd "j") "jupiter")
-    m))
-
-
-(defvar *helpful-things*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "g") "toggle-gaps")
-    (stumpwm:define-key m (stumpwm:kbd "s") "second-screen")
-    (stumpwm:define-key m (stumpwm:kbd "r") '*redshift-levels*)
-    m))
-
-(defvar *redshift-levels*
-  (let ((m (stumpwm:make-sparse-keymap)))
-    (stumpwm:define-key m (stumpwm:kbd "1") "redshift-temp 5500")
-    (stumpwm:define-key m (stumpwm:kbd "2") "redshift-temp 4500")
-    (stumpwm:define-key m (stumpwm:kbd "3") "redshift-temp 3500")
-    (stumpwm:define-key m (stumpwm:kbd "4") "redshift-temp 2500")
-    (stumpwm:define-key m (stumpwm:kbd "0") "exec redshift -x")
-    m))
-
-
-
 ;;; a bunch of commands that are themes :)
-
 (defmacro deftheme (name (&key focus unfocus picture))
   `(defcommand ,name () ()
      (stumpwm:set-focus-color ,focus)
