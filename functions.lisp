@@ -1,5 +1,10 @@
 (in-package :stumpwm)
 
+(defcommand killandremove () ()
+  (stumpwm:run-commands
+   "delete-window"
+   "remove-split"))
+
 (defcommand redshift () ()
   (stumpwm:run-shell-command "redshift -l 43.048122:-76.147423"))
 
@@ -25,3 +30,9 @@
 
 (defcommand emacs-fixed () ()
   (run-or-raise "env LC_CTYPE=ko_KR.UTF-8 emacs" '(:class "Emacs")))
+
+(defcommand spotify () ()
+  (run-or-raise "spotify" '(:class "Spotify")))
+
+(defcommand slack () ()
+  (run-or-raise "slack" '(:class "Slack")))
