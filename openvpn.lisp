@@ -16,7 +16,7 @@
                                " -S openvpn --cd "
                                (namestring *vpn-directory*)
                                " --config "
-                               path))
+                               "'"path"'"))
          (asynchronous-process (uiop:launch-program command)))
     (sleep 1)
     (uiop:terminate-process asynchronous-process)))
@@ -32,10 +32,13 @@
   (let ((choice
           (select-from-menu (current-screen)
                             (loop for i in (vpn-config-list) collecting
-                              (list (nth 5 (cl-ppcre:split "/" (namestring i))) (namestring i))) nil 0 nil)))
+                              (list (nth 5 (cl-ppcre:split "/" (namestring i)))
+                                    (namestring i))) nil 0 nil)))
     (if (null choice)
         (throw 'error "Aborted.")
-        (open-vpn (cadr choice)))))
+        (if (open-vpn (cadr choice))
+            (message "Connected...?")
+            (message "Broken, homie.")))))
 
 (defcommand kill-vpn-menu () ()
   (when-let ((open-vpns (list-open-vpns)))
