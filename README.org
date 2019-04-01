@@ -1,0 +1,12 @@
+* stumpwm-configs
+
+my personal [StumpWM] configs. Lots of stuff here; hopefully someone finds it useful.
+
+
+* cool stuff
+- sudo command system in [[sudo.lisp][sudo.lisp]]
+- greek letter typer in [[greek.lisp][greek.lisp]]
+- openvpn wrapper in [[openvpn.lisp][openvpn.lisp]]
+- spotify connection using my [[https://github.com/noogie13/lispotify][:lispotify]] library
+- audio device switcher in [[sound.lisp][sound.lisp]]
+- stolen vim controls :-)
