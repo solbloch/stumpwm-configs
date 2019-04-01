@@ -1,6 +1,6 @@
 * stumpwm-configs
 
-my personal [StumpWM] configs. Lots of stuff here; hopefully someone finds it useful.
+my personal [[https://github.com/stumpwm/stumpwm][StumpWM]] configs. Lots of stuff here; hopefully someone finds it useful.
 
 
 * cool stuff
