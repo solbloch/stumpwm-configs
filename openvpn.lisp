@@ -40,6 +40,7 @@
             (message "Connected...?")
             (message "Broken, homie.")))))
 
+
 (defcommand kill-vpn-menu () ()
   (when-let ((open-vpns (list-open-vpns)))
     (let ((choice
