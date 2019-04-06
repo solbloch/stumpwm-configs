@@ -16,9 +16,10 @@
 
 ;; packages !
 (load-module "swm-gaps")
-;; (load-module "ttf-fonts") ;fuck you ttf-fonts
+;; (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
-(mapcar #'load '("~/.stumpwm.d/computer.lisp"
+(mapcar #'load '("~/.stumpwm.d/async.lisp"
+                 "~/.stumpwm.d/computer.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/spotify.lisp"
                  "~/.stumpwm.d/sound.lisp"
