@@ -27,10 +27,10 @@
         (switch-sink (car choice)))))
 
 (defun echo-volume ()
-  (message (run-shell-command "amixer sget Master | grep 'Mono:' | awk -F '[][]' '{ print $2 }'" t)))
+  (message (async-run "amixer sget Master | awk -F '[][]' '/^  Mono/ { print $2 }'")))
 
 (defun echo-mute ()
-  (if (search "yes" (run-shell-command "pacmd list-sinks | awk '/muted/ {print $2}'" t))
+  (if (search "yes" (async-run "pacmd list-sinks | awk '/muted/ {print $2}'"))
       (message "unmuted")
       (message "muted")))
 
