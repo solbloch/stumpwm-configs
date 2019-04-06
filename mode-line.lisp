@@ -15,7 +15,7 @@
       "^1DISC^n"))
 
 (defun vpn-state ()
-  (let ((vpn-string (run-shell-command "ps aux | grep '[o]penvpn'" t)))
+  (let ((vpn-string (async-run "ps aux | grep '[o]penvpn'")))
     (if (= (length vpn-string) 0)
         "off"
         "on")))
@@ -35,11 +35,15 @@
               date
               year))))
 
+(defun cpu-temp ()
+  (with-open-file (file "/sys/class/hwmon/hwmon0/temp1_input")
+    (format nil "~a" (float (/ (read file) 1000)))))
+
 (setf stumpwm:*screen-mode-line-format*
       (list  "%g ^> | "
              "%B | "
+             '(:eval (cpu-temp))
+             "° | "
              '(:eval (time?))
              " | "
              '(:eval (network-state))))
-
-;; (setf stumpwm:*screen-mode-line-format* "")
