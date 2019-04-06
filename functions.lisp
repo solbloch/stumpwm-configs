@@ -6,10 +6,10 @@
    "remove-split"))
 
 (defcommand redshift () ()
-  (stumpwm:run-shell-command "redshift -l 43.048122:-76.147423"))
+  (async-run "redshift -l 43.048122:-76.147423"))
 
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
-  (stumpwm:run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
+  (async-run (concatenate 'string "redshift -O " (write-to-string temp))))
 
 (defcommand all-windowlist (&optional (fmt *window-format*)
                             window-list) (:rest)
@@ -26,7 +26,7 @@
               (throw 'error :abort))))))
 
 (defcommand all-windowlist-formatted () ()
-  (all-windowlist "%s%100t"))
+  (all-windowlist "%s%120t"))
 
 (defcommand emacs-fixed () ()
   (run-or-raise "env LC_CTYPE=ko_KR.UTF-8 emacs" '(:class "Emacs")))
