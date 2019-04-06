@@ -18,12 +18,11 @@
                                " --config "
                                "'"path"'"))
          (asynchronous-process (uiop:launch-program command)))
-    (sleep 1)
+    (sleep .5)
     (uiop:terminate-process asynchronous-process)))
 
 (defun list-open-vpns ()
-  (let ((raw-grep (cl-ppcre:split
-                   "\\n" (run-shell-command "ps aux | rg 'sudo.*[o]penvpn'" t))))
+  (let ((raw-grep (cl-ppcre:split "\\n" (run-shell-command "ps aux | rg 'sudo.*[o]penvpn'" t))))
     (loop for connection in raw-grep collecting
       (list (nth 5 (cl-ppcre:split "/" (nth 16 (cl-ppcre:split "\\s+" connection))))
             (nth 1 (cl-ppcre:split "\\s+" connection))))))
@@ -43,9 +42,7 @@
 
 (defcommand kill-vpn-menu () ()
   (when-let ((open-vpns (list-open-vpns)))
-    (let ((choice
-            (select-from-menu (current-screen)
-                             open-vpns nil 0 nil)))
+    (let ((choice (select-from-menu (current-screen) open-vpns nil 0 nil)))
       (if (null choice)
           (throw 'error "Aborted.")
           (sudo-terminate (cadr choice))))))
