@@ -31,4 +31,4 @@
                                   greek-letters nil 0 nil)))
     (if (null choice)
         (throw 'error "Aborted.")
-        (run-shell-command (concatenate 'string "xdotool type " (cadr choice))))))
+        (run-shell-command (concatenate 'string "xdotool type \"" (cadr choice) "\"" )))))
