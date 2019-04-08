@@ -1,7 +1,6 @@
 (in-package :stumpwm)
 
 (defparameter *mode-line-shell* (uiop:launch-program "bash" :input :stream :output :stream))
-(defparameter *test* (uiop:launch-program "bash" :input :stream :output :stream))
 
 (defun async-run (command)
   (write-line command (uiop:process-info-input *mode-line-shell*))
@@ -12,6 +11,6 @@
         (loop while (listen stream)
               do (setf output-string (concatenate 'string
                                                   output-string
-                                                  ;; '(#\Newline)
+                                                  '(#\Newline)
                                                   (read-line stream)))))
     output-string))

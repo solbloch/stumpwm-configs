@@ -6,7 +6,7 @@
    "remove-split"))
 
 (defcommand redshift () ()
-  (async-run "redshift -l 43.048122:-76.147423"))
+  (run-shell-command "redshift -l 43.048122:-76.147423"))
 
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
   (async-run (concatenate 'string "redshift -O " (write-to-string temp))))
