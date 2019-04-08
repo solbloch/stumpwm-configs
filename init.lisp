@@ -19,8 +19,8 @@
 ;; (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
+                 "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/computer.lisp"
-                 "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/spotify.lisp"
                  "~/.stumpwm.d/sound.lisp"
                  "~/.stumpwm.d/looks.lisp"
@@ -30,7 +30,8 @@
                  "~/.stumpwm.d/greek.lisp"
                  "~/.stumpwm.d/scratchpad.lisp"
                  "~/.stumpwm.d/openvpn.lisp"
-                 "~/.stumpwm.d/keymap.lisp"))
+                 "~/.stumpwm.d/keymap.lisp"
+                 "~/.stumpwm.d/mode-line.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
