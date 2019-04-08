@@ -35,13 +35,12 @@
       (message "muted")))
 
 (defcommand volume-up () ()
-  (run-shell-command "pulseaudio-ctl up 3")
-  (echo-volume))
+  (message (async-run "amixer set Master 5%+ | awk -F '[][]' '/^  Mono/ { print $2 }'")))
 
 (defcommand volume-down () ()
-  (run-shell-command "pulseaudio-ctl down 3")
-  (echo-volume))
+  (message (async-run "amixer set Master 5%- | awk -F '[][]' '/^  Mono/ { print $2 }'")))
 
 (defcommand volume-mute () ()
-  (run-shell-command "pulseaudio-ctl mute")
-  (echo-mute))
+  (if (search "on" (async-run "pactl set-sink-mute 0 toggle && amixer get Master | awk -F '[][]' '/^  Mono/ {print $6}'"))
+      (message "unmuted")
+      (message "muted")))
