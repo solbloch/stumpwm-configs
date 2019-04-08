@@ -5,7 +5,6 @@
 (ql:quickload :lispotify)
 (ql:quickload :jsown)
 
-
 (defcommand search-track (track) ((:string "track: "))
   (if (null track)
       (throw 'error "Abort.")
