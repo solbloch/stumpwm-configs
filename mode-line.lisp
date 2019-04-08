@@ -1,12 +1,12 @@
 (in-package :stumpwm)
 
-(load-module "battery-portable")
+;; (load-module "battery-portable")
 
 (defun network-state ()
   (with-open-file (file *network-file*)
-      (if (string= (read-line file) "1")
-          "^2UP^n"
-          "^1DOWN^n")))
+    (if (string= (read-line file) "1")
+        "^2UP^n"
+        "^1DOWN^n")))
 
 (defun vpn-state-2 ()
   (if (probe-file "/var/log/ovpnserver.log")
@@ -36,14 +36,23 @@
               year))))
 
 (defun cpu-temp ()
-  (with-open-file (file "/sys/class/hwmon/hwmon0/temp1_input")
+  (with-open-file (file "/sys/class/hwmon/hwmon1/temp1_input")
     (format nil "~a" (float (/ (read file) 1000)))))
 
+(defun volume-line ()
+  (sleep .4)
+  "hi")
+
+
 (setf stumpwm:*screen-mode-line-format*
-      (list  "%g ^> | "
-             "%B | "
-             '(:eval (cpu-temp))
-             "° | "
-             '(:eval (time?))
-             " | "
-             '(:eval (network-state))))
+      (list
+       "%g^> | "
+       ;; '(:eval (volume-line))
+       ;; "%B | "
+       '(:eval (battery-string))
+       "| "
+       '(:eval (cpu-temp))
+       "° | "
+       '(:eval (time?))
+       " | "
+       '(:eval (network-state))))
