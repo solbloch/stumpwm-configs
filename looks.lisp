@@ -1,7 +1,5 @@
 (in-package :stumpwm)
 
-;; (mapc (lambda (x) (format t "Family: ~a  Subfamilies: ~{~a, ~}~%" x (clx-truetype:get-font-subfamilies x)) ) (clx-truetype:get-font-families))
-
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
