@@ -1,5 +1,7 @@
 (in-package :stumpwm)
 
+(ql:quickload '(:cl-async :bordeaux-threads))
+
 (defparameter *mode-line-shell* (uiop:launch-program "bash" :input :stream :output :stream))
 
 (defun async-run (command)
