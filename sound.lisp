@@ -35,10 +35,14 @@
       (message "muted")))
 
 (defcommand volume-up () ()
-  (message (async-run "amixer set Master 5%+ | awk -F '[][]' '/^  Mono/ { print $2 }'")))
+  (let ((vol-perc
+          (async-run "amixer set Master 5%+ | awk -F '[][]' '/^  Mono/ { print $2 }'")))
+    (percent (parse-integer (subseq vol-perc 0 (1- (length vol-perc)))))))
 
 (defcommand volume-down () ()
-  (message (async-run "amixer set Master 5%- | awk -F '[][]' '/^  Mono/ { print $2 }'")))
+  (let ((vol-perc
+          (async-run "amixer set Master 5%- | awk -F '[][]' '/^  Mono/ { print $2 }'")))
+    (percent (parse-integer (subseq vol-perc 0 (1- (length vol-perc)))))))
 
 (defcommand volume-mute () ()
   (if (search "on" (async-run "pactl set-sink-mute 0 toggle && amixer get Master | awk -F '[][]' '/^  Mono/ {print $6}'"))
