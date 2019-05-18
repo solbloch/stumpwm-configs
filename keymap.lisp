@@ -5,19 +5,23 @@
 
 
 ;; top map stuff
-(define-key *top-map* (stumpwm:kbd "s-S") "audio-switch")
+(define-key *top-map* (stumpwm:kbd "s-A") "audio-switch")
+(define-key *top-map* (stumpwm:kbd "s-v") "hsplit")
+(define-key *top-map* (stumpwm:kbd "s-s") "vsplit")
+(define-key *top-map* (stumpwm:kbd "s-r") "remove")
+(define-key *top-map* (stumpwm:kbd "s-q") "delete")
+(define-key *top-map* (stumpwm:kbd "s-Q") "killandremove")
+(define-key *top-map* (stumpwm:kbd "s-n") "pull-hidden-next")
+(define-key *top-map* (stumpwm:kbd "s-p") "pull-hidden-previous")
+(define-key *top-map* (stumpwm:kbd "M-TAB") "fnext")
+(define-key *top-map* (stumpwm:kbd "M-`") "pull-hidden-next")
 (define-key *top-map* (stumpwm:kbd "s-RET") "run-shell-command st")
 (define-key *top-map* (stumpwm:kbd "M-S") "scratchpad") ;; hidden
 ;; (define-key *top-map* (stumpwm:kbd "M-L") "gnext")
 ;; (define-key *top-map* (stumpwm:kbd "M-H") "gprev")
 (define-key *top-map* (stumpwm:kbd "M-g") "greek-menu")
 (define-key *top-map* (stumpwm:kbd "s-F") "fullscreen")
-(define-key *top-map* (stumpwm:kbd "M-w") '*helpful-things*)
-(define-key *top-map* (stumpwm:kbd "s-c") '*vpn-commands*)
-(define-key *top-map* (stumpwm:kbd "M-A") '*looks-feels*)
-(define-key *top-map* (stumpwm:kbd "s-g") '*group-bindings*)
-(define-key *top-map* (stumpwm:kbd "s-f") '*frame-bindings*)
-(define-key *top-map* (stumpwm:kbd "s-a") '*application-bindings*)
+
 (define-key *top-map* (stumpwm:kbd "s-`") "gselect -1")
 (define-key *top-map* (stumpwm:kbd "s-1") "gselect 1")
 (define-key *top-map* (stumpwm:kbd "s-2") "gselect 2")
@@ -29,15 +33,14 @@
 (define-key *top-map* (stumpwm:kbd "M-K") "gselect 2")
 (define-key *top-map* (stumpwm:kbd "M-L") "gselect 3")
 ;; (define-key *top-map* (stumpwm:kbd "M-:") "gselect 4")
-(define-key *top-map* (stumpwm:kbd "s-v") "hsplit")
-(define-key *top-map* (stumpwm:kbd "s-s") "vsplit")
-(define-key *top-map* (stumpwm:kbd "s-r") "remove")
-(define-key *top-map* (stumpwm:kbd "s-q") "delete")
-(define-key *top-map* (stumpwm:kbd "s-Q") "killandremove")
-(define-key *top-map* (stumpwm:kbd "s-n") "pull-hidden-next")
-(define-key *top-map* (stumpwm:kbd "s-p") "pull-hidden-previous")
-(define-key *top-map* (stumpwm:kbd "M-TAB") "fnext")
-(define-key *top-map* (stumpwm:kbd "M-`") "pull-hidden-next")
+
+(define-key *top-map* (stumpwm:kbd "M-w") '*helpful-things*)
+(define-key *top-map* (stumpwm:kbd "s-S") '*solb-commands*)
+(define-key *top-map* (stumpwm:kbd "s-c") '*vpn-commands*)
+(define-key *top-map* (stumpwm:kbd "M-A") '*looks-feels*)
+(define-key *top-map* (stumpwm:kbd "s-g") '*group-bindings*)
+(define-key *top-map* (stumpwm:kbd "s-f") '*frame-bindings*)
+(define-key *top-map* (stumpwm:kbd "s-a") '*application-bindings*)
 
 
 ;; Applications ;;
@@ -117,6 +120,15 @@
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "c") "connect-vpn-menu")
     (define-key m (kbd "k") "kill-vpn-menu")
+    m))
+
+;; solb
+(defvar *solb-commands*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "s") "screenshot-selection-post")
+    (define-key m (kbd "f") "screenshot-full-post")
+    (define-key m (kbd "c") "post-clipboard-text")
+    (define-key m (kbd "r") "post-clipboard-redirect")
     m))
 
 ;; Volume // Brightness Config
