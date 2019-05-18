@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-;; (load-module "battery-portable")
+(load-module "battery-portable")
 
 (defun network-state ()
   (with-open-file (file *network-file*)
@@ -36,21 +36,13 @@
               year))))
 
 (defun cpu-temp ()
-  (with-open-file (file "/sys/class/hwmon/hwmon1/temp1_input")
+  (with-open-file (file "/sys/class/hwmon/hwmon2/temp1_input")
     (format nil "~a" (float (/ (read file) 1000)))))
-
-(defun volume-line ()
-  (sleep .4)
-  "hi")
-
 
 (setf stumpwm:*screen-mode-line-format*
       (list
        "%g^> | "
-       ;; '(:eval (volume-line))
-       ;; "%B | "
-       '(:eval (battery-string))
-       "| "
+       "%B | "
        '(:eval (cpu-temp))
        "° | "
        '(:eval (time?))
