@@ -22,17 +22,18 @@
     (uiop:terminate-process asynchronous-process)))
 
 (defun list-open-vpns ()
-  (let ((raw-grep (cl-ppcre:split "\\n" (run-shell-command "pgrep -f -a 'openvpn' | awk" t))))
-    (loop for connection in raw-grep collecting
-      (list (nth 5 (cl-ppcre:split "/" (nth 16 (cl-ppcre:split "\\s+" connection))))
-            (nth 1 (cl-ppcre:split "\\s+" connection))))))
+  (let ((raw-grep (cl-ppcre:split "\\n" (run-shell-command
+                                         "pgrep -f -a '[s]udo.*openvpn' | awk '{print $NF, $1}'" t))))
+    (loop for connection in raw-grep
+          collecting (cl-ppcre:split " " connection))))
 
 (defcommand connect-vpn-menu () ()
   (let ((choice
           (select-from-menu (current-screen)
-                            (loop for i in (vpn-config-list) collecting
-                              (list (nth 5 (cl-ppcre:split "/" (namestring i)))
-                                    (namestring i))) nil 0 nil)))
+                            (loop for i in (vpn-config-list)
+                                  collecting
+                                  (list (nth 5 (cl-ppcre:split "/" (namestring i)))
+                                        (namestring i))) nil 0 nil)))
     (if (null choice)
         (throw 'error "Aborted.")
         (if (open-vpn (cadr choice))
