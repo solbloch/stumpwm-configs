@@ -15,13 +15,18 @@
         (charge-now (slurp "/sys/class/power_supply/BAT0/charge_now")))
     (float (* 100 (/ charge-now charge-full)))))
 
-(defun battery-remaining ()
+(defun battery-remaining-discharging ()
+  (let ((charge-now (slurp "/sys/class/power_supply/BAT0/charge_now"))
+        (current-now (slurp "/sys/class/power_supply/BAT0/current_now")))
+    (floor (float (/ charge-now current-now)))))
+
+(defun battery-remaining-charging ()
   (let ((charge-now (slurp "/sys/class/power_supply/BAT0/charge_now"))
         (current-now (slurp "/sys/class/power_supply/BAT0/current_now")))
     (floor (float (/ charge-now current-now)))))
 
 (defun battery-string ()
   (if (search "Disch" (slurp-stream "/sys/class/power_supply/BAT0/status"))
-      (multiple-value-bind (hours minutes) (battery-remaining)
+      (multiple-value-bind (hours minutes) (battery-remaining-discharging)
         (format nil "~a:~2,'0D-^7 ~a% ^n" hours (round (* 60 minutes)) (round (battery-percent))))
-      "off"))
+      "off "))
