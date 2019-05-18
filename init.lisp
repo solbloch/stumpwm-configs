@@ -2,11 +2,10 @@
 
 (load "~/quicklisp/setup.lisp")
 
-;; (ql:quickload :clx-truetype)
+(ql:quickload :clx-truetype)
 (ql:quickload :swank)
 
 (if *initializing*
-    (run-shell-command "fcitx")
     (progn
       (require :swank)
       (swank-loader:init)
@@ -16,10 +15,10 @@
 
 ;; packages !
 (load-module "swm-gaps")
-;; (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
+(load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
-                 "~/.stumpwm.d/battery.lisp"
+                 "~/.stumpwm.d/token.lisp"
                  "~/.stumpwm.d/computer.lisp"
                  "~/.stumpwm.d/spotify.lisp"
                  "~/.stumpwm.d/sound.lisp"
@@ -31,6 +30,7 @@
                  "~/.stumpwm.d/scratchpad.lisp"
                  "~/.stumpwm.d/openvpn.lisp"
                  "~/.stumpwm.d/keymap.lisp"
+                 "~/.stumpwm.d/solb.lisp"
                  "~/.stumpwm.d/mode-line.lisp"))
 
 
@@ -42,4 +42,4 @@
 (grename "phife")
 (gnewbg "q-tip")
 (gnewbg "ali")
-;; (gnewbg "아이")
+(gnewbg "jarobi")
