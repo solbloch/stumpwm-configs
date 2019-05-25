@@ -4,9 +4,11 @@ my personal [[https://github.com/stumpwm/stumpwm][StumpWM]] configs. Lots of stu
 
 
 * cool stuff
+- async shell commands (thus super fast) in [[async.lisp][async.lisp]]
 - sudo command system in [[sudo.lisp][sudo.lisp]]
 - greek letter typer in [[greek.lisp][greek.lisp]]
 - openvpn wrapper in [[openvpn.lisp][openvpn.lisp]]
 - spotify connection using my [[https://github.com/noogie13/lispotify][:lispotify]] library
 - audio device switcher in [[sound.lisp][sound.lisp]]
+- screenshotter with posting to my website [[solb.lisp][solb.io]]
 - stolen vim controls :-)
