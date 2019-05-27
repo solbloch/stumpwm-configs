@@ -21,6 +21,7 @@
 ;; (define-key *top-map* (stumpwm:kbd "M-H") "gprev")
 (define-key *top-map* (stumpwm:kbd "M-g") "greek-menu")
 (define-key *top-map* (stumpwm:kbd "s-F") "fullscreen")
+(define-key *top-map* (stumpwm:kbd "s-b") "open-book")
 
 (define-key *top-map* (stumpwm:kbd "s-`") "gselect -1")
 (define-key *top-map* (stumpwm:kbd "s-1") "gselect 1")
