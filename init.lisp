@@ -18,6 +18,7 @@
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
+                 "~/.stumpwm.d/book.lisp"
                  "~/.stumpwm.d/token.lisp"
                  "~/.stumpwm.d/computer.lisp"
                  "~/.stumpwm.d/spotify.lisp"
