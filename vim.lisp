@@ -27,9 +27,6 @@
 ;; Splits Windows and Frames
 (stumpwm:define-key *root-map* (stumpwm:kbd "q") "kill")
 
-;; Mouse Commands ;;
-(stumpwm:define-key *top-map* (stumpwm:kbd "s-b")"banish")
-
 ;; Group Configuration ;;
 ;; (define-key *top-map* (kbd "s-N") "gnext")
 (stumpwm:define-key *root-map* (stumpwm:kbd "N") "gnext")
