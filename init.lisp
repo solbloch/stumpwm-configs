@@ -5,7 +5,6 @@
 (ql:quickload :clx-truetype)
 (ql:quickload :swank)
 
-
 (if *initializing*
     (progn
       (require :swank)
