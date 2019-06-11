@@ -12,7 +12,8 @@
       (swank-loader:init)
       (swank:create-server :port 4004
                            :style swank:*communication-style*
-                           :dont-close t)))
+                           :dont-close t)
+      (mode-line)))
 
 ;; packages !
 (load-module "swm-gaps")
