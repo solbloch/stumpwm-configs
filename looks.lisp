@@ -3,7 +3,9 @@
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
-      *resize-increment* 35)
+      *resize-increment* 35
+      *mode-line-background-color* "#2b2b2b"
+      *mode-line-foreground-color* "#E5E9F0")
 
 ;; border size // width
 (setf *maxsize-border-width* 5
