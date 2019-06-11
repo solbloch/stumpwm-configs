@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(load "/home/sol/Documents/lispotify/lispotify.asd")
+(load "/home/sol/Projects/lispotify/lispotify.asd")
 
 (ql:quickload :lispotify)
 (ql:quickload :jsown)
