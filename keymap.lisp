@@ -19,7 +19,7 @@
 (define-key *top-map* (stumpwm:kbd "M-S") "scratchpad") ;; hidden
 ;; (define-key *top-map* (stumpwm:kbd "M-L") "gnext")
 ;; (define-key *top-map* (stumpwm:kbd "M-H") "gprev")
-(define-key *top-map* (stumpwm:kbd "M-g") "greek-menu")
+(define-key *top-map* (stumpwm:kbd "s-G") "greek-menu")
 (define-key *top-map* (stumpwm:kbd "s-F") "fullscreen")
 (define-key *top-map* (stumpwm:kbd "s-b") "open-book")
 
