@@ -21,6 +21,9 @@
 (if (not swm-gaps:*gaps-on*)
     (swm-gaps:toggle-gaps))
 
+(when *initializing*
+  (mode-line))
+
 ;;; a bunch of commands that are themes :)
 (defmacro deftheme (name (&key focus unfocus picture))
   `(defcommand ,name () ()
