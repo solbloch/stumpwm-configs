@@ -28,6 +28,10 @@
 (defcommand all-windowlist-formatted () ()
   (all-windowlist "%s%120t"))
 
+(defcommand ripcord () ()
+(run-or-raise "ripcord" '(:class "Ripcord")))
+
+
 (defcommand emacs-fixed () ()
   (run-or-raise "env LC_CTYPE=ko_KR.UTF-8 emacs" '(:class "Emacs")))
 

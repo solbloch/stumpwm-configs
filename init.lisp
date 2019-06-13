@@ -6,14 +6,12 @@
 (ql:quickload :swank)
 
 
-(if *initializing*
-    (progn
-      (require :swank)
-      (swank-loader:init)
-      (swank:create-server :port 4004
-                           :style swank:*communication-style*
-                           :dont-close t)
-      (mode-line)))
+(when *initializing*
+    (require :swank)
+    (swank-loader:init)
+    (swank:create-server :port 4004
+                         :style swank:*communication-style*
+                         :dont-close t))
 
 ;; packages !
 (load-module "swm-gaps")
@@ -34,7 +32,8 @@
                  "~/.stumpwm.d/openvpn.lisp"
                  "~/.stumpwm.d/keymap.lisp"
                  "~/.stumpwm.d/solb.lisp"
-                 "~/.stumpwm.d/mode-line.lisp"))
+                 "~/.stumpwm.d/mode-line.lisp"
+                 "~/.stumpwm.d/frame.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
@@ -46,3 +45,5 @@
 (gnewbg "q-tip")
 (gnewbg "ali")
 (gnewbg "jarobi")
+
+(restore-from-file "test")
