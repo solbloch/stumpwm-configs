@@ -17,6 +17,8 @@
 (load-module "swm-gaps")
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
+(grename "phife")
+
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
                  "~/.stumpwm.d/book.lisp"
                  "~/.stumpwm.d/token.lisp"
@@ -41,9 +43,6 @@
 
 ;; :sloppy :click :ignore
 
-(grename "phife")
-(gnewbg "q-tip")
-(gnewbg "ali")
-(gnewbg "jarobi")
-
-(restore-from-file "test")
+;; (gnewbg "q-tip")
+;; (gnewbg "ali")
+;; (gnewbg "jarobi")

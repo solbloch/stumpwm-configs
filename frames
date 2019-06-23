@@ -1,0 +1,61 @@
+#S(DDUMP
+   :SCREENS (#S(SDUMP
+                :NUMBER 0
+                :GROUPS (#S(GDUMP
+                            :NUMBER 1
+                            :NAME "phife"
+                            :TREE (#S(FDUMP
+                                      :NUMBER 0
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 3200
+                                      :HEIGHT 1800
+                                      :WINDOWS (27262977)
+                                      :CURRENT 27262977))
+                            :CURRENT 0)
+                         #S(GDUMP
+                            :NUMBER 2
+                            :NAME "q-tip"
+                            :TREE (#S(FDUMP
+                                      :NUMBER 0
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 3200
+                                      :HEIGHT 1800
+                                      :WINDOWS (8388613 23068847)
+                                      :CURRENT 8388613))
+                            :CURRENT 0)
+                         #S(GDUMP
+                            :NUMBER 3
+                            :NAME "ali"
+                            :TREE (#S(FDUMP
+                                      :NUMBER 0
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 3200
+                                      :HEIGHT 1800
+                                      :WINDOWS NIL
+                                      :CURRENT NIL))
+                            :CURRENT 0)
+                         #S(GDUMP
+                            :NUMBER 4
+                            :NAME "jarobi"
+                            :TREE ((#S(FDUMP
+                                       :NUMBER 0
+                                       :X 0
+                                       :Y 0
+                                       :WIDTH 1600
+                                       :HEIGHT 1800
+                                       :WINDOWS NIL
+                                       :CURRENT NIL)
+                                    #S(FDUMP
+                                       :NUMBER 1
+                                       :X 1600
+                                       :Y 0
+                                       :WIDTH 1600
+                                       :HEIGHT 1800
+                                       :WINDOWS NIL
+                                       :CURRENT NIL)))
+                            :CURRENT 1))
+                :CURRENT 1))
+   :CURRENT 0)

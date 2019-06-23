@@ -1,5 +1,7 @@
 (in-package :stumpwm)
 
+(restore-from-file ".stumpwm.d/frames")
+
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
