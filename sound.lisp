@@ -45,6 +45,6 @@
     (percent (parse-integer (subseq vol-perc 0 (1- (length vol-perc)))))))
 
 (defcommand volume-mute () ()
-  (if (search "on" (async-run "pactl set-sink-mute 0 toggle && amixer get Master | awk -F '[][]' '/^  Mono/ {print $6}'"))
+  (if (search "on" (async-run "pactl set-sink-mute 1 toggle && amixer get Master | awk -F '[][]' '/^  Mono/ {print $6}'"))
       (message "unmuted")
       (message "muted")))
