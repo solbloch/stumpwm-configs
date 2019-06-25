@@ -17,7 +17,7 @@
 (load-module "swm-gaps")
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
-(grename "phife")
+(grename "아이유")
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
                  "~/.stumpwm.d/book.lisp"
@@ -34,15 +34,10 @@
                  "~/.stumpwm.d/openvpn.lisp"
                  "~/.stumpwm.d/keymap.lisp"
                  "~/.stumpwm.d/solb.lisp"
-                 "~/.stumpwm.d/mode-line.lisp"
-                 "~/.stumpwm.d/frame.lisp"))
+                 "~/.stumpwm.d/mode-line.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
 (setf *mouse-focus-policy* :click)
 
 ;; :sloppy :click :ignore
-
-;; (gnewbg "q-tip")
-;; (gnewbg "ali")
-;; (gnewbg "jarobi")
