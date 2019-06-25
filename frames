@@ -3,59 +3,123 @@
                 :NUMBER 0
                 :GROUPS (#S(GDUMP
                             :NUMBER 1
-                            :NAME "phife"
+                            :NAME "아이유   "
                             :TREE (#S(FDUMP
-                                      :NUMBER 0
+                                      :NUMBER 1
+                                      :X 3840
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 2
                                       :X 0
                                       :Y 0
-                                      :WIDTH 3200
-                                      :HEIGHT 1800
-                                      :WINDOWS (27262977)
-                                      :CURRENT 27262977))
-                            :CURRENT 0)
-                         #S(GDUMP
-                            :NUMBER 2
-                            :NAME "q-tip"
-                            :TREE (#S(FDUMP
-                                      :NUMBER 0
-                                      :X 0
-                                      :Y 0
-                                      :WIDTH 3200
-                                      :HEIGHT 1800
-                                      :WINDOWS (8388613 23068847)
-                                      :CURRENT 8388613))
-                            :CURRENT 0)
-                         #S(GDUMP
-                            :NUMBER 3
-                            :NAME "ali"
-                            :TREE (#S(FDUMP
-                                      :NUMBER 0
-                                      :X 0
-                                      :Y 0
-                                      :WIDTH 3200
-                                      :HEIGHT 1800
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 5
+                                      :X 1920
+                                      :Y 60
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
                                       :WINDOWS NIL
                                       :CURRENT NIL))
-                            :CURRENT 0)
+                            :CURRENT 5)
+                         #S(GDUMP
+                            :NUMBER 2
+                            :NAME "백예린     "
+                            :TREE (#S(FDUMP
+                                      :NUMBER 1
+                                      :X 3840
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 2
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 5
+                                      :X 1920
+                                      :Y 60
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL))
+                            :CURRENT 1)
+                         #S(GDUMP
+                            :NUMBER 3
+                            :NAME "새 신발     "
+                            :TREE (#S(FDUMP
+                                      :NUMBER 1
+                                      :X 3840
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 2
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 5
+                                      :X 1920
+                                      :Y 60
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL))
+                            :CURRENT 1)
                          #S(GDUMP
                             :NUMBER 4
-                            :NAME "jarobi"
+                            :NAME "강아지    "
                             :TREE ((#S(FDUMP
-                                       :NUMBER 0
-                                       :X 0
+                                       :NUMBER 1
+                                       :X 3840
                                        :Y 0
-                                       :WIDTH 1600
-                                       :HEIGHT 1800
+                                       :WIDTH 960
+                                       :HEIGHT 1080
                                        :WINDOWS NIL
                                        :CURRENT NIL)
                                     #S(FDUMP
-                                       :NUMBER 1
-                                       :X 1600
+                                       :NUMBER 0
+                                       :X 4800
                                        :Y 0
-                                       :WIDTH 1600
-                                       :HEIGHT 1800
+                                       :WIDTH 960
+                                       :HEIGHT 1080
                                        :WINDOWS NIL
-                                       :CURRENT NIL)))
+                                       :CURRENT NIL))
+                                   #S(FDUMP
+                                      :NUMBER 2
+                                      :X 0
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
+                                   #S(FDUMP
+                                      :NUMBER 5
+                                      :X 1920
+                                      :Y 60
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL))
                             :CURRENT 1))
                 :CURRENT 1))
    :CURRENT 0)
