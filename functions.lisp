@@ -26,7 +26,7 @@
               (throw 'error :abort))))))
 
 (defcommand all-windowlist-formatted () ()
-  (all-windowlist "%s%120t"))
+  (all-windowlist "%s%300t"))
 
 (defcommand ripcord () ()
 (run-or-raise "ripcord" '(:class "Ripcord")))
@@ -42,6 +42,6 @@
   (run-or-raise "slack" '(:class "Slack")))
 
 (defun percent (perc)
-  (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\█)))
+  (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
     (message (concatenate 'string on-string
                   (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))
