@@ -1,10 +1,11 @@
 (in-package :stumpwm)
 
-(restore-from-file ".stumpwm.d/frames")
+(restore-from-file "/home/sol/.stumpwm.d/frames")
 
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
+      *group-format* "%t"
       *resize-increment* 35
       *mode-line-background-color* "#2b2b2b"
       *mode-line-foreground-color* "#E5E9F0")
