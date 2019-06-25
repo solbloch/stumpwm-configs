@@ -1,15 +1,17 @@
 (in-package :stumpwm)
 
-(defvar *network-file* "/sys/class/net/wlp58s0/carrier")
+(defvar *network-file* "/sys/class/net/eno1/carrier")
 
-;; (mapc (lambda (x) (format t "Family: ~a  Subfamilies: ~{~a, ~}~%" x (clx-truetype:get-font-subfamilies x)) ) (clx-truetype:get-font-families))
+(setf stumpwm:*screen-mode-line-format*
+      (list
+       "%g             ^> | "
+       '(:eval (cpu-temp))
+       "° | "
+       '(:eval (time?))
+       "    "
+       '(:eval (network-state))))
 
-(set-font (make-instance 'xft:font :family "TerminessTTF Nerd Font" :subfamily "Medium" :size 27))
-;; (set-font "-xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1")
-;; (set-font "-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1")
-
-
-;; (font-exists-p  "-xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1")
+(set-font (make-instance 'xft:font :family "NanumGothicCoding" :subfamily "Regular" :size 16))
 
 (run-with-timer
  900 900
@@ -20,3 +22,11 @@
               (clrhash (xft::font-string-line-alpha-maps font))
               (clrhash (xft::font-string-bboxes font))
               (clrhash (xft::font-string-alpha-maps font)))))
+
+;; azrin
+;; (define-frame-preference "q-tip"
+;;   (0 t t :class "Emacs"))
+
+;; (define-frame-preference "jarobi"
+;;   (0 t t :class "Spotify")
+;;   (1 t t :class "Ripcord"))
