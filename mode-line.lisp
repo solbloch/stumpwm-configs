@@ -5,14 +5,8 @@
 (defun network-state ()
   (with-open-file (file *network-file*)
     (if (string= (read-line file) "1")
-        "^2UP^n"
-        "^1DOWN^n")))
-
-(defun vpn-state-2 ()
-  (if (probe-file "/var/log/ovpnserver.log")
-      ;; fill in some stuff I guess ..
-      "^2CONN^n"
-      "^1DISC^n"))
+        "^2연결됨^n"
+        "^1연결안됨^n")))
 
 (defun vpn-state ()
   (let ((vpn-string (async-run "ps aux | grep '[o]penvpn'")))
@@ -21,30 +15,19 @@
         "on")))
 
 (defun time? ()
-  (let ((days '("mon" "tues" "wed" "thurs" "fri" "sat" "sun"))
+  (let ((days '("워요일" "화요일" "수요일" "목요일" "금요일" "토요일" "일요일"))
         (months '("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")))
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
-      (format nil "~2,'0d:~2,'0d:~2,'0d; ~a ~d ~2,'0d, ~d"
+      (format nil "~2,'0d:~2,'0d:~2,'0d; ~d월 ~d일 ~a   "
               hour
               minute
               second
-              (nth day-of-week days)
-              (nth (- month 1) months)
+              month
               date
-              year))))
+              (nth day-of-week days)))))
 
 (defun cpu-temp ()
   (with-open-file (file "/sys/class/hwmon/hwmon2/temp1_input")
     (format nil "~a" (float (/ (read file) 1000)))))
-
-(setf stumpwm:*screen-mode-line-format*
-      (list
-       "%g^> | "
-       "%B | "
-       '(:eval (cpu-temp))
-       "° | "
-       '(:eval (time?))
-       " | "
-       '(:eval (network-state))))
