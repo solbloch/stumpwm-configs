@@ -9,7 +9,8 @@
 (defun list-streams ()
   (mapcar
    #'(lambda (x) (cl-ppcre:split "\\s" x))
-   (cl-ppcre:all-matches-as-strings "\\d*\\s*\\d*\\s*\\d*\\s[a-zA-Z\.\-]*\\s" (run-shell-command "pactl list short sink-inputs" t))))
+   (cl-ppcre:all-matches-as-strings "\\d*\\s*\\d*\\s*\\d*\\s[a-zA-Z\.\-]*\\s"
+                                    (run-shell-command "pactl list short sink-inputs" t))))
 
 (defun switch-sink (sink)
   (run-shell-command (concat "pacmd set-default-sink " sink))
@@ -26,25 +27,27 @@
         nil
         (switch-sink (car choice)))))
 
+(defun get-volume ()
+  (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
+
 (defun echo-volume ()
-  (message (async-run "amixer sget Master | awk -F '[][]' '/^  Mono/ { print $2 }'")))
+  (message (get-volume)))
 
 (defun echo-mute ()
-  (if (search "yes" (async-run "pacmd list-sinks | awk '/muted/ {print $2}'"))
+  (if (search "no" (run-shell-command "pacmd list-sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING/{print $1}') '/muted/{i++}i==sink{print; exit}'" t))
       (message "unmuted")
       (message "muted")))
 
 (defcommand volume-up () ()
-  (let ((vol-perc
-          (async-run "amixer set Master 5%+ | awk -F '[][]' '/^  Mono/ { print $2 }'")))
-    (percent (parse-integer (subseq vol-perc 0 (1- (length vol-perc)))))))
+  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING/{print $1}') +5%" t)
+  (let ((volume (get-volume)))
+    (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-down () ()
-  (let ((vol-perc
-          (async-run "amixer set Master 5%- | awk -F '[][]' '/^  Mono/ { print $2 }'")))
-    (percent (parse-integer (subseq vol-perc 0 (1- (length vol-perc)))))))
+  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING/{print $1}') -5%" t)
+  (let ((volume (get-volume)))
+    (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-mute () ()
-  (if (search "on" (async-run "pactl set-sink-mute 1 toggle && amixer get Master | awk -F '[][]' '/^  Mono/ {print $6}'"))
-      (message "unmuted")
-      (message "muted")))
+  (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING/{print $1}') toggle" t)
+  (echo-mute))
