@@ -3,7 +3,7 @@
                 :NUMBER 0
                 :GROUPS (#S(GDUMP
                             :NUMBER 1
-                            :NAME "아이유   "
+                            :NAME "아이유"
                             :TREE (#S(FDUMP
                                       :NUMBER 1
                                       :X 3840
@@ -28,10 +28,10 @@
                                       :HEIGHT 1080
                                       :WINDOWS NIL
                                       :CURRENT NIL))
-                            :CURRENT 5)
+                            :CURRENT 1)
                          #S(GDUMP
                             :NUMBER 2
-                            :NAME "백예린     "
+                            :NAME "백예린"
                             :TREE (#S(FDUMP
                                       :NUMBER 1
                                       :X 3840
@@ -59,7 +59,7 @@
                             :CURRENT 1)
                          #S(GDUMP
                             :NUMBER 3
-                            :NAME "새 신발     "
+                            :NAME "새 신발"
                             :TREE (#S(FDUMP
                                       :NUMBER 1
                                       :X 3840
@@ -87,7 +87,7 @@
                             :CURRENT 1)
                          #S(GDUMP
                             :NUMBER 4
-                            :NAME "강아지    "
+                            :NAME "강아지"
                             :TREE ((#S(FDUMP
                                        :NUMBER 1
                                        :X 3840
