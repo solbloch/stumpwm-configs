@@ -14,8 +14,9 @@
 
 (defun sudo (command &optional collect?)
   (let* ((pass (read-one-line (current-screen) "sudo password: " :password t))
-         (command (concatenate 'string "echo " pass " | sudo -S " command)))
-    (run-shell-command command collect?)))
+         (command (concatenate 'string "sudo -S " command)))
+    (with-input-from-string (st pass)
+        (uiop:run-program command :input st :output collect?))))
 
 (defcommand sudo-shell (command &optional collect?) ((:shell-su ""))
   "no side effects, please (stump will break)"
@@ -26,5 +27,4 @@
           (run-shell-command command))))
 
 (defun sudo-terminate (pid)
-  (let ((password (read-one-line (current-screen) "sudo password: " :password t)))
-    (run-shell-command (concatenate 'string "echo " password " | sudo -S kill " pid))))
+  (sudo (concatenate 'string "kill " pid)))
