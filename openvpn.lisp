@@ -8,18 +8,16 @@
 
 (defun open-vpn (path)
   "takes a path and asks for sudo, then opens the process that splits off, then kills the process that opened it"
-  (let* ((password (read-one-line (current-screen) "sudo password: " :password t))
-         (command (concatenate 'string
-                               "echo "
-                               password
-                               " | sudo "
-                               " -S openvpn --cd "
-                               (namestring *vpn-directory*)
-                               " --config "
-                               "'"path"'"))
-         (asynchronous-process (uiop:launch-program command)))
-    (sleep .5)
-    (uiop:terminate-process asynchronous-process)))
+  (let ((password (read-one-line (current-screen) "sudo password: " :password t))
+        (command (concatenate 'string
+                              "sudo -S openvpn --cd "
+                              (namestring *vpn-directory*)
+                              " --config "
+                              "'" path "'")))
+    (with-open-stream (st (make-string-input-stream password))
+        (uiop:launch-program command :input st))))
+
+
 
 (defun list-open-vpns ()
   (let ((raw-grep (cl-ppcre:split "\\n" (run-shell-command
