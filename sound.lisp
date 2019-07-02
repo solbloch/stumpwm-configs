@@ -28,26 +28,26 @@
         (switch-sink (car choice)))))
 
 (defun get-volume ()
-  (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
+  (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
 
 (defun echo-volume ()
   (message (get-volume)))
 
 (defun echo-mute ()
-  (if (search "no" (run-shell-command "pacmd list-sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING/{print $1}') '/muted/{i++}i==sink{print; exit}'" t))
+  (if (search "no" (run-shell-command "pacmd list-sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/muted/{i++}i==sink{print; exit}'" t))
       (message "unmuted")
       (message "muted")))
 
 (defcommand volume-up () ()
-  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING/{print $1}') +5%" t)
+  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') +5%" t)
   (let ((volume (get-volume)))
     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-down () ()
-  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING/{print $1}') -5%" t)
+  (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') -5%" t)
   (let ((volume (get-volume)))
     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-mute () ()
-  (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING/{print $1}') toggle" t)
+  (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') toggle" t)
   (echo-mute))
