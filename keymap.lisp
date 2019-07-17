@@ -54,7 +54,8 @@
     (stumpwm:define-key m (stumpwm:kbd "c") "run-shell-command google-chrome-stable")
     (stumpwm:define-key m (stumpwm:kbd "b") "run-shell-command evince")
     (stumpwm:define-key m (stumpwm:kbd "r") "ripcord")
-    (stumpwm:define-key m (stumpwm:kbd "d") "darktable")
+    (stumpwm:define-key m (stumpwm:kbd "d") "dolphin")
+    (stumpwm:define-key m (stumpwm:kbd "D") "darktable")
     m))
 
 
