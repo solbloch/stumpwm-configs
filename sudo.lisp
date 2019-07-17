@@ -16,7 +16,9 @@
   (let* ((pass (read-one-line (current-screen) "sudo password: " :password t))
          (command (concatenate 'string "sudo -S " command)))
     (with-input-from-string (st pass)
-        (uiop:run-program command :input st :output collect?))))
+      (uiop:run-program command :input st
+                                :output (when collect?
+                                          '(:string :stripped t))))))
 
 (defcommand sudo-shell (command &optional collect?) ((:shell-su ""))
   "no side effects, please (stump will break)"
