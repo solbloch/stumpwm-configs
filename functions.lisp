@@ -29,7 +29,13 @@
   (all-windowlist "%s%300t"))
 
 (defcommand ripcord () ()
-(run-or-raise "ripcord" '(:class "Ripcord")))
+  (run-or-raise "ripcord" '(:class "Ripcord")))
+
+(defcommand darktable () ()
+  (run-or-raise "darktable" '(:class "Darktable")))
+
+(defcommand telegram () ()
+  (run-or-raise "telegram-desktop" '(:class "Telegram")))
 
 
 (defcommand emacs-fixed () ()
@@ -44,4 +50,4 @@
 (defun percent (perc)
   (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
     (message (concatenate 'string on-string
-                  (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))
+                          (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))
