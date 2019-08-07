@@ -52,10 +52,10 @@
     (stumpwm:define-key m (stumpwm:kbd "s") "spotify")
     (stumpwm:define-key m (stumpwm:kbd "S") "slack")
     (stumpwm:define-key m (stumpwm:kbd "c") "run-shell-command google-chrome-stable")
-    (stumpwm:define-key m (stumpwm:kbd "b") "run-shell-command evince")
     (stumpwm:define-key m (stumpwm:kbd "r") "ripcord")
     (stumpwm:define-key m (stumpwm:kbd "d") "run-shell-command dolphin")
-    (stumpwm:define-key m (stumpwm:kbd "D") "run-shell-command darktable")
+    (stumpwm:define-key m (stumpwm:kbd "D") "darktable")
+    (stumpwm:define-key m (stumpwm:kbd "t") "telegram")
     m))
 
 
