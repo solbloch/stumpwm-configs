@@ -28,7 +28,7 @@
                                       :HEIGHT 1080
                                       :WINDOWS NIL
                                       :CURRENT NIL))
-                            :CURRENT 1)
+                            :CURRENT 5)
                          #S(GDUMP
                             :NUMBER 2
                             :NAME "백예린"
