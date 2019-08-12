@@ -40,29 +40,30 @@
          point-two
          canceled
          (cursor-font (xlib:open-font *display* *grab-pointer-font*))
-         (cursor (xlib:create-glyph-cursor :source-font cursor-font
-                                           :source-char 34
-                                           :mask-font cursor-font
-                                           :mask-char 35
-                                           :foreground
-                                           (lookup-color (current-screen) "Black")
-                                           :background (lookup-color (current-screen) "White"))))
+         (cursor (xlib:create-glyph-cursor
+                  :source-font cursor-font
+                  :source-char 34
+                  :mask-font cursor-font
+                  :mask-char 35
+                  :foreground
+                  (lookup-color (current-screen) "Black")
+                  :background (lookup-color (current-screen) "White"))))
     (xlib:grab-keyboard (screen-root (current-screen)))
     (xlib:grab-pointer (screen-root (current-screen))
                        (xlib:make-event-mask :button-press)
                        :cursor cursor)
     (loop until (or canceled (and point-one point-two))
           do (xlib:event-case (*display*)
-               (:button-press
-                ()
-                (if (null point-one)
-                    (setf point-one (multiple-value-list
-                                     (xlib:global-pointer-position *display*)))
-                    (setf point-two (multiple-value-list
-                                     (xlib:global-pointer-position *display*)))))
-               (:key-press
-                ()
-                (setf canceled t)))
+                              (:button-press
+                               ()
+                               (if (null point-one)
+                                   (setf point-one (multiple-value-list
+                                                    (xlib:global-pointer-position *display*)))
+                                   (setf point-two (multiple-value-list
+                                                    (xlib:global-pointer-position *display*)))))
+                              (:key-press
+                               ()
+                               (setf canceled t)))
           finally (when (not canceled)
                     (let ((x-one (car point-one))
                           (y-one (cadr point-one))
@@ -102,28 +103,36 @@
   (bt:make-thread
    (lambda ()
      (catch-host-not-found
-       (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-       (message "copied")))))
+      (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
+      (message "copied")))))
+
+(defcommand screenshot-selection-copy () ()
+  (screenshot-selection "~/.stumpwm.d/tempfile.png")
+  (bt:make-thread
+   (lambda ()
+     (catch-host-not-found
+      (run-shell-command "xclip -selection clipboard -t image/png -i ~/.stumpwm.d/tempfile.png")
+      (message "copied")))))
 
 (defcommand screenshot-full-post () ()
   (screenshot-full "~/.stumpwm.d/tempfile.png")
   (bt:make-thread
    (lambda ()
      (catch-host-not-found
-       (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-       (message "copied")))))
+      (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
+      (message "copied")))))
 
 (defcommand post-clipboard-text () ()
   (let ((clipboard (get-x-selection nil :clipboard)))
     (bt:make-thread
      (lambda ()
        (catch-host-not-found
-         (set-x-selection (post clipboard "text/plain") :clipboard)
-         (message "copied"))))))
+        (set-x-selection (post clipboard "text/plain") :clipboard)
+        (message "copied"))))))
 
 (defcommand post-clipboard-redirect () ()
   (let ((clipboard (get-x-selection nil :clipboard)))
     (bt:make-thread
      (lambda ()
        (catch-host-not-found (set-x-selection (post clipboard "redirect") :clipboard)
-         (message "copied"))))))
+                             (message "copied"))))))
