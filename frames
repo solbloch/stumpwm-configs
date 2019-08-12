@@ -88,22 +88,14 @@
                          #S(GDUMP
                             :NUMBER 4
                             :NAME "강아지"
-                            :TREE ((#S(FDUMP
-                                       :NUMBER 1
-                                       :X 3840
-                                       :Y 0
-                                       :WIDTH 960
-                                       :HEIGHT 1080
-                                       :WINDOWS NIL
-                                       :CURRENT NIL)
-                                    #S(FDUMP
-                                       :NUMBER 0
-                                       :X 4800
-                                       :Y 0
-                                       :WIDTH 960
-                                       :HEIGHT 1080
-                                       :WINDOWS NIL
-                                       :CURRENT NIL))
+                            :TREE (#S(FDUMP
+                                      :NUMBER 1
+                                      :X 3840
+                                      :Y 0
+                                      :WIDTH 1920
+                                      :HEIGHT 1080
+                                      :WINDOWS NIL
+                                      :CURRENT NIL)
                                    #S(FDUMP
                                       :NUMBER 2
                                       :X 0
