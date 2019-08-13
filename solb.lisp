@@ -104,15 +104,14 @@
    (lambda ()
      (catch-host-not-found
       (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-      (message "copied")))))
+      (message "Copied link to clipboard.")))))
 
 (defcommand screenshot-selection-copy () ()
   (screenshot-selection "~/.stumpwm.d/tempfile.png")
   (bt:make-thread
    (lambda ()
-     (catch-host-not-found
       (run-shell-command "xclip -selection clipboard -t image/png -i ~/.stumpwm.d/tempfile.png")
-      (message "copied")))))
+      (message "Copied PHOTO to clipboard."))))
 
 (defcommand screenshot-full-post () ()
   (screenshot-full "~/.stumpwm.d/tempfile.png")
@@ -120,7 +119,7 @@
    (lambda ()
      (catch-host-not-found
       (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-      (message "copied")))))
+      (message "Copied link to clipboard.")))))
 
 (defcommand post-clipboard-text () ()
   (let ((clipboard (get-x-selection nil :clipboard)))
@@ -128,11 +127,11 @@
      (lambda ()
        (catch-host-not-found
         (set-x-selection (post clipboard "text/plain") :clipboard)
-        (message "copied"))))))
+        (message "Copied link to clipboard."))))))
 
 (defcommand post-clipboard-redirect () ()
   (let ((clipboard (get-x-selection nil :clipboard)))
     (bt:make-thread
      (lambda ()
        (catch-host-not-found (set-x-selection (post clipboard "redirect") :clipboard)
-                             (message "copied"))))))
+                             (message "Copied link to clipboard."))))))
