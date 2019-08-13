@@ -130,6 +130,7 @@
 (defvar *solb-commands*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "s") "screenshot-selection-post")
+    (define-key m (kbd "S") "screenshot-selection-copy")
     (define-key m (kbd "f") "screenshot-full-post")
     (define-key m (kbd "c") "post-clipboard-text")
     (define-key m (kbd "r") "post-clipboard-redirect")
