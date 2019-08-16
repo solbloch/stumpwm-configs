@@ -18,6 +18,7 @@
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
 (grename "아이유")
+(restore-from-file "/home/sol/.stumpwm.d/frames")
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
                  "~/.stumpwm.d/book.lisp"
@@ -34,7 +35,8 @@
                  "~/.stumpwm.d/openvpn.lisp"
                  "~/.stumpwm.d/keymap.lisp"
                  "~/.stumpwm.d/solb.lisp"
-                 "~/.stumpwm.d/mode-line.lisp"))
+                 "~/.stumpwm.d/mode-line.lisp"
+                 "~/.stumpwm.d/next.lisp"))
 
 
 (set-prefix-key (kbd "C-M-t"))
