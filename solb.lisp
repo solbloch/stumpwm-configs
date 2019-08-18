@@ -134,4 +134,7 @@
     (bt:make-thread
      (lambda ()
        (catch-host-not-found (set-x-selection (post clipboard "redirect") :clipboard)
-                             (message "Copied link to clipboard."))))))
+         (message "Copied link to clipboard."))))))
+
+(defcommand ssh-pull-and-reload () ()
+  (run-shell-command "ssh sol@solb.io bash /home/sol/scripts/updatebash"))
