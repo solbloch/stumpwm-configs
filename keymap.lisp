@@ -84,6 +84,7 @@
     (stumpwm:define-key m (stumpwm:kbd "b") "balance-frames")
     (stumpwm:define-key m (stumpwm:kbd "m") "mode-line")
     (stumpwm:define-key m (stumpwm:kbd "f") "fullscreen")
+    (stumpwm:define-key m (stumpwm:kbd "s") "fselect")
     (stumpwm:define-key m (stumpwm:kbd "F") "only")
     m))
 
@@ -134,6 +135,7 @@
     (define-key m (kbd "f") "screenshot-full-post")
     (define-key m (kbd "c") "post-clipboard-text")
     (define-key m (kbd "r") "post-clipboard-redirect")
+    (define-key m (kbd "C-r") "ssh-pull-and-reload")
     m))
 
 ;; Volume // Brightness Config
