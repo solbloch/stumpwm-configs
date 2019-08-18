@@ -1,3 +1,3 @@
 (defun load-next ()
-  (asdf:load-asd "/home/sol/Projects/next/next.asd")
+  (load "/home/sol/Projects/next/next.asd")
   (ql:quickload :next))
