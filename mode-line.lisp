@@ -15,8 +15,7 @@
         "on")))
 
 (defun time? ()
-  (let ((days '("월요일" "화요일" "수요일" "목요일" "금요일" "토요일" "일요일"))
-        (months '("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")))
+  (let ((days '("월요일" "화요일" "수요일" "목요일" "금요일" "토요일" "일요일")))
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
