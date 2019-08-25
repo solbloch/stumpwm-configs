@@ -2,8 +2,7 @@
 
 (load "/home/sol/Projects/lispotify/lispotify.asd")
 
-(ql:quickload :lispotify)
-(ql:quickload :jsown)
+(ql:quickload '(:lispotify :jsown))
 
 (defvar *spotify-keymap*
   (let ((m (make-sparse-keymap)))
@@ -23,13 +22,13 @@
              (results-alist
                (loop for i in results
                      collecting
-                     `(,(concatenate 'string (jsown:val i "name") " - "
-                                     (jsown:val (jsown:val i "album")
-                                                "name")
-                                     " - "
-                                     (format nil "~{~a~^ & ~}"
-                                             (loop for artist in (jsown:val i "artists")
-                                                   collecting (jsown:val artist "name"))))
+                     `(,(str:concat (jsown:val i "name") " - "
+                                    (jsown:val (jsown:val i "album")
+                                               "name")
+                                    " - "
+                                    (format nil "~{~a~^ & ~}"
+                                            (loop for artist in (jsown:val i "artists")
+                                                  collecting (jsown:val artist "name"))))
                        (,(jsown:val i "uri") ,(jsown:val (jsown:val i "external_urls") "spotify")))))
              (choice (select-from-menu (current-screen)
                                        results-alist nil 0 *spotify-keymap*)))

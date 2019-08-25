@@ -1,7 +1,5 @@
 (in-package :stumpwm)
 
-(ql:quickload '(:cl-async :bordeaux-threads))
-
 (defparameter *mode-line-shell* (uiop:launch-program "bash" :input :stream :output :stream))
 
 (defun async-run (command)
@@ -11,8 +9,7 @@
          (stream (uiop:process-info-output *mode-line-shell*)))
     (if (listen stream)
         (loop while (listen stream)
-              do (setf output-string (concatenate 'string
-                                                  output-string
-                                                  '(#\Newline)
-                                                  (read-line stream)))))
+              do (setf output-string (str:concat output-string
+                                                 '(#\Newline)
+                                                 (read-line stream)))))
     output-string))

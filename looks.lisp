@@ -30,7 +30,7 @@
   `(defcommand ,name () ()
      (stumpwm:set-focus-color ,focus)
      (stumpwm:set-unfocus-color ,unfocus)
-     (stumpwm:run-shell-command (concatenate 'string "feh --bg-scale '" ,picture "'"))))
+     (stumpwm:run-shell-command (str:concat "feh --bg-scale '" ,picture "'"))))
 
 (deftheme yoshis
     (:focus "#CF3C56"

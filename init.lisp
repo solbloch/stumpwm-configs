@@ -2,9 +2,7 @@
 
 (load "~/quicklisp/setup.lisp")
 
-(ql:quickload :clx-truetype)
-(ql:quickload :swank)
-
+(ql:quickload '(:clx-truetype :swank :str :cl-ppcre :uiop :cl-async :bordeaux-threads :zpng))
 
 (when *initializing*
     (require :swank)

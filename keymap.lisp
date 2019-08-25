@@ -50,7 +50,6 @@
     (stumpwm:define-key m (stumpwm:kbd "e") "emacs-fixed")
     (stumpwm:define-key m (stumpwm:kbd "u") "run-shell-command 'st'")
     (stumpwm:define-key m (stumpwm:kbd "s") "spotify")
-    (stumpwm:define-key m (stumpwm:kbd "S") "slack")
     (stumpwm:define-key m (stumpwm:kbd "c") "run-shell-command google-chrome-stable")
     (stumpwm:define-key m (stumpwm:kbd "r") "ripcord")
     (stumpwm:define-key m (stumpwm:kbd "d") "run-shell-command dolphin")

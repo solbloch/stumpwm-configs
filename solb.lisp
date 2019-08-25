@@ -1,7 +1,5 @@
 (in-package :stumpwm)
 
-(ql:quickload :zpng)
-
 (defun screenshot-drawable (drawable file &key
                                             (height (xlib:drawable-height drawable))
                                             (width (xlib:drawable-width drawable))

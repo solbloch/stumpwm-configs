@@ -13,4 +13,4 @@
                                         (namestring i))) nil 0 nil)))
     (if (null choice)
         (throw 'error "Aborted.")
-        (run-shell-command (concatenate 'string "evince \"" (cadr choice) "\"")))))
+        (run-shell-command (str:concat "evince \"" (cadr choice) "\"")))))

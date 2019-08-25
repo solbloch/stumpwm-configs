@@ -9,7 +9,7 @@
   (run-shell-command "redshift -l 43.048122:-76.147423"))
 
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
-  (run-shell-command (concatenate 'string "redshift -O " (write-to-string temp))))
+  (run-shell-command (str:concat "redshift -O " (write-to-string temp))))
 
 (defcommand all-windowlist (&optional (fmt *window-format*)
                             window-list) (:rest)
@@ -44,10 +44,7 @@
 (defcommand spotify () ()
   (run-or-raise "spotify" '(:class "Spotify")))
 
-(defcommand slack () ()
-  (run-or-raise "slack" '(:class "Slack")))
-
 (defun percent (perc)
   (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
-    (message (concatenate 'string on-string
+    (message (str:concat on-string
                           (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))

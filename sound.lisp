@@ -1,6 +1,7 @@
 (in-package :stumpwm)
 
-(ql:quickload :cl-ppcre)
+(defun get-active-sink ()
+  (str:trim (run-shell-command "pactl list short sinks | awk '/RUNNING/{print $1}'" t)))
 
 (defun list-sinks ()
   (cl-ppcre:all-matches-as-strings "\\S*alsa_output\\S*"
@@ -31,7 +32,7 @@
 ;;   (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
 
 (defun get-volume ()
-  (run-shell-command "awk -F\"[][]\" '/dB/ { print $2 }' <(amixer sget Master)" t))
+  (parse-integer (first (cl-ppcre:split "\ " (run-shell-command "pulseaudio-ctl full-status" t)))))
 
 (defun echo-volume ()
   (message (get-volume)))
@@ -52,14 +53,12 @@
 ;;     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-up () ()
-  (run-shell-command "amixer set Master 5%+" nil)
-  (let ((volume (get-volume)))
-    (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
+  (run-shell-command "pulseaudio-ctl up 5" t)
+  (percent (get-volume)))
 
 (defcommand volume-down () ()
-  (run-shell-command "amixer set Master 5%-" nil)
-  (let ((volume (get-volume)))
-    (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
+  (run-shell-command "pulseaudio-ctl down 5" t)
+  (percent (get-volume)))
 
 (defcommand volume-mute () ()
   (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') toggle" t)

@@ -1,7 +1,5 @@
 (in-package :stumpwm)
 
-(ql:quickload :uiop)
-
 (defvar *vpn-directory* #P"~/GOOGLE/vpn/")
 
 (defun vpn-config-list () (uiop:directory-files *vpn-directory*))
@@ -9,13 +7,12 @@
 (defun open-vpn (path)
   "takes a path and asks for sudo, then opens the process that splits off, then kills the process that opened it"
   (let ((password (read-one-line (current-screen) "sudo password: " :password t))
-        (command (concatenate 'string
-                              "sudo -S openvpn --cd "
-                              (namestring *vpn-directory*)
-                              " --config "
-                              "'" path "'")))
+        (command (str:concat "sudo -S openvpn --cd "
+                             (namestring *vpn-directory*)
+                             " --config "
+                             "'" path "'")))
     (with-open-stream (st (make-string-input-stream password))
-        (uiop:launch-program command :input st))))
+      (uiop:launch-program command :input st))))
 
 
 
