@@ -48,3 +48,9 @@
   (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
     (message (str:concat on-string
                           (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))
+
+(defcommand fix-audio () ()
+  (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
+
+(defcommand sleep-pc () ()
+  (run-shell-command "sleep 1; xset dpms force off"))
