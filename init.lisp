@@ -2,6 +2,7 @@
 
 (load "~/quicklisp/setup.lisp")
 
+(ql:quickload :alexandria)
 (ql:quickload '(:clx-truetype :swank :str :cl-ppcre :uiop :cl-async :bordeaux-threads :zpng))
 
 (when *initializing*
@@ -16,7 +17,11 @@
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
 (grename "아이유")
-(restore-from-file "/home/sol/.stumpwm.d/frames")
+(gnew "백예린")
+(gnew "후디")
+(gnew "레드벨벳")
+
+;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
                  "~/.stumpwm.d/book.lisp"
