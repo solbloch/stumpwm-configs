@@ -81,13 +81,13 @@
   (screenshot-drawable (xlib:screen-root (screen-number (current-screen))) filename))
 
 (defun post (data type)
-  (dex:post "http://solb.io:2500/fileupload"
+  (dex:post "https://backend.solb.io/fileupload"
             :content `(("file"  . ,data)
                        ("token" . ,*solb-token*)
                        ("type"  . ,type))))
 
 (defun post-redirect (link)
-  (dex:post "http://solb.io:2500/shorten"
+  (dex:post "https://backend.solb.io/shorten"
             :content `(("redirect"  . ,link)
                        ("token" . ,*solb-token*))))
 
