@@ -44,10 +44,20 @@
             nil
             (lispotify:play-spotify-uri (car (second choice)))))))
 
+(defcommand spotify-metadata () ()
+  (let* ((raw-output
+           (run-shell-command
+            "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:\"org.mpris.MediaPlayer2.Player\" string:'Metadata'" t))
+         (split (cl-ppcre:all-matches-as-strings "(string|double|int32|uint64)(.*)" raw-output))
+         (type-less (mapcar (lambda (x) (cl-ppcre:regex-replace-all
+                                          "(string|double|int32|uint64) (.*)"
+                                          x "\\2")) split))
+         (cleaned (mapcar (lambda (x) (remove #\" (cl-ppcre:regex-replace-all
+                                        "(mpris:|xesam:)(.*)"
+                                        x "\\2"))) type-less)))
+    (loop for i from 0 to (1- (length cleaned)) by 2
+          collecting (cons (nth i cleaned) (nth (1+ i) cleaned)))))
+
 (defcommand copy-current-song-url () ()
-  (let ((raw-output
-          (run-shell-command
-           "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:\"org.mpris.MediaPlayer2.Player\" string:'Metadata' | grep -Eo '(\"(.*)\")|(\b[0-9][a-zA-Z0-9.]*\b)'" t)))
-    (set-x-selection
-     (str:substring 1 -1 (first (last (cl-ppcre:all-matches-as-strings "\"(.*)\"" raw-output))))
-     :clipboard)))
+  (let ((metadata (spotify-metadata)))
+    (set-x-selection (cdr (assoc "url" metadata :test #'string=)) :clipboard)))
