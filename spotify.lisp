@@ -60,4 +60,7 @@
 
 (defcommand copy-current-song-url () ()
   (let ((metadata (spotify-metadata)))
-    (set-x-selection (cdr (assoc "url" metadata :test #'string=)) :clipboard)))
+    (set-x-selection (cdr (assoc "url" metadata :test #'string=)) :clipboard)
+    (echo (str:concat "Link to ^6" (cdr (assoc "title" metadata :test #'string=))
+                      " - " (cdr (assoc "artist" metadata :test #'string=))
+                      " ^7copied."))))
