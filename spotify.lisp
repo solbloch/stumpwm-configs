@@ -4,13 +4,13 @@
 
 (ql:quickload '(:lispotify :jsown))
 
-(define-key stumpwm:*top-map* (stumpwm:kbd "s-m") *spotify-keymap*)
-
 (defvar *spotify-keymap*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c") "copy-current-song-url")
     (define-key m (kbd "s") "search-track")
     m))
+
+(define-key stumpwm:*top-map* (stumpwm:kbd "s-m") *spotify-keymap*)
 
 (defvar *spotify-menu-keymap*
   (let ((m (make-sparse-keymap)))
