@@ -143,5 +143,6 @@
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioMute") "volume-mute")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioPlay") "run-shell-command dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
 (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioPrev") "run-shell-command dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioNext") "run-shell-command dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") (stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86MonBrightnessUp") "run-shell-command sudo xbacklight -inc 10")
-(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86MonBrightnessDown") "run-shell-command sudo xbacklight -dec 10")
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioNext") "run-shell-command dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86MonBrightnessUp") "run-shell-command xbacklight -inc 10")
+(stumpwm:define-key stumpwm:*top-map* (stumpwm:kbd "XF86MonBrightnessDown") "run-shell-command xbacklight -dec 10")
