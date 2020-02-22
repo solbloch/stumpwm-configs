@@ -26,41 +26,43 @@
   (mode-line))
 
 ;;; a bunch of commands that are themes :)
+(defvar *background-location* "/home/sol/Pictures/backgrounds/")
+
 (defmacro deftheme (name (&key focus unfocus picture))
   `(defcommand ,name () ()
      (stumpwm:set-focus-color ,focus)
      (stumpwm:set-unfocus-color ,unfocus)
-     (stumpwm:run-shell-command (str:concat "feh --bg-scale '" ,picture "'"))))
+     (stumpwm:run-shell-command (str:concat "feh --bg-scale '",*background-location* ,picture "'"))))
 
 (deftheme yoshis
     (:focus "#CF3C56"
      :unfocus "#521420"
-     :picture "/home/sol/GOOGLE/backgrounds/stages/yoshis story.jpg"))
+     :picture "stages/yoshis story.jpg"))
 
 (deftheme bf
     (:focus "#52486A"
      :unfocus "#16041C"
-     :picture "/home/sol/GOOGLE/backgrounds/stages/battlefield.png"))
+     :picture "stages/battlefield.png"))
 
 (deftheme fod
     (:focus "#486398"
      :unfocus "#101f30"
-     :picture "/home/sol/GOOGLE/backgrounds/stages/fountain of dreams.png"))
+     :picture "stages/fountain of dreams.png"))
 
 (deftheme dl
     (:focus "#137724"
      :unfocus "#072f0e"
-     :picture "/home/sol/GOOGLE/backgrounds/stages/dreamland.png"))
+     :picture "stages/dreamland.png"))
 
 (deftheme fd
     (:focus "#5A0C90"
      :unfocus "#1E0331"
-     :picture "/home/sol/GOOGLE/backgrounds/stages/final destination.png"))
+     :picture "stages/final destination.png"))
 
 (deftheme jupiter
     (:focus "#5A0C90"
      :unfocus "#1E0331"
-     :picture "/home/sol/GOOGLE/backgrounds/space/jupiter.png"))
+     :picture "space/jupiter.png"))
 
 (defun random-command (commands)
   (run-commands (nth (random (length commands)) commands)))
