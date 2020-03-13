@@ -32,7 +32,7 @@
 ;;   (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
 
 (defun get-volume ()
-  (parse-integer (first (cl-ppcre:split "\ " (run-shell-command "pulseaudio-ctl full-status" t)))))
+  (parse-integer (run-shell-command "pamixer --get-volume" t)))
 
 (defun echo-volume ()
   (message (get-volume)))
@@ -53,11 +53,11 @@
 ;;     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
 
 (defcommand volume-up () ()
-  (run-shell-command "pulseaudio-ctl up 5" t)
+  (run-shell-command "pamixer -i 5" t)
   (percent (get-volume)))
 
 (defcommand volume-down () ()
-  (run-shell-command "pulseaudio-ctl down 5" t)
+  (run-shell-command "pamixer -d 5" t)
   (percent (get-volume)))
 
 (defcommand volume-mute () ()
