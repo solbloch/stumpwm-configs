@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(defvar *vpn-directory* #P"~/GOOGLE/vpn/")
+(defvar *vpn-directory* #P"~/Documents/vpn/")
 
 (defun vpn-config-list () (uiop:directory-files *vpn-directory*))
 
