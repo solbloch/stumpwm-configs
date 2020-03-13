@@ -28,5 +28,5 @@
               (nth day-of-week days)))))
 
 (defun cpu-temp ()
-  (with-open-file (file "/sys/class/hwmon/hwmon2/temp1_input")
+  (with-open-file (file "/sys/class/hwmon/hwmon0/temp1_input")
     (format nil "~a" (float (/ (read file) 1000)))))
