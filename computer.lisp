@@ -4,14 +4,17 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list
-       "%g             ^> | "
+       "%g^> | "
+       '(:eval (battery-string))
+       " | "
        '(:eval (cpu-temp))
        "° | "
        '(:eval (time?))
        "    "
        '(:eval (network-state))))
 
-(set-font (make-instance 'xft:font :family "NanumGothicCoding" :subfamily "Regular" :size 16))
+;; (set-font (make-instance 'xft:font :family "NanumGothicCoding" :subfamily "Regular" :size 16))
+(set-font (make-instance 'xft:font :family "TerminessTTF Nerd Font" :subfamily "Medium" :size 16))
 
 (run-with-timer
  900 900
