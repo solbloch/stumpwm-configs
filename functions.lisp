@@ -39,7 +39,7 @@
 
 
 (defcommand emacs-fixed () ()
-  (run-or-raise "env LC_CTYPE=ko_KR.UTF-8 emacs" '(:class "Emacs")))
+  (run-or-raise "emacsclient -c" '(:class "Emacs")))
 
 (defcommand spotify () ()
   (run-or-raise "spotify" '(:class "Spotify")))

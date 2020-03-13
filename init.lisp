@@ -6,11 +6,12 @@
 (ql:quickload '(:clx-truetype :swank :str :cl-ppcre :uiop :cl-async :bordeaux-threads :zpng))
 
 (when *initializing*
-    (require :swank)
-    (swank-loader:init)
-    (swank:create-server :port 4004
-                         :style swank:*communication-style*
-                         :dont-close t))
+  (run-shell-command "emacs --daemon")
+  (require :swank)
+  (swank-loader:init)
+  (swank:create-server :port 4004
+                       :style swank:*communication-style*
+                       :dont-close t))
 
 ;; packages !
 (load-module "swm-gaps")
