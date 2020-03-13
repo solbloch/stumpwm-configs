@@ -16,10 +16,10 @@
 (load-module "swm-gaps")
 (load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
 
-(grename "아이유")
-(gnew "백예린")
-(gnew "후디")
-(gnew "레드벨벳")
+(grename "1")
+(gnew "2")
+(gnew "3")
+(gnew "4")
 
 ;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 
@@ -38,6 +38,7 @@
                  "~/.stumpwm.d/openvpn.lisp"
                  "~/.stumpwm.d/keymap.lisp"
                  "~/.stumpwm.d/solb.lisp"
+                 "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/next.lisp"))
 
