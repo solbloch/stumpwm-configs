@@ -2,8 +2,16 @@
 
 (load "~/quicklisp/setup.lisp")
 
-(ql:quickload :alexandria)
-(ql:quickload '(:clx-truetype :swank :str :cl-ppcre :uiop :cl-async :bordeaux-threads :zpng))
+(ql:quickload '(:alexandria
+                :bordeaux-threads
+                :cl-async
+                :cl-inotify
+                :cl-ppcre
+                :clx-truetype
+                :swank
+                :str
+                :uiop
+                :zpng))
 
 (when *initializing*
   (run-shell-command "emacs --daemon")
@@ -26,6 +34,7 @@
 
 (mapcar #'load '("~/.stumpwm.d/async.lisp"
                  "~/.stumpwm.d/book.lisp"
+                 "~/.stumpwm.d/config-sync.lisp"
                  "~/.stumpwm.d/token.lisp"
                  "~/.stumpwm.d/computer.lisp"
                  "~/.stumpwm.d/spotify.lisp"
