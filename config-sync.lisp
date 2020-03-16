@@ -9,7 +9,7 @@
 (defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance)))
 
 (defun rsync-file (path)
-  (run-shell-command (str:concat "rsync -a " path " " *remote-location*) t))
+  (run-shell-command (str:concat "rsync -a " path " " *remote-location*)))
 
 (defun contiously-sync-file (path)
   (with-inotify (inot t (path :close-write))
@@ -19,6 +19,7 @@
 
 (if *initializing*
     (loop for path in *config-list*
-          do (bt:make-thread (lambda ()
-                               (rsync-file path)
-                               (contiously-sync-file path)))))
+          do (progn
+               (rsync-file path)
+               (bt:make-thread (lambda ()
+                                 (contiously-sync-file path))))))
