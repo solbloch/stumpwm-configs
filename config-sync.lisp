@@ -6,7 +6,7 @@
                             "/home/sol/.zshrc"
                             "/home/sol/.config/picom.conf"))
 
-(defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance)))
+(defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance) "/"))
 
 (defun rsync-file (path)
   (run-shell-command (str:concat "rsync -a " path " " *remote-location*)))
