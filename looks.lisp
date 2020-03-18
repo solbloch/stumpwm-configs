@@ -1,5 +1,7 @@
 (in-package :stumpwm)
 
+(run-shell-command "picom")
+
 ;; mode-line config !
 (setf *mode-line-timeout* 1
       *window-format* "%s%15t"
