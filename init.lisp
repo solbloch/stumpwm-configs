@@ -52,6 +52,7 @@
                  "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/gaps-fullscreen.lisp"
+                 "~/.stumpwm.d/auto-tile.lisp"
                  "~/.stumpwm.d/next.lisp"))
 
 
