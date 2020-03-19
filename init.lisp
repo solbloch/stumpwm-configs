@@ -27,9 +27,9 @@
                         "net"))
 
 (grename "1")
-(gnew "2")
-(gnew "3")
-(gnew "4")
+(gnewbg "2")
+(gnewbg "3")
+(gnewbg "4")
 
 ;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 
@@ -52,7 +52,7 @@
                  "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/gaps-fullscreen.lisp"
-                 "~/.stumpwm.d/auto-tile.lisp"
+                 ;; "~/.stumpwm.d/auto-tile.lisp"
                  "~/.stumpwm.d/next.lisp"))
 
 
