@@ -50,6 +50,7 @@
                  "~/.stumpwm.d/solb.lisp"
                  "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
+                 "~/.stumpwm.d/gaps-fullscreen.lisp"
                  "~/.stumpwm.d/next.lisp"))
 
 
