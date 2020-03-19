@@ -22,8 +22,9 @@
                        :dont-close t))
 
 ;; packages !
-(load-module "swm-gaps")
-(load-module "ttf-fonts") ;fuck you ttf-fonts you broke my config you evil evil rendering
+(mapcar #'load-module '("swm-gaps"
+                        "ttf-fonts"
+                        "net"))
 
 (grename "1")
 (gnew "2")

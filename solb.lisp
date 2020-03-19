@@ -76,8 +76,7 @@
     (xlib:ungrab-pointer *display*)
     (xlib:ungrab-keyboard *display*)))
 
-(defun screenshot-full
-    (filename)
+(defun screenshot-full (filename)
   (screenshot-drawable (xlib:screen-root (screen-number (current-screen))) filename))
 
 (defun post (data type)

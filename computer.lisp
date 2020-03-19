@@ -4,7 +4,7 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list
-       "%g^> | "
+       "%g^> | %l | "
        '(:eval (battery-string))
        " | "
        '(:eval (cpu-temp))
