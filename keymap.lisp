@@ -18,6 +18,7 @@
 (define-key *top-map* (kbd "s-G") "greek-menu")
 (define-key *top-map* (kbd "s-F") "fullscreen")
 (define-key *top-map* (kbd "s-b") "open-book")
+(define-key *top-map* (kbd "s-c") "clipboard")
 
 (define-key *top-map* (kbd "s-`") "gselect -1")
 (define-key *top-map* (kbd "s-1") "gselect 1")
@@ -28,7 +29,7 @@
 
 (define-key *top-map* (kbd "s-w") '*helpful-things*)
 (define-key *top-map* (kbd "s-S") '*solb-commands*)
-(define-key *top-map* (kbd "s-c") '*vpn-commands*)
+(define-key *top-map* (kbd "s-x") '*vpn-commands*)
 (define-key *top-map* (kbd "s-A") '*looks-feels*)
 (define-key *top-map* (kbd "s-g") '*group-bindings*)
 (define-key *top-map* (kbd "s-f") '*frame-bindings*)
@@ -39,13 +40,14 @@
 (defvar *application-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "e") "emacs-fixed")
-    (define-key m (kbd "u") "run-shell-command 'st'")
+    (define-key m (kbd "u") "run-shell-command st")
     (define-key m (kbd "s") "spotify")
     (define-key m (kbd "c") "run-shell-command google-chrome-stable")
     (define-key m (kbd "r") "ripcord")
     (define-key m (kbd "d") "run-shell-command dolphin")
     (define-key m (kbd "D") "darktable")
     (define-key m (kbd "t") "telegram")
+    (define-key m (kbd "v") "run-shell-command pavucontrol")
     m))
 
 
@@ -97,6 +99,7 @@
     (define-key m (kbd "g") "toggle-gaps")
     (define-key m (kbd "s") "second-screen")
     (define-key m (kbd "r") '*redshift-levels*)
+    (define-key m (kbd "f") "fix-discord")
     m))
 
 
