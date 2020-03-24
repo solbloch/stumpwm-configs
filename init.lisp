@@ -54,6 +54,8 @@
                  "~/.stumpwm.d/mode-line.lisp"
                  "~/.stumpwm.d/gaps-fullscreen.lisp"
                  ;; "~/.stumpwm.d/auto-tile.lisp"
+                 "~/.stumpwm.d/ring.lisp"
+                 "~/.stumpwm.d/clipboard-history.lisp"
                  "~/.stumpwm.d/next.lisp"))
 
 
