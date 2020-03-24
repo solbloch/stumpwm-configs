@@ -13,8 +13,14 @@
        "    "
        '(:eval (network-state))))
 
-;; (set-font (make-instance 'xft:font :family "NanumGothicCoding" :subfamily "Regular" :size 16))
-(set-font (make-instance 'xft:font :family "TerminessTTF Nerd Font" :subfamily "Medium" :size 16))
+;; (set-font (make-instance 'xft:font :family "WenQuanYi Micro Hei" :subfamily "Regular" :size 16))
+(set-font (list
+           (make-instance 'xft:font :family "TerminessTTF Nerd Font"
+                                    :subfamily "Medium"
+                                    :size 16)
+           (make-instance 'xft:font :family "NanumGothicCoding"
+                                    :subfamily "Regular"
+                                    :size 16)))
 
 (run-with-timer
  900 900
