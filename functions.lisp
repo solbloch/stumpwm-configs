@@ -49,8 +49,20 @@
     (message (str:concat on-string
                           (make-string (- 20 (floor (/ perc 5))) :initial-element #\ )))))
 
-(defcommand fix-audio () ()
-  (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
+;; (defcommand fix-audio () ()
+;;   (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
 
 (defcommand sleep-pc () ()
   (run-shell-command "sleep 1; xset dpms force off"))
+
+(defcommand fix-discord () ()
+  (run-shell-command
+   (str:concat "pacmd set-card-profile"
+                                 "alsa_card.usb-046d_0825_C4BFA9D0-02"
+                                 "off"))
+  (sleep .01)
+  (run-shell-command
+   (str:concat "pacmd set-card-profile"
+                                 "alsa_card.usb-046d_0825_C4BFA9D0-02"
+                                 "input:multichannel-input"))
+  (send-fake-key (current-window) (kbd "C-r")))
