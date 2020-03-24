@@ -11,6 +11,5 @@
                                   collecting
                                   (list (nth 5 (cl-ppcre:split "/" (namestring i)))
                                         (namestring i))) nil 0 nil)))
-    (if (null choice)
-        (throw 'error "Aborted.")
+    (when choice
         (run-shell-command (str:concat "evince \"" (cadr choice) "\"")))))

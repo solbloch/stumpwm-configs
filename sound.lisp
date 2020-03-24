@@ -24,8 +24,7 @@
                                   (loop for sink in (list-sinks)
                                         collecting (list sink sink))
                                   nil 0 nil)))
-    (if (null choice)
-        nil
+    (when choice
         (switch-sink (car choice)))))
 
 ;; (defun get-volume ()

@@ -29,16 +29,14 @@
                                   collecting
                                   (list (nth 5 (cl-ppcre:split "/" (namestring i)))
                                         (namestring i))) nil 0 nil)))
-    (if (null choice)
-        (throw 'error "Aborted.")
+    (when choice
         (if (open-vpn (cadr choice))
             (message "Connected...?")
-            (message "Broken, homie.")))))
+            (message "Broken.")))))
 
 
 (defcommand kill-vpn-menu () ()
   (when-let ((open-vpns (list-open-vpns)))
     (let ((choice (select-from-menu (current-screen) open-vpns nil 0 nil)))
-      (if (null choice)
-          (throw 'error "Aborted.")
+      (when choice
           (sudo-terminate (cadr choice))))))

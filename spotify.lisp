@@ -40,8 +40,7 @@
                        (,(jsown:val i "uri") ,(jsown:val (jsown:val i "external_urls") "spotify")))))
              (choice (select-from-menu (current-screen)
                                        results-alist nil 0 *spotify-menu-keymap*)))
-        (if (null choice)
-            nil
+        (when choice
             (lispotify:play-spotify-uri (car (second choice)))))))
 
 (defcommand spotify-metadata () ()
