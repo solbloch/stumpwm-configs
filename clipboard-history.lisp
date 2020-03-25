@@ -6,6 +6,20 @@
 
 (defvar *clipboard-ring* (make-ring :size *clipboard-history-size*))
 
+(defun post-text (menu)
+  (let ((text (cadr (nth (menu-selected menu) (menu-table menu)))))
+    (bt:make-thread
+     (lambda ()
+       (catch-host-not-found
+         (set-x-selection (post text "text/plain") :clipboard)
+         (message "Copied link to clipboard."))))
+    (throw :menu-quit nil)))
+
+(defun show-text (menu)
+  (let ((text (cadr (nth (menu-selected menu) (menu-table menu)))))
+    (message text)
+    (sleep .8)))
+
 (defvar *clipboard-menu-keymap*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c") #'post-text)
@@ -18,20 +32,6 @@
       (insert *clipboard-ring* clip-string))))
 
 (defvar *clipboard-timer* (run-with-timer 1 1 (lambda () (remember-clipboard))))
-
-(defun post-text (menu)
-  (let ((text (cadr (nth (menu-selected menu) (menu-table menu)))))
-    (bt:make-thread
-    (lambda ()
-      (catch-host-not-found
-        (set-x-selection (post text "text/plain") :clipboard)
-        (message "Copied link to clipboard."))))
-    (throw :menu-quit nil)))
-
-(defun show-text (menu)
-  (let ((text (cadr (nth (menu-selected menu) (menu-table menu)))))
-    (message text)
-    (sleep .8)))
 
 (defun clipboard-alist ()
   (let ((clipboard-items (recent-list *clipboard-ring*)))
