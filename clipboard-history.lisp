@@ -2,7 +2,7 @@
 
 (defvar *clipboard-history-size* 50)
 
-(defvar *clipboard-menu-max-length* 40)
+(defvar *clipboard-menu-max-length* 60)
 
 (defvar *clipboard-ring* (make-ring :size *clipboard-history-size*))
 
@@ -31,7 +31,7 @@
 (defun show-text (menu)
   (let ((text (cadr (nth (menu-selected menu) (menu-table menu)))))
     (message text)
-    (sleep .5)))
+    (sleep .8)))
 
 (defun clipboard-alist ()
   (let ((clipboard-items (recent-list *clipboard-ring*)))
