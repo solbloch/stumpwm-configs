@@ -1,7 +1,7 @@
 (in-package :stumpwm)
 
 ;; this is the best thing VIMIFY :-)
-(define-key *input-map* (kbd "C-w") ':input-backward-kill-word)
+(define-key *input-map* (kbd "C-w") 'input-backward-kill-word)
 
 
 ;; top map stuff
