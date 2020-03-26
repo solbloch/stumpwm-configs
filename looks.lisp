@@ -1,6 +1,7 @@
 (in-package :stumpwm)
 
 (run-shell-command "picom")
+(run-shell-command "redshift -l 43.0481:-76.1474 -t 6300:4000")
 
 ;; mode-line config !
 (setf *mode-line-timeout* 1
