@@ -5,9 +5,6 @@
    "delete-window"
    "remove-split"))
 
-(defcommand redshift () ()
-  (run-shell-command "redshift -l 43.048122:-76.147423"))
-
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
   (run-shell-command (str:concat "redshift -O " (write-to-string temp))))
 
