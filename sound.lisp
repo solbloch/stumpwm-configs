@@ -25,40 +25,27 @@
                                         collecting (list sink sink))
                                   nil 0 nil)))
     (when choice
-        (switch-sink (car choice)))))
-
-;; (defun get-volume ()
-;;   (run-shell-command "pactl list sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/^[[:space:]]Volume:/{i++}i==sink{print $5; exit}'" t))
+      (switch-sink (car choice)))))
 
 (defun get-volume ()
-  (parse-integer (run-shell-command "pamixer --get-volume" t)))
+  (parse-integer (run-shell-command "pamixer --get-volume-human" t) :junk-allowed t))
 
 (defun echo-volume ()
-  (message (get-volume)))
-
-(defun echo-mute ()
-  (if (search "no" (run-shell-command "pacmd list-sinks | awk -v sink=$(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') '/muted/{i++}i==sink{print; exit}'" t))
-      (message "unmuted")
-      (message "muted")))
-
-;; (defcommand volume-up () ()
-;;   (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') +5%" t)
-;;   (let ((volume (get-volume)))
-;;     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
-
-;; (defcommand volume-down () ()
-;;   (run-shell-command "pactl set-sink-volume $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') -5%" t)
-;;   (let ((volume (get-volume)))
-;;     (percent (parse-integer (subseq volume 0 (- (length volume) 2))))))
+  (let ((vol (get-volume)))
+    (if vol
+        (percent vol)
+        (message "Muted"))))
 
 (defcommand volume-up () ()
   (run-shell-command "pamixer -i 5" t)
-  (percent (get-volume)))
+  (echo-volume))
 
 (defcommand volume-down () ()
   (run-shell-command "pamixer -d 5" t)
-  (percent (get-volume)))
+  (echo-volume))
 
 (defcommand volume-mute () ()
-  (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') toggle" t)
-  (echo-mute))
+  (run-shell-command "pamixer -t")
+  (echo-volume))
+
+;; (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') toggle" t)
