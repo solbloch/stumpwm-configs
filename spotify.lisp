@@ -8,6 +8,8 @@
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c") "copy-current-song-url")
     (define-key m (kbd "s") "search-track")
+    (define-key m (kbd "p") "play-playlist")
+    (define-key m (kbd "TAB") "echo-current-song")
     m))
 
 (defvar *spotify-menu-keymap*
@@ -22,13 +24,43 @@
   (throw :menu-quit nil)
   (message "copied."))
 
-(defvar scopes "user-read-playback-state user-read-recently-played user-read-currently-playing user-modify-playback-state")
+(defvar scopes "user-read-playback-state user-read-recently-played user-read-currently-playing user-modify-playback-state playlist-read-private playlist-read-collaborative")
 
 (defvar *spotify-oauth* (lispotify:make-spotify-oauth id secret redirect scopes nil))
+
+(defmacro multi-val (item &rest vals)
+  (if vals
+      `(jsown:val (multi-val ,item ,@(butlast vals)) ,(car (last vals)))
+      item))
 
 (defun authorization-header ()
   `(("Authorization"
      . ,(str:concat "Bearer " (jsown:val (lispotify:token *spotify-oauth*) "access_token")))))
+
+(defun get-playlists ()
+  (let ((raw-results (lispotify:with-token *spotify-oauth*
+                       (dex:get "https://api.spotify.com/v1/me/playlists?limit=50"
+                                :headers (authorization-header)))))
+    (loop for playlist in (jsown:val (jsown:parse raw-results) "items")
+          collecting (list (format nil "~a [~a (~a)]"
+                                   (jsown:val playlist "name")
+                                   (multi-val playlist "owner" "display_name")
+                                   (multi-val playlist "owner" "id"))
+                           (jsown:val playlist "uri")))))
+
+(defun get-current-song ()
+  (lispotify:with-token *spotify-oauth*
+    (let ((request (dex:get "https://api.spotify.com/v1/me/player/currently-playing"
+                            :headers (authorization-header))))
+      (when (not (emptyp request))
+        request))))
+
+(defun play-context-uri (context-uri)
+  (lispotify:with-token *spotify-oauth*
+    (let ((uri-json (jsown:to-json `(:obj ("context_uri". ,context-uri)))))
+      (dex:put "https://api.spotify.com/v1/me/player/play"
+               :headers (authorization-header)
+               :content uri-json))))
 
 (defun play-song (song-uri)
   (lispotify:with-token *spotify-oauth*
@@ -48,7 +80,7 @@
                                      :headers (authorization-header))
                           (dex:http-request-failed (e)
                             (format nil "~a" e)))))
-      (jsown:val (jsown:val (jsown:parse raw-results) "tracks") "items"))))
+      (multi-val (jsown:parse raw-results) "tracks" "items"))))
 
 (defcommand search-track (track) ((:string "track: "))
   (if (null track)
@@ -58,35 +90,42 @@
                (loop for i in results
                      collecting
                      `(,(str:concat (jsown:val i "name") " - "
-                                    (jsown:val (jsown:val i "album")
-                                               "name")
+                                    (multi-val i "album" "name")
                                     " - "
                                     (format nil "~{~a~^ & ~}"
                                             (loop for artist in (jsown:val i "artists")
                                                   collecting (jsown:val artist "name"))))
-                       (,(jsown:val i "uri") ,(jsown:val (jsown:val i "album") "uri")
-                        ,(jsown:val (jsown:val i "external_urls") "spotify")))))
+                       (,(jsown:val i "uri") ,(multi-val i "album" "uri")
+                        ,(multi-val i "external_urls" "spotify")))))
              (choice (select-from-menu (current-screen)
                                        results-alist nil 0 *spotify-menu-keymap*)))
         (when choice
           (play-song (caadr choice))))))
 
-(defun current-song ()
-  (lispotify:with-token *spotify-oauth*
-    (let ((request (dex:get "https://api.spotify.com/v1/me/player/currently-playing"
-                            :headers (authorization-header))))
-      (when (not (emptyp request))
-        request))))
+(defcommand play-playlist () ()
+  (let* ((playlists (get-playlists))
+         (choice (select-from-menu (current-screen) playlists nil 0 nil)))
+    (when choice
+      (play-context-uri (second choice)))))
+
+(defcommand echo-current-song () ()
+  (let* ((current-song-data (get-current-song))
+         (item-data (when (not (emptyp current-song-data))
+                      (jsown:val (jsown:parse current-song-data) "item"))))
+    (if item-data
+        (message "Listening to ^6~a - ~a^7."
+                 (jsown:val item-data "name")
+                 (multi-val item-data "album" "name"))
+        (message "Nothing playing."))))
 
 (defcommand copy-current-song-url () ()
-  (lispotify:with-token *spotify-oauth*
-    (let* ((current-song-data (current-song))
-           (item-data (when (not (emptyp current-song-data))
-                        (jsown:val (jsown:parse current-song-data) "item"))))
-      (if item-data
-          (progn (set-x-selection
-                  (cdadr (jsown:val item-data "external_urls")) :clipboard)
-                 (message (str:concat "Link to ^6" (jsown:val item-data "name")
-                                      " - " (jsown:val (jsown:val item-data "album") "name")
-                                      " ^7copied.")))
-          (message "Nothing playing.")))))
+  (let* ((current-song-data (get-current-song))
+         (item-data (when (not (emptyp current-song-data))
+                      (jsown:val (jsown:parse current-song-data) "item"))))
+    (if item-data
+        (progn (set-x-selection
+                (cdadr (jsown:val item-data "external_urls")) :clipboard)
+               (message "Link to ^6~a - ~a^7 copied."
+                        (jsown:val item-data "name")
+                        (multi-val item-data "album" "name")))
+        (message "Nothing playing."))))
