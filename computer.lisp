@@ -8,10 +8,10 @@
        '(:eval (battery-string))
        " | "
        '(:eval (cpu-temp))
-       "° | "
-       '(:eval (time?))
-       "    "
-       '(:eval (network-state))))
+       "° | ^f1"
+       '(:eval (time?))))
+       ;; "    "
+       ;; '(:eval (network-state))))
 
 ;; (set-font (make-instance 'xft:font :family "WenQuanYi Micro Hei" :subfamily "Regular" :size 16))
 (set-font (list

@@ -19,7 +19,7 @@
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
-      (format nil "~2,'0d:~2,'0d:~2,'0d; ~d월 ~d일 ~a   "
+      (format nil "~2,'0d:~2,'0d:~2,'0d | ~d월 ~d일 ~a   "
               hour
               minute
               second
