@@ -8,19 +8,25 @@
        '(:eval (battery-string))
        " | "
        '(:eval (cpu-temp))
-       "° | ^f1"
+       "° | "
        '(:eval (time?))))
-       ;; "    "
-       ;; '(:eval (network-state))))
+
+;; "    "
+;; '(:eval (network-state))))
 
 ;; (set-font (make-instance 'xft:font :family "WenQuanYi Micro Hei" :subfamily "Regular" :size 16))
-(set-font (list
-           (make-instance 'xft:font :family "TerminessTTF Nerd Font"
-                                    :subfamily "Medium"
-                                    :size 16)
-           (make-instance 'xft:font :family "NanumGothicCoding"
-                                    :subfamily "Regular"
-                                    :size 16)))
+;; (set-font (make-instance 'xft:font :family "NanumGothicCoding"
+;;                                     :subfamily "Regular"
+;;                                     :size 16))
+;; (set-font (list
+;;            (make-instance 'xft:font :family "Source Han Sans SC Light"
+;;                                     :subfamily "Regular"
+;;                                     :size 13)
+;;            "-xos4-terminus-medium-r-bold--20-200-72-72-c-100-iso10646-1"))
+
+(set-font "-xos4-terminus-bold-r-normal--24-240-72-72-c-120-iso10646-1")
+
+
 
 (run-with-timer
  900 900

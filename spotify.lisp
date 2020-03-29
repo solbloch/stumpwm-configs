@@ -144,9 +144,9 @@
 (defcommand add-current-song-playlist () ()
   (let* ((currently-playing (jsown:val (get-currently-playing) "item"))
          (playlists (get-playlists))
-         (choice (select-from-menu (current-screen) playlists
-                                   (format nil "Add to ^6~a^7 to which playlist?"
-                                           (track-string currently-playing)))))
+         (choice (select-from-dmenu playlists
+                                    (format nil "Add to ^6~a^7 to which playlist?"
+                                            (track-string currently-playing)))))
     (when choice
-      (add-song-to-playlist (jsown:val currently-playing "uri") (car (last choice)))
+      (add-song-to-playlist (jsown:val currently-playing "uri") (cadadr choice))
       (message "^6~a^7 added to ^5~a^7." (jsown:val currently-playing "name") (car choice)))))
