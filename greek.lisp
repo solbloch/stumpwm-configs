@@ -29,6 +29,5 @@
 (defcommand greek-menu () ()
   (let ((choice (select-from-menu (current-screen)
                                   greek-letters nil 0 nil)))
-    (when choice)
-        (throw 'error "Aborted.")
-        (run-shell-command (str:concat "xdotool type \"" (cadr choice) "\"" ))))
+    (when choice
+        (run-shell-command (str:concat "xdotool type \"" (cadr choice) "\"" )))))
