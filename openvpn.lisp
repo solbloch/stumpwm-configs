@@ -5,7 +5,7 @@
 (defun vpn-config-list () (uiop:directory-files *vpn-directory*))
 
 (defun open-vpn (path)
-  "takes a path and asks for sudo, then opens the process that splits off, then kills the process that opened it"
+  "takes a path and asks for sudo, then opens the process that splits off"
   (let ((password (read-one-line (current-screen) "sudo password: " :password t))
         (command (str:concat "sudo -S openvpn --cd "
                              (namestring *vpn-directory*)
@@ -17,26 +17,27 @@
 
 
 (defun list-open-vpns ()
-  (let ((raw-grep (cl-ppcre:split "\\n" (run-shell-command
-                                         "pgrep -f -a '[s]udo.*openvpn' | awk '{print $NF, $1}'" t))))
-    (loop for connection in raw-grep
-          collecting (cl-ppcre:split " " connection))))
+  (let ((raw-proc-list (proc-regex "sudo.*openvpn")))
+    (mapcar #'(lambda (proc-list)
+                (list (last1 (str:split " " (car proc-list)))
+                      (cadr proc-list)))
+            raw-proc-list)))
 
 (defcommand connect-vpn-menu () ()
-  (let ((choice
-          (select-from-menu (current-screen)
-                            (loop for i in (vpn-config-list)
-                                  collecting
-                                  (list (nth 5 (cl-ppcre:split "/" (namestring i)))
-                                        (namestring i))) nil 0 nil)))
+  (let ((choice (select-from-menu (current-screen)
+                                  (mapcar #'(lambda (i)
+                                              (list (file-namestring i)
+                                                    (namestring i)))
+                                          (vpn-config-list))
+                                  nil 0 nil)))
     (when choice
-        (if (open-vpn (cadr choice))
-            (message "Connected...?")
-            (message "Broken.")))))
+      (if (open-vpn (cadr choice))
+          (message "Connected...?")
+          (message "Broken.")))))
 
 
 (defcommand kill-vpn-menu () ()
   (when-let ((open-vpns (list-open-vpns)))
     (let ((choice (select-from-menu (current-screen) open-vpns nil 0 nil)))
       (when choice
-          (sudo-terminate (cadr choice))))))
+        (sudo-terminate (cadr choice))))))
