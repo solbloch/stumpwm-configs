@@ -41,7 +41,7 @@
                  "~/.stumpwm.d/config-sync.lisp"
                  "~/.stumpwm.d/token.lisp"
                  "~/.stumpwm.d/computer.lisp"
-                 "~/.stumpwm.d/spotify-credentials.lisp"
+                 "~/.stumpwm.d/credentials.lisp"
                  "~/.stumpwm.d/spotify.lisp"
                  "~/.stumpwm.d/sound.lisp"
                  "~/.stumpwm.d/looks.lisp"
