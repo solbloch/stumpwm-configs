@@ -8,6 +8,7 @@
                 :cl-inotify
                 :cl-ppcre
                 :clx-truetype
+                :jsown
                 :swank
                 :str
                 :uiop

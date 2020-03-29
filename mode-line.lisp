@@ -37,28 +37,47 @@
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
-      (format nil "~2,'0d:~2,'0d:~2,'0d | ~a ~d/~d"
+      (format nil "~2,'0d:~2,'0d | ~a ~d/~d"
               hour
               minute
-              second
+              ;; second
               (nth day-of-week days)
               month
               date))))
 
 (defun cpu-temp ()
   (with-open-file (file "/sys/class/hwmon/hwmon2/temp2_input")
-    (format nil "~a" (float (/ (read file) 1000)))))
+    (format nil "~a°" (float (/ (read file) 1000)))))
+
+(defun weather-string ()
+  (let ((weather-request (get-weather-request)))
+    (format nil "~1$° ~a"
+            (multi-val weather-request "currently" "temperature")
+            (multi-val weather-request "currently" "summary"))))
+
+(defvar *mode-line-processing* nil)
+
+(defun mode-line-processed ()
+  *mode-line-processing*)
+
+(defun update-mode-line-process ()
+  (setf *mode-line-processing*
+        (str:concat "%g^>"
+                    " | "
+                    (weather-string)
+                    " | "
+                    (vpn-state)
+                    " | "
+                    (network-string)
+                    " | "
+                    (battery-string)
+                    " | "
+                    (cpu-temp)
+                    " | "
+                    (time?))))
+
+(when *initializing*
+  (run-with-timer 0 2 (lambda () (update-mode-line-process))))
 
 (setf stumpwm:*screen-mode-line-format*
-      (list
-       "%g^>"
-       " | "
-       '(:eval (vpn-state))
-       " | "
-       '(:eval (network-string))
-       " | "
-       '(:eval (battery-string))
-       " | "
-       '(:eval (cpu-temp))
-       "° | "
-       '(:eval (time?))))
+      (list '(:eval (mode-line-processed))))
