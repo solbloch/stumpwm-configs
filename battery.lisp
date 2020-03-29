@@ -1,10 +1,12 @@
 (in-package :stumpwm)
 
 (defun battery-list ()
-  (uiop:subdirectories "/sys/class/power_supply/"))
+  (remove-if-not #'(lambda (supply)
+                     (search "BAT" (namestring supply)))
+                 (uiop:subdirectories "/sys/class/power_supply/")))
 
 (defun battery-alist (battery)
-  (with-open-file (stream (str:concat battery "uevent"))
+  (with-open-file (stream (str:concat (namestring battery) "uevent"))
     (loop for line = (read-line stream nil)
           while line
           collect (let ((line-split (str:split #\= line)))
