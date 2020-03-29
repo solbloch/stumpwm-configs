@@ -1,15 +1,5 @@
 (in-package :stumpwm)
 
-(defvar *network-file* "/sys/class/net/eno1/carrier")
-
-(setf stumpwm:*screen-mode-line-format*
-      (list
-       "%g^> | %l | "
-       '(:eval (battery-string))
-       " | "
-       '(:eval (cpu-temp))
-       "° | "
-       '(:eval (time?))))
 
 ;; "    "
 ;; '(:eval (network-state))))
