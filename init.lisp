@@ -59,6 +59,7 @@
                  "~/.stumpwm.d/ring.lisp"
                  "~/.stumpwm.d/clipboard-history.lisp"
                  "~/.stumpwm.d/next.lisp"
+                 "~/.stumpwm.d/weather.lisp"
                  "~/.stumpwm.d/echo.lisp"
                  "~/.stumpwm.d/keymap.lisp"))
 
