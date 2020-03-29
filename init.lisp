@@ -23,9 +23,9 @@
                        :dont-close t))
 
 ;; packages !
-(mapcar #'load-module '("swm-gaps"
-                        "ttf-fonts"
-                        "net"))
+(mapcar #'load-module '("swm-gaps"))
+                        ;; "ttf-fonts"
+                        ;; "net"))
 
 (grename "1")
 (gnewbg "2")
@@ -61,10 +61,11 @@
                  "~/.stumpwm.d/next.lisp"
                  "~/.stumpwm.d/weather.lisp"
                  "~/.stumpwm.d/echo.lisp"
+                 "~/.stumpwm.d/timers.lisp"
                  "~/.stumpwm.d/keymap.lisp"))
 
 
-                 (set-prefix-key (kbd "C-M-t"))
-                 (setf *mouse-focus-policy* :click)
+(set-prefix-key (kbd "C-M-t"))
+(setf *mouse-focus-policy* :click)
 
-                 ;; :sloppy :click :ignore
+;; :sloppy :click :ignore

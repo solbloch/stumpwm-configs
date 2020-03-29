@@ -52,8 +52,8 @@
 (defun weather-string ()
   (let ((weather-request (get-weather-request)))
     (format nil "~1$° ~a"
-            (multi-val weather-request "currently" "temperature")
-            (multi-val weather-request "currently" "summary"))))
+            (multi-val weather-request "main" "temp")
+            (multi-val (car (multi-val weather-request "weather")) "description"))))
 
 (defvar *mode-line-processing* nil)
 
@@ -75,9 +75,6 @@
                     (cpu-temp)
                     " | "
                     (time?))))
-
-(when *initializing*
-  (run-with-timer 0 2 (lambda () (update-mode-line-process))))
 
 (setf stumpwm:*screen-mode-line-format*
       (list '(:eval (mode-line-processed))))

@@ -31,7 +31,6 @@
     (when (not (find clip-string (items *clipboard-ring*) :test #'string=))
       (insert *clipboard-ring* clip-string))))
 
-(defvar *clipboard-timer* (run-with-timer 1 1 (lambda () (remember-clipboard))))
 
 (defun clipboard-alist ()
   (let ((clipboard-items (recent-list *clipboard-ring*)))
