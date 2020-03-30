@@ -113,7 +113,7 @@
       (multi-val (jsown:parse raw-results) "tracks" "items"))))
 
 (defun track-string (song-item)
-  (format nil "~a - ~a - ~{~a~^, ~}"
+  (format nil "^6~a^7 - ^5~a^7 - ^2~{~a~^, ~}^7"
           (jsown:val song-item "name")
           (multi-val song-item "album" "name")
           (loop for artist in (jsown:val song-item "artists")
