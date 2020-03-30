@@ -3,11 +3,6 @@
 (defun last1 (lst)
   (car (last lst)))
 
-(defun slurp (path)
-  (with-open-file (st path)
-    (loop for line = (read-line st nil)
-          while line collect line)))
-
 (defun network-interface ()
   (let ((proc-lines (slurp #P"/proc/net/route")))
     (when (> (length proc-lines) 1)
@@ -67,19 +62,14 @@
 
 (defun update-mode-line-process ()
   (setf *mode-line-processing*
-        (str:concat "%g^>"
-                    " | "
-                    (weather-string)
-                    " | "
-                    (vpn-state)
-                    " | "
-                    (network-string)
-                    " | "
-                    (battery-string)
-                    " | "
-                    (cpu-temp)
-                    " | "
-                    (time?))))
+        (format nil "%g^>| ~{~A~^ | ~}"
+                (list (weather-string)
+                      (vpn-state)
+                      (network-string)
+                      (battery-string)
+                      (get-volume-string)
+                      (cpu-temp)
+                      (time?)))))
 
 (setf stumpwm:*screen-mode-line-format*
       (list '(:eval (mode-line-processed))))
