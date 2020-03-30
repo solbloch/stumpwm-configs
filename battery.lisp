@@ -17,33 +17,27 @@
 
 (defun battery-string ()
   (when (battery-list)
-    (let* ((bat-list (mapcar #'battery-alist (battery-list)))
-           (perc-list '())
-           (energy 0)
-           (power 1)
-           (capacity 0)
-           (time-remaining 0)
-           (status-list '()))
-      (loop for bat in bat-list
-            do (progn
-                 (incf energy (parse-integer
-                               (cdr-assoc-string "POWER_SUPPLY_ENERGY_NOW" bat)))
-                 (incf power (parse-integer
-                              (cdr-assoc-string "POWER_SUPPLY_POWER_NOW" bat)))
-                 (incf capacity (parse-integer
-                                 (cdr-assoc-string "POWER_SUPPLY_ENERGY_FULL" bat)))
-                 (setf status-list (nconc status-list
-                                          (list (cdr-assoc-string "POWER_SUPPLY_STATUS" bat))))
-                 (setf perc-list (nconc perc-list
-                                        (list `(,(cdr-assoc-string "POWER_SUPPLY_NAME" bat)
-                                                ,(cdr-assoc-string "POWER_SUPPLY_CAPACITY" bat)))))))
-      (setf time-remaining
-            (if (= power 1)
-                0
-                (if (find "Charging" status-list :test #'string=)
-                    (/ (- capacity energy) power)
-                    (/ energy power))))
-      (format nil "~a:~2,'0D - ~{~{~a~^:~}%~^ ~}"
-              (floor time-remaining)
-              (round (* 60 (rem time-remaining 1.0)))
-              perc-list))))
+    (multiple-value-bind
+          (energy power capacity status-list perc-list)
+        (loop for bat in (mapcar #'battery-alist (battery-list))
+              summing (parse-integer (cdr-assoc-string "POWER_SUPPLY_ENERGY_NOW" bat))
+                into energy
+              summing (parse-integer (cdr-assoc-string "POWER_SUPPLY_POWER_NOW" bat))
+                into power
+              summing (parse-integer (cdr-assoc-string "POWER_SUPPLY_ENERGY_FULL" bat))
+                into capacity
+              collecting (cdr-assoc-string "POWER_SUPPLY_STATUS" bat)
+                into status-list
+              collecting (mapcar #'(lambda (string) (cdr-assoc-string string bat))
+                                 '("POWER_SUPPLY_NAME" "POWER_SUPPLY_CAPACITY"))
+                into perc-list
+              finally (return (values energy power capacity status-list perc-list)))
+      (let ((time-remaining
+              (if (= power 1) 0
+                  (if (find "Charging" status-list :test #'string=)
+                      (/ (- capacity energy) power)
+                      (/ energy power)))))
+        (format nil "~a:~2,'0D - ~{~{~a~^:~}%~^ ~}"
+                (floor time-remaining)
+                (round (* 60 (rem time-remaining 1.0)))
+                perc-list)))))
