@@ -4,7 +4,8 @@
   (defvar *clipboard-timer*
     (run-with-timer 1 1 (lambda () (remember-clipboard))))
   (defvar *mode-line-processing-timer*
-    (run-with-timer 0 4 (lambda () (update-mode-line-process)))))
+    (run-with-timer 0 4 (lambda () (ignore-errors
+                                    (update-mode-line-process))))))
 
 ;; (defvar *ttf-font-timer*
 ;;   (run-with-timer
