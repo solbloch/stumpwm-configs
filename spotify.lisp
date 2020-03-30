@@ -79,10 +79,13 @@
              :headers (authorization-header)
              :content (jsown:to-json `(:obj ("context_uri". ,context-uri))))))
 
-(defun play-song (song-uri)
+(defun play-song (song-uri &optional (device-id nil))
   (lispotify:with-token *spotify-oauth*
     (dex:put "https://api.spotify.com/v1/me/player/play"
-             :headers (authorization-header)
+             :headers (if device-id
+                          `(,(car (authorization-header))
+                            ("device_id" . ,device-id))
+                          (authorization-header))
              :content (jsown:to-json `(:obj ("uris". (,song-uri)))))))
 
 (defun play-play (device-id)
@@ -172,3 +175,15 @@
   (let ((currently-playing (jsown:val (get-currently-playing) "item")))
     (add-song-to-playlist-prompt (jsown:val currently-playing "name")
                                  (jsown:val currently-playing "uri"))))
+
+(defcommand play-on-device () ()
+  (let* ((device-list-raw (jsown:parse (get-devices)))
+         (devices (jsown:val device-list-raw "devices"))
+         (device-table (mapcar #'(lambda (device)
+                                   (list (jsown:val device "name")
+                                         (jsown:val device "id")))
+                               devices))
+         (choice (select-from-menu (current-screen) device-table
+                                   "Play on which device?")))
+    (when choice
+      (play-play (cadr choice)))))
