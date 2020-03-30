@@ -19,7 +19,8 @@
 (defun list-open-vpns ()
   (let ((raw-proc-list (proc-regex "sudo.*openvpn")))
     (mapcar #'(lambda (proc-list)
-                (list (last1 (str:split " " (car proc-list)))
+                (list (cl-ppcre:regex-replace-all ".*/(.*)\.ovpn.*" (car proc-list)
+                                                  "\\1")
                       (cadr proc-list)))
             raw-proc-list)))
 
@@ -31,9 +32,8 @@
                                           (vpn-config-list))
                                   nil 0 nil)))
     (when choice
-      (if (open-vpn (cadr choice))
-          (message "Connected...?")
-          (message "Broken.")))))
+      (when (open-vpn (cadr choice))
+        (message "Connected...?")))))
 
 
 (defcommand kill-vpn-menu () ()
