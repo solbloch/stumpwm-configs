@@ -9,6 +9,7 @@
                 :cl-inotify
                 :cl-ppcre
                 :clx-truetype
+                :lparallel
                 :jsown
                 :swank
                 :str
