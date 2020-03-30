@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(set-font "-xos4-terminus-bold-r-normal--24-240-72-72-c-120-iso10646-1")
+(set-font "-xos4-terminus-bold-r-normal--20-200-72-72-c-100-iso10646-1")
 
 ;; azrin
 ;; (define-frame-preference "q-tip"
