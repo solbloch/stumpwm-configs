@@ -18,14 +18,21 @@
 (defvar *spotify-menu-keymap*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c") 'copy-url)
+    (define-key m (kbd "C-a") 'add-song-to-playlist-menu)
     m))
 
-(define-key stumpwm:*top-map* (stumpwm:kbd "s-m") *spotify-keymap*)
+(define-key *top-map* (kbd "s-m") *spotify-keymap*)
 
 (defun copy-url (menu)
   (set-x-selection (third (second (nth (menu-selected menu) (menu-table menu)))) :clipboard)
   (throw :menu-quit nil)
   (message "Copied."))
+
+(defun add-song-to-playlist-menu (menu)
+  (let ((song-name (car (nth (menu-selected menu) (menu-table menu))))
+        (song-uri (caadr (nth (menu-selected menu) (menu-table menu)))))
+    (add-song-to-playlist-prompt song-name song-uri)
+    (throw :menu-quit nil)))
 
 (defvar scopes "user-read-playback-state user-read-recently-played user-read-currently-playing user-modify-playback-state playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private")
 
@@ -78,6 +85,17 @@
              :headers (authorization-header)
              :content (jsown:to-json `(:obj ("uris". (,song-uri)))))))
 
+(defun play-play (device-id)
+  (lispotify:with-token *spotify-oauth*
+    (dex:put "https://api.spotify.com/v1/me/player/play"
+             :headers `(,(car (authorization-header))
+                        ("device_id" . ,device-id)))))
+
+(defun get-devices ()
+  (lispotify:with-token *spotify-oauth*
+    (dex:get "https://api.spotify.com/v1/me/player/devices"
+             :headers (authorization-header))))
+
 (defun search-track-func (name)
   "search a string and return a list of tracks in jsown object format"
   (lispotify:with-token *spotify-oauth*
@@ -97,6 +115,15 @@
           (multi-val song-item "album" "name")
           (loop for artist in (jsown:val song-item "artists")
                 collecting (jsown:val artist "name"))))
+
+(defun add-song-to-playlist-prompt (song-name song-uri)
+  (let* ((playlists (get-playlists))
+         (choice (select-from-menu (current-screen) playlists
+                                   (format nil "Add to ^6~a^7 to which playlist?"
+                                           song-name))))
+    (when choice
+      (add-song-to-playlist song-uri (cadadr choice))
+      (message "^6~a^7 added to ^5~a^7." song-name (car choice)))))
 
 ;; Commands
 (defcommand search-track (track) ((:string "Track: "))
@@ -142,11 +169,6 @@
               :headers (authorization-header))))
 
 (defcommand add-current-song-playlist () ()
-  (let* ((currently-playing (jsown:val (get-currently-playing) "item"))
-         (playlists (get-playlists))
-         (choice (select-from-menu (current-screen) playlists
-                                    (format nil "Add to ^6~a^7 to which playlist?"
-                                            (track-string currently-playing)))))
-    (when choice
-      (add-song-to-playlist (jsown:val currently-playing "uri") (cadadr choice))
-      (message "^6~a^7 added to ^5~a^7." (jsown:val currently-playing "name") (car choice)))))
+  (let ((currently-playing (jsown:val (get-currently-playing) "item")))
+    (add-song-to-playlist-prompt (jsown:val currently-playing "name")
+                                 (jsown:val currently-playing "uri"))))
