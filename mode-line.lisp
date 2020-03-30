@@ -63,13 +63,14 @@
 (defun update-mode-line-process ()
   (setf *mode-line-processing*
         (format nil "%g^>| ~{~A~^ | ~}"
-                (list (weather-string)
-                      (vpn-state)
-                      (network-string)
-                      (battery-string)
-                      (get-volume-string)
-                      (cpu-temp)
-                      (time?)))))
+                (list
+                   (weather-string)
+                   (vpn-state)
+                   (network-string)
+                   (battery-string)
+                   (get-volume-string)
+                   (cpu-temp)
+                   (time?)))))
 
 (setf stumpwm:*screen-mode-line-format*
       (list '(:eval (mode-line-processed))))
