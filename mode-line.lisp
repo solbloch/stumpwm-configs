@@ -25,11 +25,12 @@
 
 (defun vpn-state ()
   (let ((vpn-list (list-open-vpns)))
-    (when vpn-list
-      (format nil "~{~a~^, ~}"
-              (mapcar #'(lambda (vpn)
-                          (last1 (str:split "/" (last1 (str:split " " (car vpn))))))
-                      vpn-list)))))
+    (if vpn-list
+        (format nil "~{~a~^, ~}"
+                (mapcar #'(lambda (vpn)
+                            (last1 (str:split "/" (last1 (str:split " " (car vpn))))))
+                        vpn-list))
+        "no vpn")))
 
 ;; ("월요일" "화요일" "수요일" "목요일" "금요일" "토요일" "일요일")
 (defun time? ()
@@ -51,9 +52,11 @@
 
 (defun weather-string ()
   (let ((weather-request (get-weather-request)))
-    (format nil "~1$° ~a"
-            (multi-val weather-request "main" "temp")
-            (multi-val (car (multi-val weather-request "weather")) "description"))))
+    (if weather-request
+        (format nil "~1$° ~a"
+                (multi-val weather-request "main" "temp")
+                (multi-val (car (multi-val weather-request "weather")) "description"))
+        "weather unavailable")))
 
 (defvar *mode-line-processing* nil)
 
