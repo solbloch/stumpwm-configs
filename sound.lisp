@@ -30,6 +30,9 @@
 (defun get-volume ()
   (parse-integer (run-shell-command "pamixer --get-volume-human" t) :junk-allowed t))
 
+(defun get-volume-string ()
+  (str:trim (run-shell-command "pamixer --get-volume-human" t)))
+
 (defun echo-volume ()
   (let ((vol (get-volume)))
     (if vol
@@ -38,14 +41,17 @@
 
 (defcommand volume-up () ()
   (run-shell-command "pamixer -i 5" t)
-  (echo-volume))
+  (echo-volume)
+  (bt:make-thread (lambda () (update-mode-line-process))))
 
 (defcommand volume-down () ()
   (run-shell-command "pamixer -d 5" t)
-  (echo-volume))
+  (echo-volume)
+  (bt:make-thread (lambda () (update-mode-line-process))))
 
 (defcommand volume-mute () ()
   (run-shell-command "pamixer -t")
-  (echo-volume))
+  (echo-volume)
+  (bt:make-thread (lambda () (update-mode-line-process))))
 
 ;; (run-shell-command "pactl set-sink-mute $(pactl list short sinks | awk '/RUNNING|IDLE/{print $1}') toggle" t)
