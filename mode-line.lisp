@@ -26,9 +26,11 @@
 (defun vpn-state ()
   (let ((vpn-list (list-open-vpns)))
     (if vpn-list
-        (format nil "~{~a~^, ~}"
+        (format nil "vpn~p:~{~a~^,~}"
+                (length vpn-list)
                 (mapcar #'(lambda (vpn)
-                            (last1 (str:split "/" (last1 (str:split " " (car vpn))))))
+                            (cl-ppcre:regex-replace-all
+                             ".*/(.*)\.ovpn.*" (car vpn) "\\1"))
                         vpn-list))
         "no vpn")))
 
