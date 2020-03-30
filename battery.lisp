@@ -33,7 +33,7 @@
                 into perc-list
               finally (return (values energy power capacity status-list perc-list)))
       (let ((time-remaining
-              (if (= power 1) 0
+              (if (= power 0) 0
                   (if (find "Charging" status-list :test #'string=)
                       (/ (- capacity energy) power)
                       (/ energy power)))))
