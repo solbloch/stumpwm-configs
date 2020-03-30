@@ -4,6 +4,7 @@
 
 (ql:quickload '(:alexandria
                 :bordeaux-threads
+                :drakma
                 :cl-async
                 :cl-inotify
                 :cl-ppcre

@@ -1,5 +1,6 @@
 (in-package :stumpwm)
 
+
 ;; (defun get-weather-request ()
 ;;   (jsown:parse
 ;;    (catch-host-not-found
@@ -8,8 +9,14 @@
 ;;                           "/43.034706,-76.12619?exclude=[hourly,daily,alerts,flags]")))))
 
 (defun get-weather-request ()
-  (jsown:parse
-   (catch-host-not-found
-     (dex:get (str:concat "https://api.openweathermap.org/data/2.5/weather?lat=43.034706&lon=-76.12619&appid="
-                          openweather-id
-                          "&units=imperial")))))
+  (let ((request (handler-case
+                     (flexi-streams:octets-to-string
+                      (drakma:http-request (str:concat
+                                            "https://api.openweathermap.org/data/2.5/"
+                                            "weather?lat=43.034706&lon=-76.12619&appid="
+                                            openweather-id
+                                            "&units=imperial")))
+                   (usocket:ns-try-again-condition ()
+                     nil))))
+    (when request
+      (jsown:parse request))))
