@@ -54,12 +54,12 @@
 
 (defcommand fix-discord () ()
   (run-shell-command
-   (str:concat "pacmd set-card-profile"
-               "alsa_card.usb-046d_0825_C4BFA9D0-02"
+   (str:concat "pacmd set-card-profile "
+               "alsa_card.usb-046d_0825_C4BFA9D0-02 "
                "off"))
   (sleep .01)
   (run-shell-command
-   (str:concat "pacmd set-card-profile"
-               "alsa_card.usb-046d_0825_C4BFA9D0-02"
+   (str:concat "pacmd set-card-profile "
+               "alsa_card.usb-046d_0825_C4BFA9D0-02 "
                "input:multichannel-input"))
   (send-fake-key (current-window) (kbd "C-r")))
