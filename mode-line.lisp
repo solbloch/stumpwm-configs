@@ -64,7 +64,7 @@
   (setf *mode-line-processing*
         (format nil "%g^>| ~{~A~^ | ~}"
                 (list
-                   (weather-string)
+                   ;; (weather-string)
                    (vpn-state)
                    (network-string)
                    (battery-string)

@@ -40,12 +40,12 @@
         (message "Muted"))))
 
 (defcommand volume-up () ()
-  (run-shell-command "pamixer -i 5" t)
+  (run-shell-command "pamixer -i 5 --allow-boost" t)
   (echo-volume)
   (bt:make-thread (lambda () (update-mode-line-process))))
 
 (defcommand volume-down () ()
-  (run-shell-command "pamixer -d 5" t)
+  (run-shell-command "pamixer -d 5 --allow-boost" t)
   (echo-volume)
   (bt:make-thread (lambda () (update-mode-line-process))))
 

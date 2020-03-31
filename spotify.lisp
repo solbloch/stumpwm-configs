@@ -173,7 +173,7 @@
 
 (defcommand add-current-song-playlist () ()
   (let ((currently-playing (jsown:val (get-currently-playing) "item")))
-    (add-song-to-playlist-prompt (jsown:val currently-playing "name")
+    (add-song-to-playlist-prompt (track-string currently-playing)
                                  (jsown:val currently-playing "uri"))))
 
 (defcommand play-on-device () ()
