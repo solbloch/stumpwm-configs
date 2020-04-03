@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(defvar *book-directory* #P"~/GOOGLE/books/")
+(defvar *book-directory* #P"~/Documents/books/")
 
 (defun book-list () (uiop:directory-files *book-directory*))
 
@@ -12,4 +12,4 @@
                                   (list (nth 5 (cl-ppcre:split "/" (namestring i)))
                                         (namestring i))) nil 0 nil)))
     (when choice
-        (run-shell-command (str:concat "evince \"" (cadr choice) "\"")))))
+        (run-shell-command (str:concat "mupdf \"" (cadr choice) "\"")))))
