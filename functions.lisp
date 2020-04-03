@@ -63,3 +63,13 @@
                "alsa_card.usb-046d_0825_C4BFA9D0-02 "
                "input:multichannel-input"))
   (send-fake-key (current-window) (kbd "C-r")))
+
+(defun mode-line-group-scroll (mode-line button x y)
+  (declare (ignore mode-line x y))
+  (case button
+    (4 (gprev))
+    (5 (gnext))
+    (t nil)))
+
+(when *initializing*
+  (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
