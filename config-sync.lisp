@@ -4,6 +4,7 @@
 (defvar *config-list* (list #P"/home/sol/.spacemacs.d/init.el"
                             #P"/home/sol/.vimrc"
                             #P"/home/sol/.zshrc"
+                            #P"/home/sol/.tmux.conf"
                             #P"/home/sol/.config/picom.conf"))
 
 (defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance) "/"))
