@@ -13,7 +13,7 @@
   (run-shell-command (str:concat "rsync -a " (namestring path) " " *remote-location*)))
 
 (defun contiously-sync-file (path)
-  (with-inotify (inot t (path :close-write))
+  (with-inotify (inot t (path :modify))
     (do-events (event inot :blocking-p t)
       (rsync-file path)
       (message "~a rsync'd." (file-namestring path)))))
