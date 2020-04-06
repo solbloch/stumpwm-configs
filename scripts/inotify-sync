@@ -10,7 +10,7 @@ done
 
 while true; do
     inotifywait --format '%w' -e delete_self $@ | while read CHANGED; do
-        FILENAME=`echo $CHANGED | awk '{print $NF}'`
+        FILENAME=`echo $CHANGED | awk -F'/' '{print $NF}'`
         rsync -a $CHANGED $REMOTE_LOCATION$FILENAME && notify-send $FILENAME' sync successful.' -t 1500 || \
             notify-send $FILENAME' sync FAILED.' -t 1500 
     done
