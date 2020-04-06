@@ -7,22 +7,18 @@
                             #P"/home/sol/.tmux.conf"
                             #P"/home/sol/.config/picom.conf"))
 
-(defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance) "/"))
+(when *initializing*
+  (defvar *config-sync*
+    (let ((command (format nil "/home/sol/.stumpwm.d/scripts/inotify-sync ~{~a~^ ~}" *config-list*)))
+      (uiop:launch-program command))))
 
-(defun rsync-file (path)
-  (run-shell-command (str:concat "rsync -a " (namestring path) " " *remote-location*)))
+;; (defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance) "/"))
 
-(defun contiously-sync-file (path)
-  (with-inotify (inot t (path :modify))
-    (do-events (event inot :blocking-p t)
-      (rsync-file path)
-      (message "~a rsync'd." (file-namestring path)))))
+;; (defun rsync-file (path)
+;;   (run-shell-command (str:concat "rsync -a " (namestring path) " " *remote-location*)))
 
-(if *initializing*
-    (loop for path in *config-list*
-          do (progn
-               (rsync-file path)
-               (bt:make-thread
-                (lambda ()
-                  (contiously-sync-file path))
-                :name (str:concat (file-namestring path) " sync")))))
+;; (defun contiously-sync-file (path)
+;;   (with-inotify (inot t (path :modify))
+;;     (do-events (event inot :blocking-p t)
+;;       (rsync-file path)
+;;       (message "~a rsync'd." (file-namestring path)))))
