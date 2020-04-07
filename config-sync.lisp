@@ -3,6 +3,7 @@
 
 (defvar *config-list* (list #P"/home/sol/.spacemacs.d/init.el"
                             #P"/home/sol/.vimrc"
+                            #P"/home/sol/.config/dunst/dunstrc"
                             #P"/home/sol/.zshrc"
                             #P"/home/sol/.tmux.conf"
                             #P"/home/sol/.config/picom.conf"))
