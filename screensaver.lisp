@@ -4,16 +4,18 @@
   (multiple-value-bind
         (second minute hour date month year day-of-week)
       (get-decoded-time)
+    (declare (ignore second minute date month year day-of-week))
     hour))
 
 (defcommand random-aerial () ()
   (let* ((hour (hour))
          (night-p (when (or (> hour 20) (< hour 6))
                     t)))
-    (run-shell-command (str:concat "mpv --fullscreen " *screensaver-video-location*
-                        (if night-p
-                            (nth (random (length *night-list*)) *night-list*)
-                            (nth (random (length *day-list*)) *day-list*))))))
+    (run-shell-command
+     (str:concat "mpv --fullscreen " *screensaver-video-location*
+                 (if night-p
+                     (nth (random (length *night-list*)) *night-list*)
+                     (nth (random (length *day-list*)) *day-list*))))))
 
 (defvar *screensaver-video-location* "/opt/AT4/")
 

@@ -35,6 +35,7 @@
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
+      (declare (ignore second year))
       (format nil "~2,'0d:~2,'0d | ~a ~d/~d"
               hour
               minute
