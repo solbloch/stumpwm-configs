@@ -12,4 +12,4 @@
                                   (list (nth 5 (cl-ppcre:split "/" (namestring i)))
                                         (namestring i))) nil 0 nil)))
     (when choice
-        (run-shell-command (str:concat "mupdf \"" (cadr choice) "\"")))))
+        (run-shell-command (str:concat "zathura \"" (cadr choice) "\"")))))
