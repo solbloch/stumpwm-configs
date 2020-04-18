@@ -6,6 +6,7 @@
                             #P"/home/sol/.config/dunst/dunstrc"
                             #P"/home/sol/.zshrc"
                             #P"/home/sol/.tmux.conf"
+                            #P"/home/sol/.xinitrc"
                             #P"/home/sol/.config/picom.conf"))
 
 (when *initializing*

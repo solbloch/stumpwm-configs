@@ -20,7 +20,7 @@
   (run-shell-command "emacs --daemon")
   (require :swank)
   (swank-loader:init)
-  (swank:create-server :port 4004
+  (swank:create-server :port 4005
                        :style swank:*communication-style*
                        :dont-close t))
 
