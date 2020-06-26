@@ -4,15 +4,15 @@ REMOTE_LOCATION=sol@solb.io:/home/sol/configs/`hostname`/
 
 for i in $@; do
     FILENAME=`echo $i | awk -F'/' '{print $NF}'`
-    rsync -a $i $REMOTE_LOCATION$FILENAME && notify-send $FILENAME' init sync successful.' -t 1500 || \
-        notify-send $FILENAME' init sync FAILED.' -t 1500 
+    rsync -a $i $REMOTE_LOCATION$FILENAME && notify-send $FILENAME' init sync successful.' -t 1500 || \ 
+      notify-send $FILENAME' init sync FAILED.' -t 1500 
 done
 
 while true; do
     inotifywait --format '%w' -e delete_self $@ | while read CHANGED; do
         FILENAME=`echo $CHANGED | awk -F'/' '{print $NF}'`
         rsync -a $CHANGED $REMOTE_LOCATION$FILENAME && notify-send $FILENAME' sync successful.' -t 1500 || \
-            notify-send $FILENAME' sync FAILED.' -t 1500 
+          notify-send $FILENAME' sync FAILED.' -t 1500 
     done
 done
 

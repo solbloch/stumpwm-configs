@@ -8,8 +8,7 @@
                 :cl-async
                 :cl-inotify
                 :cl-ppcre
-                :clx-truetype
-                :lparallel
+                ;; :clx-truetype
                 :jsown
                 :swank
                 :str
@@ -33,7 +32,7 @@
 (gnewbg "2")
 (gnewbg "3")
 (gnewbg "4")
-(gnewbg "5")
+(gnewbg-float "5")
 
 ;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 

@@ -73,5 +73,9 @@
                    (cpu-temp)
                    (time?)))))
 
+;; (setf stumpwm:*screen-mode-line-format*
+;;       (list '(:eval (mode-line-processed))))
+
 (setf stumpwm:*screen-mode-line-format*
-      (list '(:eval (mode-line-processed))))
+      (list "%g^>| "
+            '(:eval (time?))))

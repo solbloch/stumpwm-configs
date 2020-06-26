@@ -5,7 +5,6 @@
 
 
 ;; top map stuff
-(define-key *top-map* (kbd "s-A") "audio-switch")
 (define-key *top-map* (kbd "s-v") "hsplit")
 (define-key *top-map* (kbd "s-s") "vsplit")
 (define-key *top-map* (kbd "s-r") "remove")
@@ -40,6 +39,7 @@
 (defvar *application-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "e") "emacs-fixed")
+    (define-key m (kbd "f") "run-shell-command /home/sol/Projects/Ishiiruka/Build/Binaries/dolphin-emu")
     (define-key m (kbd "u") "run-shell-command st")
     (define-key m (kbd "s") "spotify")
     (define-key m (kbd "c") "run-shell-command google-chrome-stable")
@@ -100,6 +100,7 @@
     (define-key m (kbd "s") "second-screen")
     (define-key m (kbd "r") '*redshift-levels*)
     (define-key m (kbd "f") "fix-discord")
+    (define-key m (kbd "a") "audio-switch")
     m))
 
 
