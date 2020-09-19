@@ -19,11 +19,11 @@
       *input-window-gravity* :center)
 
 ;; gaps!
-(setf swm-gaps:*inner-gaps-size* 13
-      swm-gaps:*outer-gaps-size* 0)
+;; (setf swm-gaps:*inner-gaps-size* 13
+      ;; swm-gaps:*outer-gaps-size* 0)
 
-(if (not swm-gaps:*gaps-on*)
-    (swm-gaps:toggle-gaps))
+;; (if (not swm-gaps:*gaps-on*)
+    ;; (swm-gaps:toggle-gaps))
 
 (when *initializing*
   (mode-line))
