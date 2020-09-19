@@ -52,6 +52,13 @@
 (defcommand sleep-pc () ()
   (run-shell-command "sleep 1; xset dpms force off"))
 
+(defcommand float-keyboard-mouse () ()
+  (let ((kb-mouse-list '("Synaptics TM3276-022"
+                         "TPPS/2 IBM TrackPoint"
+                         "ThinkPad Extra Buttons"
+                         "AT Translated Set 2 keyboard")))
+  (mapcar #'(lambda (x) (run-shell-command (str:concat "xinput float \'" x"\'"))) kb-mouse-list)))
+
 (defcommand fix-discord () ()
   (run-shell-command
    (str:concat "pacmd set-card-profile "
@@ -63,6 +70,10 @@
                "alsa_card.usb-046d_0825_C4BFA9D0-02 "
                "input:multichannel-input"))
   (send-fake-key (current-window) (kbd "C-r")))
+
+(defcommand emoji-picker () ()
+  (run-shell-command
+   "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Apple Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
 
 (defun mode-line-group-scroll (mode-line button x y)
   (declare (ignore mode-line x y))

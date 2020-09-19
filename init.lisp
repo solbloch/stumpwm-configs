@@ -25,7 +25,7 @@
                        :dont-close t))
 
 ;; packages !
-(mapcar #'load-module '("swm-gaps"))
+;; (mapcar #'load-module '("swm-gaps"))
                         ;; "ttf-fonts"
                         ;; "net"))
 
@@ -57,7 +57,7 @@
                  "~/.stumpwm.d/solb.lisp"
                  "~/.stumpwm.d/battery.lisp"
                  "~/.stumpwm.d/mode-line.lisp"
-                 "~/.stumpwm.d/gaps-fullscreen.lisp"
+                 ;; "~/.stumpwm.d/gaps-fullscreen.lisp"
                  "~/.stumpwm.d/ring.lisp"
                  "~/.stumpwm.d/clipboard-history.lisp"
                  "~/.stumpwm.d/next.lisp"
