@@ -32,7 +32,8 @@
 (gnewbg "2")
 (gnewbg "3")
 (gnewbg "4")
-(gnewbg-float "5")
+(gnewbg "5")
+(gnewbg-float "6")
 
 ;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 

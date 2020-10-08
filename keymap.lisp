@@ -40,7 +40,7 @@
 (defvar *application-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "e") "emacs-fixed")
-    (define-key m (kbd "f") "run-shell-command /home/sol/Projects/Ishiiruka/Build/Binaries/dolphin-emu")
+    (define-key m (kbd "f") "run-shell-command ./Downloads/Slippi_Online_x86_64.AppImage")
     (define-key m (kbd "u") "run-shell-command st")
     (define-key m (kbd "s") "spotify")
     (define-key m (kbd "c") "run-shell-command firefox")
