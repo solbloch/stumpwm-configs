@@ -69,5 +69,6 @@
 
 (set-prefix-key (kbd "C-M-t"))
 (setf *mouse-focus-policy* :click)
+(setf *new-window-preferred-frame* '(:empty :focused))
 ;; :sloppy :click :ignore
 ;; (setf lparallel:*kernel* (lparallel:make-kernel 50))

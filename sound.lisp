@@ -4,8 +4,8 @@
   (str:trim (run-shell-command "pactl list short sinks | awk '/RUNNING/{print $1}'" t)))
 
 (defun list-sinks ()
-  (cl-ppcre:all-matches-as-strings "\\S*alsa_output\\S*"
-                                   (run-shell-command "pactl list short sinks" t)))
+  (str:split " "
+    (str:trim (run-shell-command "pactl list short sinks | awk -v ORS=' ' '{print $2}'" t))))
 
 (defun list-streams ()
   (mapcar
