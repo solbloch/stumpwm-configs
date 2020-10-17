@@ -45,10 +45,11 @@
     (define-key m (kbd "s") "spotify")
     (define-key m (kbd "c") "run-shell-command firefox")
     (define-key m (kbd "r") "ripcord")
-    (define-key m (kbd "d") "run-shell-command discord-canary")
+    (define-key m (kbd "d") "run-shell-command discord")
     (define-key m (kbd "D") "darktable")
     (define-key m (kbd "t") "telegram")
     (define-key m (kbd "v") "run-shell-command pavucontrol")
+    (define-key m (kbd "w") "mpv-video0")
     m))
 
 

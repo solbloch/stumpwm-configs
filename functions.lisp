@@ -57,7 +57,10 @@
                          "TPPS/2 IBM TrackPoint"
                          "ThinkPad Extra Buttons"
                          "AT Translated Set 2 keyboard")))
-  (mapcar #'(lambda (x) (run-shell-command (str:concat "xinput float \'" x"\'"))) kb-mouse-list)))
+    (mapcar #'(lambda (x) (run-shell-command (str:concat "xinput float \'" x"\'"))) kb-mouse-list)))
+
+(defcommand mpv-video0 () ()
+  (run-shell-command "mpv /dev/video0 --profile=low-latency --untimed"))
 
 (defcommand fix-discord () ()
   (run-shell-command
