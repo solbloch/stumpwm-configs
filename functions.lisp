@@ -85,7 +85,7 @@
     (5 (gnext))
     (t nil)))
 
-(defvar *magic-directories* '(#P"~/Documents/mount/Magia/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 5/"))
+(defvar *magic-directories* '(#P"~/Documents/mount/Magia/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 5/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 3/"))
 
 (defvar *magic-files* '())
 
