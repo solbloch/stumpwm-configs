@@ -85,5 +85,27 @@
     (5 (gnext))
     (t nil)))
 
+(defvar *magic-directories* '(#P"~/Documents/mount/Magia/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 5/"))
+
+(defvar *magic-files* '())
+
+(defcommand refresh-magic-list () ()
+  (let ((magic-files ()))
+    (loop for dir in *magic-directories* do
+      (cl-fad:walk-directory dir
+        (lambda (name)
+          (push name magic-files))
+        :directories nil))
+    (setf *magic-files* magic-files)))
+
+(defcommand open-magic-file () ()
+  (let ((choice (select-from-menu (current-screen)
+    (loop for i in *magic-files*
+          collecting
+          (list (file-namestring i)
+                (namestring i))) nil 0 nil)))
+    (when choice
+      (run-shell-command (str:concat "vlc \"" (cadr choice) "\"")))))
+
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))

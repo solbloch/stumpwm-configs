@@ -9,10 +9,10 @@
                             #P"/home/sol/.xinitrc"
                             #P"/home/sol/.config/picom.conf"))
 
-(when *initializing*
-  (defvar *config-sync*
-    (let ((command (format nil "/home/sol/.stumpwm.d/scripts/inotify-sync ~{~a~^ ~}" *config-list*)))
-      (uiop:launch-program command))))
+;; (when *initializing*
+;;   (defvar *config-sync*
+;;     (let ((command (format nil "/home/sol/.stumpwm.d/scripts/inotify-sync ~{~a~^ ~}" *config-list*)))
+;;       (uiop:launch-program command))))
 
 ;; (defvar *remote-location* (str:concat "sol@solb.io:/home/sol/configs/" (machine-instance) "/"))
 
