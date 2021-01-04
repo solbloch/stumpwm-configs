@@ -85,7 +85,7 @@
     (5 (gnext))
     (t nil)))
 
-(defvar *magic-directories* '(#P"~/Documents/mount/Magia/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 5/" #P"~/Documents/mount/Ultimate Magic Video Collection Vol 3/"))
+(defvar *magic-directories* '(#P"~/Documents/mount/Magic/"))
 
 (defvar *magic-files* '())
 
@@ -105,7 +105,7 @@
           (list (file-namestring i)
                 (namestring i))) nil 0 nil)))
     (when choice
-      (run-shell-command (str:concat "vlc \"" (cadr choice) "\"")))))
+      (run-shell-command (str:concat "mpv \"" (cadr choice) "\"")))))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
