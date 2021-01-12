@@ -7,7 +7,7 @@
 
      (defvar *weather-timer*
        (run-with-timer
-        1800 1
+        180 1
         #'(lambda()
             (bt:make-thread
              (lambda () (setf *weather-info* (get-weather-request)))))))))
