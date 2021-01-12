@@ -1,5 +1,7 @@
 (in-package :stumpwm)
 
+(setf *mode-line-position* :bottom)
+
 (defun last1 (lst)
   (car (last lst)))
 
