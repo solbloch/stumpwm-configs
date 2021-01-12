@@ -62,18 +62,6 @@
 (defcommand mpv-video0 () ()
   (run-shell-command "mpv /dev/video0 --profile=low-latency --untimed"))
 
-(defcommand fix-discord () ()
-  (run-shell-command
-   (str:concat "pacmd set-card-profile "
-               "alsa_card.usb-046d_0825_C4BFA9D0-02 "
-               "off"))
-  (sleep .01)
-  (run-shell-command
-   (str:concat "pacmd set-card-profile "
-               "alsa_card.usb-046d_0825_C4BFA9D0-02 "
-               "input:multichannel-input"))
-  (send-fake-key (current-window) (kbd "C-r")))
-
 (defcommand emoji-picker () ()
   (run-shell-command
    "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Apple Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
