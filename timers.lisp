@@ -1,8 +1,16 @@
 (in-package :stumpwm)
 
 (when *initializing*
-  (defvar *clipboard-timer*
-    (run-with-timer 1 1 (lambda () (remember-clipboard)))))
+  (progn
+      (defvar *clipboard-timer*
+        (run-with-timer 1 1 (lambda () (remember-clipboard))))
+
+     (defvar *weather-timer*
+       (run-with-timer
+        1800 1
+        #'(lambda()
+            (bt:make-thread
+             (lambda () (setf *weather-info* (get-weather-request)))))))))
   ;; (defvar *mode-line-processing-timer*
   ;;   (run-with-timer 1 4 (lambda () (ignore-errors
   ;;                                   (update-mode-line-process))))))
