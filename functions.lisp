@@ -107,5 +107,9 @@
     (when choice
       (run-shell-command (str:concat "mpv \"" (cadr choice) "\"")))))
 
+(defcommand melee () ()
+  (setf (getenv "__GL_MaxFramesAllowed") "0")
+  (uiop:launch-program "/home/sol/Downloads/Slippi_Online-x86_64.AppImage"))
+
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
