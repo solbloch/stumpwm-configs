@@ -3,6 +3,17 @@
 (defun last1 (lst)
   (car (last lst)))
 
+(defun network-ips ()
+  (remove-if #'(lambda (x) (search "lo" x))
+   (str:lines
+    (async-run "ip a show | awk '/inet /{gsub(/[\/][0-9]+/,\"\"); print $NF \": \" $2}'"))))
+
+(defun network-ip-string ()
+  (let ((ip-list (network-ips)))
+    (if ip-list
+        (format nil "~{~a~}"ip-list)
+        "DISCONNECTED")))
+
 (defun network-interface ()
   (let ((proc-lines (slurp #P"/proc/net/route")))
     (when (> (length proc-lines) 1)
@@ -17,6 +28,16 @@
     (if (equalp "1" (car up-down-binary))
         (format nil "~a: ^2UP^7" network-interface)
         "^1DOWN^7")))
+
+(defun memory-string ()
+  (let* ((meminfo (slurp #P"/proc/meminfo"))
+         (memtotal (/ (parse-integer
+                       (cadr (cl-ppcre:split "\\s+" (car meminfo))))
+                      1048576.0))
+         (memfree (/ (parse-integer
+                      (cadr (cl-ppcre:split "\\s+" (cadr meminfo))))
+                     1048576.0) ))
+    (format nil "~,1fG/~,1fG" (- memtotal memfree) memtotal)))
 
 (defun vpn-state ()
   (let ((vpn-list (list-open-vpns)))
@@ -49,7 +70,7 @@
     (format nil "~a°" (float (/ (read file) 1000)))))
 
 (defun weather-string ()
-  (let ((weather-request (get-weather-request)))
+  (let ((weather-request *weather-info*))
     (if weather-request
         (format nil "~1$° ~a"
                 (multi-val weather-request "main" "temp")
@@ -78,4 +99,10 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list "%g^>| "
+            '(:eval (network-ip-string))
+            " | "
+            '(:eval (memory-string))
+            " | "
+            '(:eval (weather-string))
+            " | "
             '(:eval (time?))))
