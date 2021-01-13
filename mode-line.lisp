@@ -1,7 +1,5 @@
 (in-package :stumpwm)
 
-(setf *mode-line-position* :bottom)
-
 (defun last1 (lst)
   (car (last lst)))
 
@@ -36,10 +34,10 @@
          (memtotal (/ (parse-integer
                        (cadr (cl-ppcre:split "\\s+" (car meminfo))))
                       1048576.0))
-         (memfree (/ (parse-integer
-                      (cadr (cl-ppcre:split "\\s+" (cadr meminfo))))
+         (memavail (/ (parse-integer
+                      (cadr (cl-ppcre:split "\\s+" (caddr meminfo))))
                      1048576.0) ))
-    (format nil "~,1fG/~,1fG" (- memtotal memfree) memtotal)))
+    (format nil "~,1fG/~,1fG" (- memtotal memavail) memtotal)))
 
 (defun vpn-state ()
   (let ((vpn-list (list-open-vpns)))
