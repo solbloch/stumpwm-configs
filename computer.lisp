@@ -3,9 +3,9 @@
 (set-font "-xos4-terminus-bold-r-normal--20-200-72-72-c-100-iso10646-1")
 
 ;; azrin
-;; (define-frame-preference "q-tip"
-;;   (0 t t :class "Emacs"))
+(define-frame-preference "1"
+  (0 t t :class "firefox"))
 
-;; (define-frame-preference "jarobi"
-;;   (0 t t :class "Spotify")
-;;   (1 t t :class "Ripcord"))
+(define-frame-preference "2"
+  (0 t nil :CLASS "Spotify" :INSTANCE "spotify")
+  (1 t t :class "discord"))
