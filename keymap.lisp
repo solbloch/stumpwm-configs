@@ -10,9 +10,10 @@
 (define-key *top-map* (kbd "s-r") "remove")
 (define-key *top-map* (kbd "s-q") "delete")
 (define-key *top-map* (kbd "s-Q") "killandremove")
-(define-key *top-map* (kbd "s-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-`") "pull-hidden-next")
+(define-key *top-map* (kbd "s-TAB") "pull-hidden-next")
 (define-key *top-map* (kbd "s-p") "pull-hidden-previous")
+(define-key *top-map* (kbd "s-n") "pull-hidden-next")
 (define-key *top-map* (kbd "s-RET") "run-shell-command st")
 (define-key *top-map* (kbd "s-e") "emoji-picker")
 (define-key *top-map* (kbd "s-G") "greek-menu")
@@ -26,6 +27,15 @@
 (define-key *top-map* (kbd "s-3") "gselect 3")
 (define-key *top-map* (kbd "s-4") "gselect 4")
 (define-key *top-map* (kbd "s-5") "gselect 5")
+
+
+;; For Planck style keyboard.
+(define-key *top-map* (kbd "M-q") "gselect 1")
+(define-key *top-map* (kbd "M-w") "gselect 2")
+(define-key *top-map* (kbd "M-e") "gselect 3")
+(define-key *top-map* (kbd "M-r") "gselect 4")
+(define-key *top-map* (kbd "M-t") "gselect 5")
+(define-key *top-map* (kbd "M-y") "gselect 6")
 
 (define-key *top-map* (kbd "s-w") '*helpful-things*)
 (define-key *top-map* (kbd "s-S") '*solb-commands*)
