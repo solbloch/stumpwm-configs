@@ -73,7 +73,7 @@
     (5 (gnext))
     (t nil)))
 
-(defvar *magic-directories* '(#P"~/Documents/mount/Magic/"))
+(defvar *magic-directories* '(#P"~/MOUNT/Downloads/Magic"))
 
 (defvar *magic-files* '())
 
@@ -98,6 +98,18 @@
 (defcommand melee () ()
   (setf (getenv "__GL_MaxFramesAllowed") "0")
   (uiop:launch-program "/home/sol/Downloads/Slippi_Online-x86_64.AppImage"))
+
+(defcommand david-pakman-show () ()
+  (let ((months '("january" "february" "march" "april" "may" "june"
+                  "july" "august" "september" "october" "november" "december")))
+    (multiple-value-bind
+          (second minute hour date month year day-of-week)
+        (get-decoded-time)
+      (declare (ignore second year))
+      (if (> day-of-week 4)
+          (setf date (- date (- day-of-week 4))))
+      (run-shell-command (format nil "xdg-open https://davidpakman.com/~a/~2,'0d/~a-~a-~a"
+                                 year month (nth (1- month) months) date year)))))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
