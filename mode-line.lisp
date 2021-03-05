@@ -11,7 +11,7 @@
 (defun network-ip-string ()
   (let ((ip-list (network-ips)))
     (if ip-list
-        (format nil "~{~a~}"ip-list)
+        (format nil "~{~a~^ ~}"ip-list)
         "DISCONNECTED")))
 
 (defun network-interface ()
