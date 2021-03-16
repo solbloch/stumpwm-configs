@@ -97,7 +97,7 @@
 
 (defcommand melee () ()
   (setf (getenv "__GL_MaxFramesAllowed") "0")
-  (uiop:launch-program "/home/sol/Downloads/Slippi_Online-x86_64.AppImage"))
+  (uiop:launch-program "/home/sol/Downloads/FM-Slippi-2.3.0-beta.4-Linux.AppImage"))
 
 (defcommand david-pakman-show () ()
   (let ((months '("january" "february" "march" "april" "may" "june"
@@ -110,6 +110,12 @@
           (setf date (- date (- day-of-week 4))))
       (run-shell-command (format nil "xdg-open https://davidpakman.com/~a/~2,'0d/~a-~a-~a"
                                  year month (nth (1- month) months) date year)))))
+
+(defcommand always-show () ()
+  (if (typep (current-window) 'float-window)
+      (progn (unfloat-window (current-window) (current-group))))
+  (toggle-always-show)
+  (toggle-always-on-top))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
