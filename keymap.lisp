@@ -82,8 +82,8 @@
 (defvar *frame-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "r") "iresize")
-    (define-key m (kbd "w") "all-windowlist-formatted")
-    (define-key m (kbd "W") "windowlist")
+    (define-key m (kbd "W") "all-windowlist-formatted")
+    (define-key m (kbd "w") "windowlist")
     (define-key m (kbd "R") "title")
     (define-key m (kbd "b") "balance-frames")
     (define-key m (kbd "m") "mode-line")
