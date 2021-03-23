@@ -2,9 +2,8 @@
 
 (when *initializing*
   (progn
-      (defvar *clipboard-timer*
-        (run-with-timer 1 1 (lambda () (remember-clipboard))))
-
+      ;; (defvar *clipboard-timer*
+      ;;   (run-with-timer 1 1 (lambda () (remember-clipboard))))
      (defvar *weather-timer*
        (run-with-timer
         0 180

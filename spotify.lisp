@@ -2,7 +2,9 @@
 
 (load "/home/sol/Projects/lispotify/lispotify.asd")
 
-(ql:quickload '(:lispotify :jsown))
+(ql:quickload '(:lispotify :jsown :jonathan))
+
+(use-package :lispotify)
 
 (defvar *spotify-keymap*
   (let ((m (make-sparse-keymap)))
@@ -13,6 +15,7 @@
     (define-key m (kbd "TAB") "echo-current-song")
     (define-key m (kbd "Right") "skip-forward")
     (define-key m (kbd "Left") "skip-backward")
+    (define-key m (kbd "d") "play-on-device")
     m))
 
 (defvar *spotify-menu-keymap*
@@ -36,21 +39,15 @@
 
 (defvar scopes "user-read-playback-state user-read-recently-played user-read-currently-playing user-modify-playback-state playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private")
 
-(defvar *spotify-oauth* (lispotify:make-spotify-oauth id secret redirect scopes nil))
+(defvar *spotify-oauth* (make-spotify-oauth id secret redirect scopes nil))
 
 (defmacro multi-val (object &rest vals)
   (if vals
       `(jsown:val (multi-val ,object ,@(butlast vals)) ,(car (last vals)))
       object))
 
-(defun authorization-header ()
-  `(("Authorization"
-     . ,(str:concat "Bearer " (jsown:val (lispotify:token *spotify-oauth*) "access_token")))))
-
 (defun get-playlists ()
-  (let ((raw-results (lispotify:with-token *spotify-oauth*
-                       (dex:get "https://api.spotify.com/v1/me/playlists?limit=50"
-                                :headers (authorization-header)))))
+  (let ((raw-results (spotify-api-request *spotify-oauth* "me/playlists?limit=50")))
     (loop for playlist in (jsown:val (jsown:parse raw-results) "items")
           collecting (list (format nil "^5~a^7 [~a (~a)]"
                                    (jsown:val playlist "name")
@@ -60,57 +57,45 @@
                                  (multi-val playlist "external_urls" "spotify"))))))
 
 (defun add-song-to-playlist (song-uri playlist-id)
-  (lispotify:with-token *spotify-oauth*
-    (dex:post (format nil "https://api.spotify.com/v1/playlists/~a/tracks" playlist-id)
-              :headers (authorization-header)
-              :content (jsown:to-json `(:obj ("uris" . (,song-uri)))))))
+  (spotify-api-request *spotify-oauth* (format nil "playlists/~a/tracks" playlist-id)
+                       :method :post
+                       :content (jsown:to-json `(:obj ("uris" . (,song-uri))))))
 
 (defun get-currently-playing ()
-  (lispotify:with-token *spotify-oauth*
-    (let ((request (dex:get "https://api.spotify.com/v1/me/player/currently-playing"
-                            :headers (authorization-header))))
-      (if (emptyp request)
-          (throw 'error "Nothing playing.")
-          (jsown:parse request)))))
+  (let ((request (spotify-api-request *spotify-oauth* "me/player/currently-playing")))
+    (if (emptyp request)
+        (throw 'error "Nothing playing.")
+        (jsown:parse request))))
 
 (defun play-context-uri (context-uri)
-  (lispotify:with-token *spotify-oauth*
-    (dex:put "https://api.spotify.com/v1/me/player/play"
-             :headers (authorization-header)
-             :content (jsown:to-json `(:obj ("context_uri". ,context-uri))))))
+  (spotify-api-request *spotify-oauth* "me/player/play"
+                       :method :put
+                       :content (jsown:to-json `(:obj ("context_uri". ,context-uri)))))
 
 (defun play-song (song-uri &optional (device-id nil))
-  (lispotify:with-token *spotify-oauth*
-    (dex:put "https://api.spotify.com/v1/me/player/play"
-             :headers (if device-id
-                          `(,(car (authorization-header))
-                            ("device_id" . ,device-id))
-                          (authorization-header))
-             :content (jsown:to-json `(:obj ("uris". (,song-uri)))))))
+  (spotify-api-request *spotify-oauth* "me/player/play"
+                                 :headers (when device-id `(("device_id" . ,device-id)))
+                                 :content (jsown:to-json `(:obj ("uris". (,song-uri))))
+                                 :method :put))
 
 (defun play-play (device-id)
-  (lispotify:with-token *spotify-oauth*
-    (dex:put "https://api.spotify.com/v1/me/player/play"
-             :headers `(,(car (authorization-header))
-                        ("device_id" . ,device-id)))))
+  (spotify-api-request *spotify-oauth* "me/player"
+                       :method :put
+                       :content (jsown:to-json `(:obj ("device_ids" . (,device-id))))))
 
 (defun get-devices ()
-  (lispotify:with-token *spotify-oauth*
-    (dex:get "https://api.spotify.com/v1/me/player/devices"
-             :headers (authorization-header))))
+  (spotify-api-request *spotify-oauth* "me/player/devices"))
 
 (defun search-track-func (name)
   "search a string and return a list of tracks in jsown object format"
-  (lispotify:with-token *spotify-oauth*
-    (let* ((uri (str:concat "https://api.spotify.com/v1/search?q="
-                            (quri:url-encode name)
-                            "&type=track"))
-           (raw-results (handler-case
-                            (dex:get uri
-                                     :headers (authorization-header))
-                          (dex:http-request-failed (e)
-                            (format nil "~a" e)))))
-      (multi-val (jsown:parse raw-results) "tracks" "items"))))
+  (let ((raw-results (handler-case
+                         (spotify-api-request *spotify-oauth*
+                                              (str:concat "search?q="
+                                                          (quri:url-encode name)
+                                                          "&type=track"))
+                       (dex:http-request-failed (e)
+                         (format nil "~a" e)))))
+    (multi-val (jsown:parse raw-results) "tracks" "items")))
 
 (defun track-string (song-item)
   (format nil "^6~a^7 - ^5~a^7 - ^2~{~a~^, ~}^7"
@@ -162,14 +147,10 @@
                     (track-string currently-playing)))))
 
 (defcommand skip-forward () ()
-  (lispotify:with-token *spotify-oauth*
-    (dex:post "https://api.spotify.com/v1/me/player/next"
-              :headers (authorization-header))))
+  (spotify-api-request *spotify-oauth* "me/player/next" :method :post))
 
 (defcommand skip-backward () ()
-  (lispotify:with-token *spotify-oauth*
-    (dex:post "https://api.spotify.com/v1/me/player/previous"
-              :headers (authorization-header))))
+  (spotify-api-request *spotify-oauth* "me/player/previous" :method :post))
 
 (defcommand add-current-song-playlist () ()
   (let ((currently-playing (jsown:val (get-currently-playing) "item")))

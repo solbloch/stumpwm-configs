@@ -61,20 +61,20 @@
                                                     (xlib:global-pointer-position *display*)))))
                               (:key-press
                                ()
-                               (setf canceled t)))
-          finally (when (not canceled)
-                    (let ((x-one (car point-one))
-                          (y-one (cadr point-one))
-                          (x-two (car point-two))
-                          (y-two (cadr point-two)))
-                      (screenshot-drawable (xlib:screen-root (screen-number (current-screen)))
-                                           filename
-                                           :x (min x-one x-two)
-                                           :y (min y-one y-two)
-                                           :width (abs (- x-one x-two))
-                                           :height (abs (- y-one y-two))))))
+                               (setf canceled t))))
     (xlib:ungrab-pointer *display*)
-    (xlib:ungrab-keyboard *display*)))
+    (xlib:ungrab-keyboard *display*)
+    (when (not canceled)
+      (let ((x-one (car point-one))
+            (y-one (cadr point-one))
+            (x-two (car point-two))
+            (y-two (cadr point-two)))
+        (screenshot-drawable (xlib:screen-root (screen-number (current-screen)))
+                             filename
+                             :x (min x-one x-two)
+                             :y (min y-one y-two)
+                             :width (abs (- x-one x-two))
+                             :height (abs (- y-one y-two)))))))
 
 (defun screenshot-full (filename)
   (screenshot-drawable (xlib:screen-root (screen-number (current-screen))) filename))
@@ -97,18 +97,20 @@
 
 (defcommand screenshot-selection-post () ()
   (screenshot-selection "~/.stumpwm.d/tempfile.png")
-  (bt:make-thread
-   (lambda ()
-     (catch-host-not-found
-      (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-      (message "Copied link to clipboard.")))))
+  ;; (bt:make-thread
+  ;;  (lambda ()
+  ;;    (catch-host-not-found
+  ;;     (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
+  ;;      (message "Copied link to clipboard."))))
+  )
 
 (defcommand screenshot-selection-copy () ()
   (screenshot-selection "~/.stumpwm.d/tempfile.png")
   (bt:make-thread
    (lambda ()
       (run-shell-command "xclip -selection clipboard -t image/png -i ~/.stumpwm.d/tempfile.png")
-      (message "Copied PHOTO to clipboard."))))
+     (message "Copied PHOTO to clipboard.")))
+  )
 
 (defcommand screenshot-full-post () ()
   (screenshot-full "~/.stumpwm.d/tempfile.png")

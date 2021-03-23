@@ -50,7 +50,8 @@
 ;;   (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
 
 (defcommand sleep-pc () ()
-  (run-shell-command "sleep 1; xset dpms force off"))
+  (turn-off-group *bedroom*)
+  (run-shell-command "systemctl suspend"))
 
 (defcommand float-keyboard-mouse () ()
   (let ((kb-mouse-list '("Synaptics TM3276-022"
@@ -77,14 +78,14 @@
 
 (defvar *magic-files* '())
 
-(defcommand refresh-magic-list () ()
-  (let ((magic-files ()))
-    (loop for dir in *magic-directories* do
-      (cl-fad:walk-directory dir
-        (lambda (name)
-          (push name magic-files))
-        :directories nil))
-    (setf *magic-files* magic-files)))
+;; (defcommand refresh-magic-list () ()
+;;   (let ((magic-files ()))
+;;     (loop for dir in *magic-directories* do
+;;       (cl-fad:walk-directory dir
+;;         (lambda (name)
+;;           (push name magic-files))
+;;         :directories nil))
+;;     (setf *magic-files* magic-files)))
 
 (defcommand open-magic-file () ()
   (let ((choice (select-from-menu (current-screen)
@@ -116,6 +117,11 @@
       (progn (unfloat-window (current-window) (current-group))))
   (toggle-always-show)
   (toggle-always-on-top))
+
+(defun group-by-name (name)
+  (find-if #'(lambda (x)
+               (equal name (group-name x)))
+           (sort-groups (current-screen))))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))

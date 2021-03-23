@@ -27,15 +27,17 @@
 (define-key *top-map* (kbd "s-3") "gselect 3")
 (define-key *top-map* (kbd "s-4") "gselect 4")
 (define-key *top-map* (kbd "s-5") "gselect 5")
+(define-key *top-map* (kbd "s-.") "gnext")
+(define-key *top-map* (kbd "s-,") "gprev")
 
 
 ;; For Planck style keyboard.
-(define-key *top-map* (kbd "M-q") "gselect 1")
-(define-key *top-map* (kbd "M-w") "gselect 2")
-(define-key *top-map* (kbd "M-e") "gselect 3")
-(define-key *top-map* (kbd "M-r") "gselect 4")
-(define-key *top-map* (kbd "M-t") "gselect 5")
-(define-key *top-map* (kbd "M-y") "gselect 6")
+;; (define-key *top-map* (kbd "M-q") "gselect 1")
+;; (define-key *top-map* (kbd "M-w") "gselect 2")
+;; (define-key *top-map* (kbd "M-e") "gselect 3")
+;; (define-key *top-map* (kbd "M-r") "gselect 4")
+;; (define-key *top-map* (kbd "M-t") "gselect 5")
+;; (define-key *top-map* (kbd "M-y") "gselect 6")
 
 (define-key *top-map* (kbd "s-w") '*helpful-things*)
 (define-key *top-map* (kbd "s-S") '*solb-commands*)
@@ -151,6 +153,7 @@
     m))
 
 ;; Volume // Brightness Config
+(define-key *top-map* (kbd "XF86Sleep") "sleep-pc")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "volume-down")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume-up")
 (define-key *top-map* (kbd "XF86AudioMute") "volume-mute")

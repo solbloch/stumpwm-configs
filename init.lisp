@@ -8,7 +8,7 @@
                 :cl-async
                 :cl-inotify
                 :cl-ppcre
-                ;; :clx-truetype
+                :clx-truetype
                 :jsown
                 :swank
                 :str
@@ -21,19 +21,17 @@
   (swank-loader:init)
   (swank:create-server :port 4005
                        :style swank:*communication-style*
-                       :dont-close t))
+                       :dont-close t)
+  (grename "1")
+  (gnewbg "2")
+  (gnewbg "3")
+  (gnewbg "4")
+  (gnewbg "5"))
 
 ;; packages !
-;; (mapcar #'load-module '("swm-gaps"))
-                        ;; "ttf-fonts"
+(mapcar #'load-module '("swm-gaps" "ttf-fonts"))
                         ;; "net"))
 
-(grename "1")
-(gnewbg "2")
-(gnewbg "3")
-(gnewbg "4")
-(gnewbg "5")
-(gnewbg-float "6")
 
 ;; (restore-from-file "/home/sol/.stumpwm.d/frames")
 
@@ -64,6 +62,7 @@
                  "~/.stumpwm.d/weather.lisp"
                  "~/.stumpwm.d/echo.lisp"
                  "~/.stumpwm.d/timers.lisp"
+                 "~/.stumpwm.d/hue.lisp"
                  "~/.stumpwm.d/keymap.lisp"))
 
 
