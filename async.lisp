@@ -10,6 +10,6 @@
     (if (listen stream)
         (loop while (listen stream)
               do (setf output-string (str:concat output-string
-                                                 '(#\Newline)
+                                                 (format nil "~%")
                                                  (read-line stream)))))
     output-string))
