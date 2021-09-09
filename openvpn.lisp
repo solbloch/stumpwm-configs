@@ -2,17 +2,17 @@
 
 (defvar *vpn-directory* #P"~/Documents/vpn/")
 
-(defun vpn-config-list () (uiop:directory-files *vpn-directory*))
+(defun vpn-config-list () (remove-if-not
+                           #'(lambda (x) (search ".ovpn" (namestring x)))
+                           (uiop:directory-files *vpn-directory*)))
 
 (defun open-vpn (path)
   "takes a path and asks for sudo, then opens the process that splits off"
-  (let ((password (read-one-line (current-screen) "sudo password: " :password t))
-        (command (str:concat "sudo -S openvpn --cd "
+  (let ((command (str:concat "sudo -S openvpn --cd "
                              (namestring *vpn-directory*)
                              " --config "
                              "'" path "'")))
-    (with-open-stream (st (make-string-input-stream password))
-      (uiop:launch-program command :input st))))
+      (uiop:launch-program command)))
 
 
 

@@ -41,6 +41,9 @@
 (defcommand spotify () ()
   (run-or-raise "spotify" '(:class "Spotify")))
 
+(defcommand teams () ()
+  (run-or-raise "teams" '(:class "Teams")))
+
 (defun percent (perc)
   (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
     (message "~a~a" on-string
@@ -48,10 +51,6 @@
 
 ;; (defcommand fix-audio () ()
 ;;   (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
-
-(defcommand sleep-pc () ()
-  (turn-off-group *bedroom*)
-  (run-shell-command "systemctl suspend"))
 
 (defcommand float-keyboard-mouse () ()
   (let ((kb-mouse-list '("Synaptics TM3276-022"
@@ -67,25 +66,21 @@
   (run-shell-command
    "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Apple Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
 
-(defun mode-line-group-scroll (mode-line button x y)
-  (declare (ignore mode-line x y))
-  (case button
-    (4 (gprev))
-    (5 (gnext))
-    (t nil)))
-
 (defvar *magic-directories* '(#P"~/MOUNT/Downloads/Magic"))
 
 (defvar *magic-files* '())
 
-;; (defcommand refresh-magic-list () ()
-;;   (let ((magic-files ()))
-;;     (loop for dir in *magic-directories* do
-;;       (cl-fad:walk-directory dir
-;;         (lambda (name)
-;;           (push name magic-files))
-;;         :directories nil))
-;;     (setf *magic-files* magic-files)))
+(defcommand refresh-magic-list () ()
+  (let ((special-magic-dir *magic-directories*))
+    (bt:make-thread
+     (lambda ()
+       (let ((magic-files ()))
+         (loop for dir in *magic-directories* do
+           (cl-fad:walk-directory dir
+                                  (lambda (name)
+                                    (push name magic-files))
+                                  :directories nil))
+         (setf special-magic-dir magic-files))))))
 
 (defcommand open-magic-file () ()
   (let ((choice (select-from-menu (current-screen)
@@ -106,7 +101,7 @@
     (multiple-value-bind
           (second minute hour date month year day-of-week)
         (get-decoded-time)
-      (declare (ignore second year))
+      (declare (ignorable second minute hour))
       (if (> day-of-week 4)
           (setf date (- date (- day-of-week 4))))
       (run-shell-command (format nil "xdg-open https://davidpakman.com/~a/~2,'0d/~a-~a-~a"
@@ -122,6 +117,16 @@
   (find-if #'(lambda (x)
                (equal name (group-name x)))
            (sort-groups (current-screen))))
+
+
+(defun mode-line-group-scroll (mode-line button x y)
+  (declare (ignore mode-line x y))
+  (case button
+    (1 (pull-hidden-next))
+    (3 (pull-hidden-previous))
+    (4 (gprev))
+    (5 (gnext))
+    (t nil)))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))

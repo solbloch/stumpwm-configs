@@ -72,10 +72,11 @@
                        :method :put
                        :content (jsown:to-json `(:obj ("context_uri". ,context-uri)))))
 
-(defun play-song (song-uri &optional (device-id nil))
+(defun play-song (context-uri track-num &optional (device-id nil))
   (spotify-api-request *spotify-oauth* "me/player/play"
                                  :headers (when device-id `(("device_id" . ,device-id)))
-                                 :content (jsown:to-json `(:obj ("uris". (,song-uri))))
+                                 :content (jsown:to-json `(:obj ("context_uri". ,context-uri)
+                                                                ("offset". (:obj ("position". ,(- track-num 1))))))
                                  :method :put))
 
 (defun play-play (device-id)
@@ -122,11 +123,12 @@
                    collecting
                    (list (track-string i)
                          (list (jsown:val i "uri") (multi-val i "album" "uri")
-                               (multi-val i "external_urls" "spotify")))))
+                               (multi-val i "external_urls" "spotify")
+                               (jsown:val i "track_number")))))
            (choice (select-from-menu (current-screen) results-alist nil 0
                                      *spotify-menu-keymap*)))
       (when choice
-        (play-song (caadr choice))))))
+        (play-song (cadadr choice) (cadr (cddadr choice)))))))
 
 (defcommand play-playlist () ()
   (let* ((playlists (get-playlists))

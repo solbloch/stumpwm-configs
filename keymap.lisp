@@ -12,8 +12,8 @@
 (define-key *top-map* (kbd "s-Q") "killandremove")
 (define-key *top-map* (kbd "M-`") "pull-hidden-next")
 (define-key *top-map* (kbd "s-TAB") "pull-hidden-next")
-(define-key *top-map* (kbd "s-p") "pull-hidden-previous")
-(define-key *top-map* (kbd "s-n") "pull-hidden-next")
+;; (define-key *top-map* (kbd "s-p") "pull-hidden-previous")
+;; (define-key *top-map* (kbd "s-n") "pull-hidden-next")
 (define-key *top-map* (kbd "s-RET") "run-shell-command st")
 (define-key *top-map* (kbd "s-e") "emoji-picker")
 (define-key *top-map* (kbd "s-G") "greek-menu")
@@ -62,6 +62,7 @@
     (define-key m (kbd "t") "telegram")
     (define-key m (kbd "v") "run-shell-command pavucontrol")
     (define-key m (kbd "w") "mpv-video0")
+    (define-key m (kbd "T") "teams")
     m))
 
 
