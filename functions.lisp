@@ -60,18 +60,19 @@
     (mapcar #'(lambda (x) (run-shell-command (str:concat "xinput float \'" x"\'"))) kb-mouse-list)))
 
 (defcommand mpv-video0 () ()
-  (run-shell-command "mpv /dev/video0 --profile=low-latency --untimed"))
+  (run-shell-command "mpv --demuxer-lavf-format=video4linux2 --demuxer-lavf-o-set=input_format=mjpeg av://v4l2:/dev/video0"))
 
 (defcommand emoji-picker () ()
   (run-shell-command
-   "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Apple Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
+   "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Noto Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
 
 (defvar *magic-directories* '(#P"~/MOUNT/Downloads/Magic"))
 
 (defvar *magic-files* '())
 
 (defcommand refresh-magic-list () ()
-  (let ((special-magic-dir *magic-directories*))
+  (let ((special-magic-dir *magic-files*)
+        (b *standard-output*))
     (bt:make-thread
      (lambda ()
        (let ((magic-files ()))
@@ -80,9 +81,10 @@
                                   (lambda (name)
                                     (push name magic-files))
                                   :directories nil))
-         (setf special-magic-dir magic-files))))))
+         (setq *magic-files* magic-files)
+         (format b "~a" magic-files))))))
 
-(defcommand open-magic-file () ()
+(defcommand magic-file () ()
   (let ((choice (select-from-menu (current-screen)
     (loop for i in *magic-files*
           collecting
@@ -93,7 +95,7 @@
 
 (defcommand melee () ()
   (setf (getenv "__GL_MaxFramesAllowed") "0")
-  (uiop:launch-program "/home/sol/Downloads/FM-Slippi-2.3.0-beta.4-Linux.AppImage"))
+  (uiop:launch-program "/home/sol/.config/Slippi\\ Launcher/netplay/Slippi_Online-x86_64.AppImage"))
 
 (defcommand david-pakman-show () ()
   (let ((months '("january" "february" "march" "april" "may" "june"
@@ -127,6 +129,11 @@
     (4 (gprev))
     (5 (gnext))
     (t nil)))
+
+(defcommand deal () ()
+    (let* ((players (+ 2 (random 6)))
+           (position (1+ (random players))))
+      (message "players: ~a position: ~a" players position)))
 
 (when *initializing*
   (add-hook *mode-line-click-hook* #'mode-line-group-scroll))

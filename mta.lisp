@@ -1,14 +1,10 @@
 (in-package :stumpwm)
 
+(defvar *mta-info* '())
 
-;; (defun get-weather-request ()
-;;   (jsown:parse
-;;    (catch-host-not-found
-;;      (dex:get (str:concat "https://api.darksky.net/forecast/"
-;;                           darksky-id
-;;                           "/43.034706,-76.12619?exclude=[hourly,daily,alerts,flags]")))))
-
-(defvar *weather-info* '())
+(defun refresh-mta ()
+  (dex:get "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-jz"
+           :headers `(("x-api-key" . ,mta-id))))
 
 (defun get-weather-request ()
   (let ((request (handler-case

@@ -1,3 +1,6 @@
 [submodule "modules"]
 	path = modules
 	url = https://github.com/stumpwm/stumpwm-contrib.git
+[submodule "cl-tfnsw-gtfs"]
+	path = cl-tfnsw-gtfs
+	url = https://github.com/ozjongwon/cl-tfnsw-gtfs
