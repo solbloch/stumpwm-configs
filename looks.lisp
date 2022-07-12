@@ -8,7 +8,7 @@
       *window-format* "%s%15t"
       *group-format* "%t"
       *resize-increment* 35
-      *mode-line-position* :bottom
+      *mode-line-position* :top
       *mode-line-background-color* "#2b2b2b"
       *mode-line-foreground-color* "#E5E9F0")
 

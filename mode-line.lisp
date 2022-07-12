@@ -99,6 +99,8 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list "%g^>| "
+            '(:eval (battery-string))
+            " | "
             '(:eval (network-ip-string))
             " | "
             '(:eval (memory-string))

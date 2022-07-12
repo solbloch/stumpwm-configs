@@ -2,13 +2,13 @@
 
 (when *initializing*
   (progn
-      ;; (defvar *clipboard-timer*
-      ;;   (run-with-timer 1 1 (lambda () (remember-clipboard))))
+      (defvar *clipboard-timer*
+        (run-with-timer 1 1 (lambda () (remember-clipboard))))
      (defvar *weather-timer*
        (run-with-timer
         0 180
         #'(lambda()
-            (bt:make-thread
+
              (lambda () (setf *weather-info* (get-weather-request)))))))))
   ;; (defvar *mode-line-processing-timer*
   ;;   (run-with-timer 1 4 (lambda () (ignore-errors

@@ -97,12 +97,11 @@
 
 (defcommand screenshot-selection-post () ()
   (screenshot-selection "~/.stumpwm.d/tempfile.png")
-  ;; (bt:make-thread
-  ;;  (lambda ()
-  ;;    (catch-host-not-found
-  ;;     (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
-  ;;      (message "Copied link to clipboard."))))
-  )
+  (bt:make-thread
+   (lambda ()
+     (catch-host-not-found
+      (set-x-selection (post #P"~/.stumpwm.d/tempfile.png" "image/png") :clipboard)
+       (message "Copied link to clipboard.")))))
 
 (defcommand screenshot-selection-copy () ()
   (screenshot-selection "~/.stumpwm.d/tempfile.png")
