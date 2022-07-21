@@ -10,7 +10,6 @@
 (define-key *top-map* (kbd "s-r") "remove")
 (define-key *top-map* (kbd "s-q") "delete")
 (define-key *top-map* (kbd "s-Q") "killandremove")
-(define-key *top-map* (kbd "M-`") "pull-hidden-next")
 (define-key *top-map* (kbd "s-TAB") "pull-hidden-next")
 ;; (define-key *top-map* (kbd "s-p") "pull-hidden-previous")
 ;; (define-key *top-map* (kbd "s-n") "pull-hidden-next")
@@ -39,6 +38,8 @@
 (define-key *top-map* (kbd "M-r") "gselect 4")
 (define-key *top-map* (kbd "M-t") "gselect 5")
 (define-key *top-map* (kbd "M-y") "gselect 6")
+(define-key *top-map* (kbd "M-y") "gselect 6")
+(define-key *top-map* (kbd "M-TAB") "pull-hidden-next")
 
 (define-key *top-map* (kbd "s-w") '*helpful-things*)
 (define-key *top-map* (kbd "s-S") '*solb-commands*)
@@ -56,7 +57,7 @@
     (define-key m (kbd "f") "melee")
     (define-key m (kbd "u") "run-shell-command st")
     (define-key m (kbd "s") "spotify")
-    (define-key m (kbd "c") "run-shell-command google-chrome-stable --disable-features=SendMouseLeaveEvents")
+    (define-key m (kbd "c") "run-shell-command google-chrome-stable --disable-features=SendMouseLeaveEvents --disable-gpu-driver-bug-workarounds")
     (define-key m (kbd "r") "ripcord")
     (define-key m (kbd "d") "run-shell-command discord")
     (define-key m (kbd "D") "darktable")
@@ -117,6 +118,7 @@
     (define-key m (kbd "r") '*redshift-levels*)
     (define-key m (kbd "f") "fix-discord")
     (define-key m (kbd "a") "audio-switch")
+    (define-key m (kbd "k") "keyboard-toggle")
     m))
 
 

@@ -66,7 +66,7 @@
               date))))
 
 (defun cpu-temp ()
-  (with-open-file (file "/sys/class/hwmon/hwmon0/temp1_input")
+  (with-open-file (file "/sys/class/hwmon/hwmon1/temp1_input")
     (format nil "~a°" (float (/ (read file) 1000)))))
 
 (defun weather-string ()
@@ -91,7 +91,7 @@
                    (network-string)
                    (battery-string)
                    (get-volume-string)
-                   (cpu-temp)
+                   ;; (cpu-temp)
                    (time?)))))
 
 ;; (setf stumpwm:*screen-mode-line-format*
@@ -106,5 +106,7 @@
             '(:eval (memory-string))
             " | "
             '(:eval (weather-string))
+            " | "
+            '(:eval (cpu-temp))
             " | "
             '(:eval (time?))))

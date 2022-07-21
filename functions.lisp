@@ -124,10 +124,21 @@
 (defun mode-line-group-scroll (mode-line button x y)
   (declare (ignore mode-line x y))
   (case button
-    (1 (pull-hidden-next))
-    (3 (pull-hidden-previous))
     (4 (gprev))
     (5 (gnext))
+    (t nil)))
+
+(defun mode-line-window-cycle-click (mode-line button x y)
+  (declare (ignore mode-line x y))
+  (case button
+    (1 (pull-hidden-next))
+    (3 (pull-hidden-previous))
+    (t nil)))
+
+(defun mode-line-keyboard-toggle (mode-line button x y)
+  (declare (ignore mode-line x y))
+  (case button
+    (2 (keyboard-toggle))
     (t nil)))
 
 (defcommand deal () ()
@@ -135,5 +146,21 @@
            (position (1+ (random players))))
       (message "players: ~a position: ~a" players position)))
 
+(defun keyboard-enabled-p ()
+  (let ((output (run-shell-command
+                 "xinput list-props 'AT Translated Set 2 keyboard' | grep 'Device Enabled' |  grep -o '[01]$'"
+                 t)))
+    (if (eq 1 (parse-integer output)) t)))
+
+(defcommand keyboard-toggle () ()
+  (if (keyboard-enabled-p)
+      (run-shell-command "xinput disable 'AT Translated Set 2 keyboard'")
+      (progn
+        (run-shell-command "xinput enable 'AT Translated Set 2 keyboard'" t)
+    (run-shell-command "xcape -e 'Control_L=Escape'" t))))
+
 (when *initializing*
-  (add-hook *mode-line-click-hook* #'mode-line-group-scroll))
+  (progn
+    (add-hook *mode-line-click-hook* #'mode-line-group-scroll)
+    (add-hook *mode-line-click-hook* #'mode-line-window-cycle-click)
+    (add-hook *mode-line-click-hook* #'mode-line-keyboard-toggle)))
