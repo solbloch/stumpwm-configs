@@ -159,6 +159,13 @@
         (run-shell-command "xinput enable 'AT Translated Set 2 keyboard'" t)
     (run-shell-command "xcape -e 'Control_L=Escape'" t))))
 
+(defcommand telegram-split (&optional (right t)) (:y-or-n)
+  (if right
+      (hsplit "4/5")
+      (progn (hsplit "1/5")
+             (sleep .01)
+             (exchange-direction :right))))
+
 (when *initializing*
   (progn
     (add-hook *mode-line-click-hook* #'mode-line-group-scroll)

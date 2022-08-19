@@ -95,6 +95,8 @@
     (define-key m (kbd "f") "fullscreen")
     (define-key m (kbd "s") "fselect")
     (define-key m (kbd "F") "only")
+    (define-key m (kbd "t") "telegram-split")
+    (define-key m (kbd "T") "telegram-split t")
     m))
 
 

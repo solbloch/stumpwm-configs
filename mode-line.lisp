@@ -67,7 +67,7 @@
 
 (defun cpu-temp ()
   (with-open-file (file "/sys/class/hwmon/hwmon1/temp1_input")
-    (format nil "~a°" (float (/ (read file) 1000)))))
+    (format nil "~,1f°" (float (/ (read file) 1000)))))
 
 (defun weather-string ()
   (let ((weather-request *weather-info*))

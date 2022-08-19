@@ -62,7 +62,7 @@
                  "~/.stumpwm.d/weather.lisp"
                  "~/.stumpwm.d/echo.lisp"
                  "~/.stumpwm.d/timers.lisp"
-                 ;;"~/.stumpwm.d/hue.lisp"
+                 "~/.stumpwm.d/hue.lisp"
                  "~/.stumpwm.d/keymap.lisp"))
 
 
