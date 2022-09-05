@@ -31,7 +31,7 @@
   (pull-window win *past-frame*)
   (remove-hook *focus-window-hook* #'push-back-hook))
 
-(defcommand scratch-windowlist (&optional (fmt *window-format*)
+(defcommand scratch-windowlist (&optional (fmt "%c - %s%300t")
                             window-list) (:rest)
   (let ((window-list (or window-list
                          (sort-windows-by-number

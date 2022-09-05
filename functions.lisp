@@ -8,7 +8,7 @@
 (defcommand redshift-temp (temp) ((:number "temp?? : "))
   (run-shell-command (str:concat "redshift -O " (write-to-string temp))))
 
-(defcommand all-windowlist (&optional (fmt *window-format*)
+(defcommand all-windowlist (&optional (fmt "%c - %s%300t")
                             window-list) (:rest)
   (let ((window-list (or window-list
                          (sort-windows-by-number
@@ -21,9 +21,6 @@
                 (switch-to-group (window-group window))
                 (group-focus-window (window-group window) window))
               (throw 'error :abort))))))
-
-(defcommand all-windowlist-formatted () ()
-  (all-windowlist "%s%300t"))
 
 (defcommand ripcord () ()
   (run-or-raise "ripcord" '(:class "Ripcord")))
