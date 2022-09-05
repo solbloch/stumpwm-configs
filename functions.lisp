@@ -36,7 +36,7 @@
 
 
 (defcommand emacs-fixed () ()
-  (run-shell-command "emacsclient -c"))
+  (run-or-raise "emacsclient -c" '(:class "Emacs")))
 
 (defcommand spotify () ()
   (run-or-raise "spotify" '(:class "Spotify")))
