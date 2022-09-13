@@ -2,3 +2,4 @@
 /tempfile.png
 /spotify-credentials.lisp
 /credentials.lisp
+*.~undo-tree~

@@ -9,6 +9,8 @@
 
 (defun pop-here (win)
 
+
+
   ;; store old group and frame
   (setf *past-group* (window-group win))
   (setf *past-frame* (window-frame win))
@@ -30,6 +32,7 @@
   (move-window-to-group win *past-group*)
   (pull-window win *past-frame*)
   (remove-hook *focus-window-hook* #'push-back-hook))
+
 
 (defcommand scratch-windowlist (&optional (fmt "%c - %s%300t")
                             window-list) (:rest)
