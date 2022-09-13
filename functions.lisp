@@ -22,6 +22,37 @@
                 (group-focus-window (window-group window) window))
               (throw 'error :abort))))))
 
+(defcommand pull-all-windowlist (&optional (fmt "%c - %s%300t")
+				 window-list) (:rest)
+  (let ((window-list (or window-list
+			 (sort-windows-by-number
+			  (screen-windows (current-screen))))))
+    (if (null window-list)
+	(message "No Managed Windows")
+	(let ((window (select-window-from-menu window-list fmt)))
+	  (if window
+	      (progn
+		(move-window-to-group window (current-group))
+		(group-focus-window (window-group window) window))
+	      (throw 'error :abort))))))
+
+(defcommand push-to-group-menu (&optional (fmt *group-format*)) (:rest)
+    (push-to-group fmt))
+  
+
+(defun push-to-group (&optional (fmt *group-format*))
+  (when-let ((group (second (select-from-menu
+			     (current-screen)
+			     (mapcar (lambda (g)
+				       (list (format-expand *group-formatters* fmt g) g))
+				     (sort-groups (current-screen)))))))
+    (move-window-to-group (current-window) group)))
+
+;; supposed to be alt tab that works with floats too
+(defcommand alt-tab-okay () ()
+    )
+
+
 (defcommand ripcord () ()
   (run-or-raise "ripcord" '(:class "Ripcord")))
 
