@@ -72,9 +72,10 @@
 (defun weather-string ()
   (let ((weather-request *weather-info*))
     (if weather-request
-        (format nil "~1$°F ~1$°C ~a"
+        (format nil "~1$°F ~1$°C ~d% ~a"
                 (multi-val weather-request "main" "temp")
                 (* 5/9 (- (multi-val weather-request "main" "temp") 32.0))
+                (multi-val weather-request "main" "humidity")
                 (multi-val (car (multi-val weather-request "weather")) "description"))
         "weather unavailable")))
 
