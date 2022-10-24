@@ -18,6 +18,7 @@
 (define-key *top-map* (kbd "s-G") "greek-menu")
 (define-key *top-map* (kbd "s-F") "fullscreen")
 (define-key *top-map* (kbd "s-D") "deal")
+(define-key *top-map* (kbd "s-C") "random-card-and-number")
 (define-key *top-map* (kbd "s-b") "open-book")
 (define-key *top-map* (kbd "s-c") "clipboard")
 

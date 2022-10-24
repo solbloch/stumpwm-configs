@@ -174,6 +174,19 @@
            (position (1+ (random players))))
       (message "players: ~a position: ~a" players position)))
 
+(defcommand random-card-and-number () ()
+  (let* ((suit-list '("♣" "♥" "♠" "♦"))
+	 (suit      (nth (random 4) suit-list))
+	 (value-raw (1+ (random 13)))
+	 (value     (case value-raw
+		      (1  "A")
+		      (11 "J")
+		      (12 "Q")
+		      (13 "K")
+		      (t  value-raw)))
+	 (number    (1+ (random 52))))
+    (message "~a~a - ~a" value suit number)))
+
 (defun keyboard-enabled-p ()
   (let ((output (run-shell-command
                  "xinput list-props 'AT Translated Set 2 keyboard' | grep 'Device Enabled' |  grep -o '[01]$'"
