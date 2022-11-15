@@ -79,6 +79,29 @@
                 (multi-val (car (multi-val weather-request "weather")) "description"))
         "weather unavailable")))
 
+
+(defun hour-minute (time)
+  (multiple-value-bind
+          (second minute hour date month year day-of-week)
+        (decode-universal-time time)
+      (declare (ignore second year date month year day-of-week))
+      (format nil "~2,'0d:~2,'0d"
+              hour
+              minute)))
+              ;; second
+              ;;(nth day-of-week days)
+              ;;month
+              ;;date)))
+
+
+(defun sunrise-sunset-string ()
+  (let ((weather-request *weather-info*))
+    (if weather-request
+        (format nil "~a ~a"
+                (hour-minute (multi-val weather-request "sys" "sunrise"))
+		(hour-minute (multi-val weather-request "sys" "sunset")))
+        "weather unavailable")))
+
 (defvar *mode-line-processing* nil)
 
 (defun mode-line-processed ()
@@ -106,6 +129,8 @@
             '(:eval (network-ip-string))
             " | "
             '(:eval (memory-string))
+            " | "
+            '(:eval (sunrise-sunset-string))
             " | "
             '(:eval (weather-string))
             " | "
