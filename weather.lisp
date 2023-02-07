@@ -15,7 +15,7 @@
                      (flexi-streams:octets-to-string
                       (drakma:http-request (str:concat
                                             "https://api.openweathermap.org/data/2.5/"
-                                            "weather?zip=11221&appid="
+                                            "weather?zip=11237&appid="
                                             openweather-id
                                             "&units=imperial")))
                    (usocket:ns-try-again-condition ()

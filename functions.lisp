@@ -75,7 +75,7 @@
 (defun percent (perc)
   (let ((on-string (make-string (floor (/ perc 5)) :initial-element #\▒)))
     (message "~a~a" on-string
-             (make-string (- 20 (floor (/ perc 5))) :initial-element #\ ))))
+             (make-string (- 30 (floor (/ perc 5))) :initial-element #\ ))))
 
 ;; (defcommand fix-audio () ()
 ;;   (run-shell-command "pacmd set-card-profile alsa_card.pci-0000_01_00.1 off"))
@@ -140,6 +140,12 @@
 (defcommand always-show () ()
   (if (typep (current-window) 'float-window)
       (progn (unfloat-window (current-window) (current-group))))
+  (toggle-always-show)
+  (toggle-always-on-top))
+
+(defcommand float-show () ()
+  (if (not (typep (current-window) 'float-window))
+      (progn (float-window (current-window) (current-group))))
   (toggle-always-show)
   (toggle-always-on-top))
 
