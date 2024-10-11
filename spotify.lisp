@@ -10,6 +10,7 @@
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-c") "copy-current-song-url")
     (define-key m (kbd "s") "search-track")
+    (define-key m (kbd "S") "search-track-queue")
     (define-key m (kbd "p") "play-playlist")
     (define-key m (kbd "a") "add-current-song-playlist")
     (define-key m (kbd "TAB") "echo-current-song")
@@ -79,6 +80,11 @@
                                                                 ("offset". (:obj ("position". ,(- track-num 1))))))
                                  :method :put))
 
+(defun queue-song (track-uri &optional (device-id nil))
+  (spotify-api-request *spotify-oauth* (format nil "me/player/queue/?uri=~a" track-uri)
+                       :headers (when device-id `(("device_id" . ,device-id)))
+                       :method :post))
+
 (defun play-play (device-id)
   (spotify-api-request *spotify-oauth* "me/player"
                        :method :put
@@ -129,6 +135,21 @@
                                      *spotify-menu-keymap*)))
       (when choice
         (play-song (cadadr choice) (cadr (cddadr choice)))))))
+
+(defcommand search-track-queue (track) ((:string "Track: "))
+  (when track
+    (let* ((results (search-track-func track))
+           (results-alist
+             (loop for i in results
+                   collecting
+                   (list (track-string i)
+                         (list (jsown:val i "uri") (multi-val i "album" "uri")
+                               (multi-val i "external_urls" "spotify")
+                               (jsown:val i "track_number")))))
+           (choice (select-from-menu (current-screen) results-alist nil 0
+                                     *spotify-menu-keymap*)))
+      (when choice
+        (queue-song (caadr choice))))))
 
 (defcommand play-playlist () ()
   (let* ((playlists (get-playlists))
