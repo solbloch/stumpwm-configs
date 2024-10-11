@@ -56,6 +56,7 @@
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "e") "emacs-fixed")
     (define-key m (kbd "f") "melee")
+    (define-key m (kbd "F") "run-shell-command dolphin")
     (define-key m (kbd "u") "run-shell-command st")
     (define-key m (kbd "s") "spotify")
     (define-key m (kbd "c") "run-shell-command google-chrome-stable --disable-features=SendMouseLeaveEvents")
