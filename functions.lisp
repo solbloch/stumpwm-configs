@@ -92,7 +92,7 @@
 
 (defcommand emoji-picker () ()
   (run-shell-command
-   "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Noto Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
+   "cat ~/.stumpwm.d/emoji-list | dmenu -i -fn \"Apple Color Emoji:size=20\" -l 15 | awk '{print $1}' | xclip -r -sel clipboard"))
 
 (defvar *magic-directories* '(#P"~/MOUNT/Downloads/Magic"))
 
