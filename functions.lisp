@@ -213,6 +213,10 @@
              (sleep .01)
              (exchange-direction :right))))
 
+(defcommand sleep-pc () ()
+  ;;(hue:set-state *bridge* *bedroom* `(("bri" . 45)))
+  (run-shell-command "systemctl suspend"))
+
 (when *initializing*
   (progn
     (add-hook *mode-line-click-hook* #'mode-line-group-scroll)

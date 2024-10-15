@@ -73,7 +73,3 @@
 
 (defcommand toggle-bedroom () ()
   (toggle-group *bedroom*))
-
-(defcommand sleep-pc () ()
-  ;;(hue:set-state *bridge* *bedroom* `(("bri" . 45)))
-  (run-shell-command "systemctl suspend"))
